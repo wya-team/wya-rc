@@ -1,0 +1,108 @@
+{
+	"parserOptions":
+	{
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures":
+		{
+			"jsx": true
+		}
+	},
+	"env":
+	{
+		"browser": true,
+		"node": true,
+		"es6": true,
+		"mocha": true
+	},
+	"plugins": [
+		"markdown",
+		"babel"
+	],
+	"parser": "babel-eslint",
+	"rules":
+	{
+		// tab缩进
+		"indent": ["warn", "tab",
+		{
+			"SwitchCase": 1
+		}],
+		"quotes": 0,
+		"no-console": 0,
+		"no-debugger": 1,
+		"no-var": 1,
+		"import/named": 0,
+		"semi": [
+			1,
+			"always"
+		],
+		"no-trailing-spaces": 0,
+		"eol-last": 0,
+		"no-underscore-dangle": 0,
+		"no-alert": 0,
+		"no-lone-blocks": 0,
+		// 关键字周围强制使用空格
+		"keyword-spacing": [
+			"error",
+			{
+				"before": true,
+				"after": true
+			}
+		],
+		// 大括号中强制使用空格
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		// 单行代码块前后要加空格
+		"block-spacing": [
+			"warn",
+			"always"
+		],
+		// 逗号后面加空格
+		"comma-spacing": [
+			"warn",
+			{
+				"before": false,
+				"after": true
+			}
+		],
+		// 分号后面加空格
+		"semi-spacing": [
+			"warn",
+			{
+				"before": false,
+				"after": true
+			}
+		],
+		// 在注释前有空白
+		"spaced-comment": [
+			"warn",
+			"always"
+		],
+		// 箭头函数前后要有空格
+		"arrow-spacing": [
+			"warn",
+			{
+				"before": true,
+				"after": true
+			}
+		],
+		// 对象字面量的属性中键和值之间使用一致的间距
+		"key-spacing": [
+			"warn",
+			{
+				"beforeColon": false,
+				"afterColon": true
+			}
+		],
+		// 要求操作符周围有空格
+		"space-infix-ops": [
+			"warn",
+			{
+				"int32Hint": false
+			}
+		],
+		"jsx-quotes": 1
+	}
+}
