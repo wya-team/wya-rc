@@ -1,4 +1,8 @@
 # 历史版本
+### 0.1.4 (2018-01-20)
+
+* 添加 `babel-plugin-transform-runtime` 处理支持 `async/await`
+* 添加[`Copy`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 
 ### 0.1.3 (2018-01-19)
 

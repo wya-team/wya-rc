@@ -30,34 +30,13 @@ npm install babel-plugin-import --save-dev
 
 ```js
 // 调用, 如下：
-import { CreatePrint } from 'wya-rc';
+import { CreatePrint, Copy } from 'wya-rc';
 ```
 ## 组件（暂时不归类）
 
-- [`CreatePrint`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
-	- 负责打印内容（window.print）
-	- CreatePrint(options) => (WrappedComponent) => Component
+- [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
+- [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 
-属性 | 说明 | 类型 | 默认值
----|---|---|---
-refName | 需要答应的节点所绑定的ref | `str` | 必填
-
-```jsx
-const refName = 'printBox'
-@CreatePrint({ refName })
-class A extends Components {
-	render() {
-		<div>
-			<div ref={refName}>
-				打印内容
-			</div>
-			<div
-				onClick={e => this.props.printProps.setPrint()}
-			>点我打印</div>
-		</div>
-	}
-}
-```
 
 <!--  以下内容无视  -->
 [changelog-image]: https://img.shields.io/badge/changelog-md-blue.svg

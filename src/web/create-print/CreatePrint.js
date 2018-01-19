@@ -9,7 +9,7 @@ class CreatePrint extends Component {
 		const { refName } = this.props;
 		// filter  
 		const $ = [...document.body.children].filter(
-			item => item.nodeName === 'DIV' && item.style.displat != 'none'
+			item => item.nodeName === 'DIV' && item.style.display !== 'none'
 		);
 		// hide it
 		$.forEach(item => item.style.display = 'none');
