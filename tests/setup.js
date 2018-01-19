@@ -19,8 +19,8 @@ global.requestAnimationFrame = global.requestAnimationFrame || function (cb) {
 
 const Enzyme = require('enzyme');
 
-// let Adapter;
-// Adapter = require('enzyme-adapter-react-16');
+let Adapter;
+Adapter = require('enzyme-adapter-react-16');
 
-// Enzyme.configure({ adapter: new Adapter() });
-Enzyme.configure({});
+Enzyme.configure({ adapter: new Adapter() });
+// Enzyme.configure({});

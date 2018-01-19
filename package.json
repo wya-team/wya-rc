@@ -1,12 +1,13 @@
 {
   "name": "wya-rc",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "wya for react components",
-  "main": "dist/rc.min.js",
+  "main": "lib/main.js",
   "files": [
     "src/**",
     "dist/**",
-    "examples/**"
+    "examples/**",
+    "lib/**"
   ],
   "scripts": {
     "start": "npm run dev",
@@ -15,6 +16,7 @@
     "dist": "cross-env MODE_ENV=build npm run prompt &&npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
     "build": "npm run dist -- -p",
     "build:dev": "npm run dist",
+    "lib": "rm -rf lib && cross-env NODE_ENV=production babel src --out-dir lib --ignore **.test.js",
     "remove:dist": "rm -rf ./dist",
     "lint": "esw ./config/*.config.* ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
@@ -39,16 +41,20 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^7.1.6",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "classnames": "^2.2.5",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
     "eslint": "^4.13.1",
     "eslint-plugin-babel": "^4.1.2",
@@ -64,6 +70,7 @@
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "lint-staged": "^6.0.0",
+    "lrz": "^4.9.40",
     "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.1.2",
@@ -73,6 +80,8 @@
     "pre-commit": "^1.2.2",
     "precss": "^2.0.0",
     "prompt": "^1.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
@@ -84,6 +93,12 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
     "webpack-merge": "^4.1.1"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0",
+    "lrz": ">=4.9.40",
+    "classnames": ">=2.2.5"
   },
   "lint-staged": {
     "{src,config}/**/*.{js,jsx}": [
