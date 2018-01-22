@@ -25,7 +25,7 @@ class Copy extends Component {
 			document.body.removeChild(input);
 
 			// end
-			onCopyAfter && onCopyAfter();
+			onCopyAfter && onCopyAfter(value);
 		} catch (error) {
 			console.error(`copy fail: ${error}`);
 		}

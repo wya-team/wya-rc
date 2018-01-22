@@ -33,9 +33,34 @@ npm install babel-plugin-import --save-dev
 import { CreatePrint, Copy } from 'wya-rc';
 ```
 ## 组件（暂时不归类）
-
-- [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
+### 特殊组件
+- [`RegProvide: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/reg-provide/)
+### 通用（移动优先）
+- [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
+- [`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
+- [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
+- [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
+- [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
+- [`ImgsCrop: 图片裁剪`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-crop/)
+- [`ImgsPicker: 图片上传`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-picker/)
+- [`ImgsPreview: 图片预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)
+- [`Paging: 分页`](https://github.com/wya-team/wya-rc/tree/master/src/web/paging/)
+- [`PullScroll: 下拉刷新-上滑加载`](https://github.com/wya-team/wya-rc/tree/master/src/web/pull-scroll/)
+- [`SetTitle: 设置头部，记忆滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/set-title/)
+
+### Mobile - 移动端
+- [`MPopup: 弹出层`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-popup/)
+- [`MSelector: 联动选择器`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-selector/)
+- [`MSharePopup: 分享收藏弹窗`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-share-popup/)
+- [`MTabs: 移动端Tabs`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-tabs/)
+- [`MToasts: 轻提示`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-toasts/)
+- [`MTouch: 手势组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-touch/)
+- [`MModals: 移动端模态框`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-modals/)
+
+### PC - PC端
+- [`PTabs: PC端tabs`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-tabs/)
+
 
 
 <!--  以下内容无视  -->
