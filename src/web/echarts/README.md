@@ -1,13 +1,9 @@
 ## 功能
-tpl
+提取`echarts`作为单独的分包；
 
-## API
-属性 | 说明 | 类型 | 默认值
----|---|---|---
-- | - | `any` | -
-
-## 基础用法
-
-```jsx
-
+- 确保`echarts`模块
 ```
+npm install echarts --save
+```
+
+[基于此内容修改，参考API](https://github.com/hustcc/echarts-for-react)

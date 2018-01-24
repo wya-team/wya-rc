@@ -18,7 +18,7 @@ const initState = {
 	currentPage: 0, // 当前页数
 	totalPage: 10, // 总页数
 	pageSize: 10, // 条数
-	isEnd: 0, // 是否正在加载 0 上拉加载，1为加载中，2为已全部加载,3数据异常
+	isEnd: 0, // 加载完毕0(需要判断是否有数据), 1为加载中, 3数据异常
 	itemArr: {},
 	itemObj: {},
 	// 其他属性
@@ -79,7 +79,7 @@ class Content extends Component {
 		} = this.state;
 		return (
 			<Paging 
-				// title={title}
+				title={title}
 				isEnd={isEnd}
 				curPage={currentPage}
 				totalPage={totalPage}
