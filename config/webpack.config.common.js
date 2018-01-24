@@ -84,7 +84,7 @@ const webpackConfig = {
 				use: ['style-loader', 'css-loader', postcssLoader, 'sass-loader'],
 				include: [
 					path.resolve(APP_ROOT, "node_modules"),
-					path.resolve(APP_ROOT, "")
+					path.resolve(APP_ROOT, "src/")
 				]
 			},
 			{

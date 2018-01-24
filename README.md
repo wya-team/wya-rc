@@ -33,8 +33,8 @@ npm install babel-plugin-import --save-dev
 import { CreatePrint, Copy } from 'wya-rc';
 ```
 ## 组件（暂时不归类）
-### 特殊组件
-- [`RegProvide: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/reg-provide/)
+### 实例
+- [`RcInstance: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/)
 ### 通用（移动优先）
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
@@ -60,6 +60,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 
 ### PC - PC端
 - [`PTabs: PC端tabs`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-tabs/)
+- [`PGallery: 图片库`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-gallery/)
 
 
 

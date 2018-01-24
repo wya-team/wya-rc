@@ -1,4 +1,10 @@
 # 历史版本
+### 0.1.7 (2018-01-24)
+
+* 添加 [`RcIntance`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/) 单例对象 `配置`
+* 添加[`Paging`](https://github.com/wya-team/wya-rc/tree/master/src/web/paging/)
+* 添加[`Echarts`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/) 按需加载`echart.js`
+
 ### 0.1.4 (2018-01-20)
 
 * 添加 `babel-plugin-transform-runtime` 处理支持 `async/await`

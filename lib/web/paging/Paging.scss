@@ -1,0 +1,76 @@
+@import '../style/index.scss';
+$text-align: left; 
+$padding: 20px;
+$radius: 4px;
+$table-bar: #f0f2f7;
+$table-border: #cdcdcd;
+$table-font-size: 14px;
+$table-tr-height: 40px;
+$table-line-height: 22px;
+$table-hover: #cdcdcd;
+.c-paging {
+	overflow-x: auto;
+	background: $white;
+	position: relative;
+	padding: $padding / $scale;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: $text-align;
+	border-radius: $radius / $scale;
+	thead {
+		th {
+			background: $table-bar;
+			font-size: $table-font-size / $scale;
+			font-weight: normal;
+			vertical-align: middle;
+			white-space: nowrap;
+			padding: ($table-tr-height - $table-line-height) / 2 / $scale  $padding-md / $scale;
+		}
+	}
+	tbody {
+		td {
+			line-height: $table-line-height;
+			padding: ($table-tr-height - $table-line-height) / 2 / $scale $padding-md / $scale;
+			@include commonBorder(b, $table-border);
+			&:after {
+				content: "";
+				display: block;
+				clear: both;
+				height: 0;
+				font-size: 0;
+				visibility: hidden;
+			}
+
+		}
+		tr.__hover:hover {
+			background: $table-hover;
+		}
+	}
+	.__conent {
+		width: 100%;
+		min-height: 300px;
+		overflow: hidden;
+	}
+	.__table {
+		width: 100%;
+		text-align: center;
+		border-spacing: 0;
+	}
+	.__footer {
+		display: flex;
+		box-sizing: border-box;
+		justify-content: space-between;
+		padding: 10px;
+		.__{
+			display: flex;
+			box-sizing: border-box;
+			justify-content: space-around;
+		}
+	}
+	.ant-spin,
+	.__error {
+		position: absolute;
+		left: 45%;
+		top: 45%;
+	}
+}

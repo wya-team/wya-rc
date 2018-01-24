@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -16,12 +16,12 @@
     "dist": "cross-env MODE_ENV=build npm run prompt &&npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
     "build": "npm run dist -- -p",
     "build:dev": "npm run dist",
-    "lib": "rm -rf lib && cross-env NODE_ENV=production babel src --out-dir lib --ignore **.test.js",
+    "lib": "rm -rf lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/**",
     "remove:dist": "rm -rf ./dist",
     "lint": "esw ./config/*.config.* ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
     "lint:watch": "npm run lint -- --fix --watch",
-    "lint:style": "stylelint --fix --syntax scss src",
+    "lint:style": "stylelint --fix --syntax scss src/**/*.scss",
     "mock": "cd ./src/mock && npm run start",
     "prompt": "node ./config/prompt.config.js",
     "all": "npm-run-all --parallel --race --continue-on-error lint:watch serve",
@@ -38,14 +38,19 @@
   "bugs": {
     "url": "https://github.com/wya-team/wya-rc/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "element-resize-event": "^2.0.9"
+  },
   "devDependencies": {
+    "antd": "^3.1.4",
+    "antd-mobile": "^2.1.4",
     "autoprefixer": "^7.1.6",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^22.0.4",
     "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.6.3",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
@@ -99,7 +104,10 @@
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "lrz": ">=4.9.40",
-    "classnames": ">=2.2.5"
+    "classnames": ">=2.2.5",
+    "echarts": "^3.0.0 || ^4.0.0",
+    "antd": ">=3.0.0",
+    "antd-mobile": ">=2.0.0"
   },
   "lint-staged": {
     "{src,config}/**/*.{js,jsx}": [
@@ -110,7 +118,7 @@
       "esw --ext '.md' --fix",
       "git add"
     ],
-    "*.scss": [
+    "src/**/*.scss": [
       "stylelint --fix --syntax scss",
       "git add"
     ]
