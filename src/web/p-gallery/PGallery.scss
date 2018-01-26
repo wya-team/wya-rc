@@ -1,0 +1,87 @@
+@import '../style/index.scss';
+$container-height: 550px;
+$content-height: 500px;
+$border: 1px solid #e5e5e5;
+.wp-gallery {
+	@include commonScroll();
+	@include commonFlexCc();
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5);
+	.__container {
+		@include commonFlex();
+		height: $container-height;
+		width: 800px;
+		flex-wrap: wrap;
+		border-radius: 5px;
+	}
+	.__header {
+		@include commonFlex();
+		justify-content: space-between;
+		align-content: center;
+		background: $white;
+		padding: 10px 20px;
+		flex: 0 0 100%;
+		border-bottom: $border;
+		height: $container-height - $content-height; // margin-bottom: 10px
+	}
+	.__paths {
+		@include commonScroll();
+		background: $white;
+		flex: 0 0 214px;
+		height: $content-height;
+		border-right: $border;
+		font-size: 13px;
+		overflow: auto;
+		line-height: 30px;
+		div {
+			padding-left: 20px;
+			&:nth-child(1) {
+				padding-left: 0;
+				text-align: center;
+				background: $disable-bg-color;
+				border-bottom: $border;
+			}
+			&.__select {
+				background: $disable-bg-color;
+			}
+		} // margin-right: 10px
+	}
+	.__imgs {
+		@include commonFlex();
+		justify-content: space-between;
+		flex: 1;
+		padding: 10px;
+		background: $white;
+		flex-direction: column;
+	}
+	.__list {
+		height: 100%;
+		@include commonFlex();
+		flex-wrap: wrap;
+		background: $body-bg-color;
+		margin: 5px;
+	}
+	.__item {
+		@include commonFlex();
+		flex-direction: column;
+		width: 180px;
+		margin: 5px;
+		img {
+			height: 180px;
+			width: 180px;
+			background-size: cover;
+		}
+		.__edits {
+			@include commonFlex();
+			justify-content: space-between;
+			color: $main-color-2;
+		}
+	}
+	.__line {
+		@include commonEllipsis();
+	}
+}

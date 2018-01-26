@@ -50,6 +50,7 @@ $table-hover: #cdcdcd;
 		width: 100%;
 		min-height: 300px;
 		overflow: hidden;
+		overflow-x: auto; // title太多挤不下了，自动滚动
 	}
 	.__table {
 		width: 100%;

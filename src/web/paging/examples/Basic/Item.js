@@ -60,8 +60,10 @@ class Item extends Component {
 		});
 	}
 	handleSelect() {
-		// this.props.actions.itemSelect(id);
-		message.error('后续内部集成', 1.5);
+		const { itemData: { id } } = this.props;
+
+		this.props.actions.onSelectItem(id);
+		// message.error('后续内部集成', 1.5);
 	}
 	render() {
 		const { itemData = {}, actions, keyword, selectArr = [] } = this.props;

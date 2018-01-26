@@ -1,1 +1,1 @@
-export { default } from './__tpl__.js';
+export { default } from './utils.js';

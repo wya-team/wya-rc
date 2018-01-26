@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Tpl from '../index.js';
+import PGallery from '../index.js';
 
-describe('Tpl.js', () => {
+describe('PGallery.js', () => {
 	test('default props', () => {
 		const $ = mount(
-			<Tpl />
+			<PGallery />
 		);
 
 		// expect($.exists()).toBe(true);

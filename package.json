@@ -101,6 +101,7 @@
     "webpack-merge": "^4.1.1"
   },
   "peerDependencies": {
+    "wya-fetch": "^0.1.8",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "lrz": ">=4.9.40",

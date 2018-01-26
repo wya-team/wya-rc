@@ -16,6 +16,7 @@ export MSelector from './web/m-selector/index';
 export MSharePopup from './web/m-share-popup/index';
 export MTabs from './web/m-tabs/index';
 export Paging from './web/paging/index';
+export PGallery from './web/p-gallery/index';
 export PullScroll from './web/pull-scroll/index';
 export RcInstance from './web/rc-instance/index';
 export SetTtile from './web/set-title/index';
