@@ -1,5 +1,5 @@
 @import '../style/index.scss';
-$text-align: left; 
+$text-align: left;
 $padding: 20px;
 $radius: 4px;
 $table-bar: #f0f2f7;
@@ -17,6 +17,9 @@ $table-hover: #cdcdcd;
 	width: 100%;
 	text-align: $text-align;
 	border-radius: $radius / $scale;
+	&.__no-pd {
+		padding: 0;
+	}
 	thead {
 		th {
 			background: $table-bar;
@@ -50,6 +53,7 @@ $table-hover: #cdcdcd;
 		width: 100%;
 		min-height: 300px;
 		overflow: hidden;
+		overflow-x: auto; // title太多挤不下了，自动滚动
 	}
 	.__table {
 		width: 100%;
@@ -61,7 +65,7 @@ $table-hover: #cdcdcd;
 		box-sizing: border-box;
 		justify-content: space-between;
 		padding: 10px;
-		.__{
+		.__left {
 			display: flex;
 			box-sizing: border-box;
 			justify-content: space-around;

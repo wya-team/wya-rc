@@ -1,4 +1,8 @@
 # 历史版本
+### 0.1.10 (2018-01-26)
+
+* 添加 [`UpLoad`](https://github.com/wya-team/wya-rc/tree/master/src/web/up-load/) 上传
+
 ### 0.1.7 (2018-01-24)
 
 * 添加 [`RcIntance`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/) 单例对象 `配置`

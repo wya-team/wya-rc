@@ -1,22 +1,34 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-class Tpl extends Component {
-	constructor(props, context) {
-		super(props, context);
-	}
-	render() {
-		const { style } = this.props;
-		return (
-			<div className={`tpl`} style={style}>
-				tpl
-			</div>
-		);
-	}
-}
-Tpl.propTypes = {
-	style: PropTypes.object
+const now = +(new Date());
+let index = 0;
+
+export const getUid = () => {
+	return `rc-${now}-${++index}`;
 };
-Tpl.defaultProps = {
-	style: {}
+
+const endsWith = (str, suffix) => {
+	return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };
-export default Tpl;
+
+export const attrAccept = (file, acceptedFiles) => {
+	if (file && acceptedFiles) {
+		const acceptedFilesArray = Array.isArray(acceptedFiles)
+			? acceptedFiles
+			: acceptedFiles.split(',');
+		const fileName = file.name || '';
+		const mimeType = file.type || '';
+		const baseMimeType = mimeType.replace(/\/.*$/, '');
+
+		return acceptedFilesArray.some(type => {
+			const validType = type.trim();
+			if (validType.charAt(0) === '.') {
+				return endsWith(fileName.toLowerCase(), validType.toLowerCase());
+			} else if (/\/\*$/.test(validType)) {
+				// This is something like a image/* mime type
+				return baseMimeType === validType.replace(/\/.*$/, '');
+			}
+			return mimeType === validType;
+		});
+	}
+	return true;
+};
+

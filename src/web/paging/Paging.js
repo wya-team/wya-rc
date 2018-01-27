@@ -54,29 +54,38 @@ class Paging extends Component {
 		const {
 			isEnd,
 			title,
+			style = {},
 			className,
 			curPage,
 			totalPage,
 			children,
-			tHide
+			tHide,
 		} = this.props;
+		console.log(style);
 		return (
-			<div className={classnames("c-paging", className)}>
+			<div className={classnames("c-paging", className)} style={{ ...style }}>
 				<div className="__conent">
-					<table className="__table" >
-						<thead  style={tHide ? { display: 'none' } : {}}>
-							<tr>
-								{
-									title.map((item, index) => {
-										return (
-											<th key={index}>{item}</th>
-										);
-									})
-								}
-							</tr>
-						</thead>
-						{children[0] || children}
-					</table>
+					{
+						tHide 
+							? children[0] || children
+							: (
+								<table className="__table" >
+									<thead>
+										<tr>
+											{
+												title.map((item, index) => {
+													return (
+														<th key={index}>{item}</th>
+													);
+												})
+											}
+										</tr>
+									</thead>
+									{children[0] || children}
+								</table>
+							)
+					}
+					
 				</div>
 				{isEnd === 1 && <Spin />}
 				{isEnd === 3 && <div className="__error">加载失败...</div>}

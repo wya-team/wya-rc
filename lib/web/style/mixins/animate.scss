@@ -29,9 +29,7 @@
 	animation-timing-function: $popup-timing;
 }
 
-
-
-@mixin animateFade($start, $end){
+@mixin animateFade($start, $end) {
 	0% {
 		opacity: $start;
 	}

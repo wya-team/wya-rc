@@ -17,6 +17,9 @@ $table-hover: #cdcdcd;
 	width: 100%;
 	text-align: $text-align;
 	border-radius: $radius / $scale;
+	&.__no-pd {
+		padding: 0;
+	}
 	thead {
 		th {
 			background: $table-bar;

@@ -8,12 +8,10 @@ class Item extends Component {
 	render() {
 		return (
 			<div>
+				{/** <Button>全选</Button>*/}
 				<Button
-				>全选</Button>
-				<Button
-					style={{ margin: 8 }}
-				>修改分组</Button>
-				<Button>删除分组</Button>
+				>使用选中图片</Button>
+				{/** <Button style={{ margin: '0 8px' }}>删除分组</Button>*/}
 			</div>
 		);
 	}

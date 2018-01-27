@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -59,6 +59,7 @@
     "classnames": "^2.2.5",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
+    "echarts": "^4.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
@@ -98,7 +99,8 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7",
-    "webpack-merge": "^4.1.1"
+    "webpack-merge": "^4.1.1",
+    "wya-fetch": "^0.1.10"
   },
   "peerDependencies": {
     "wya-fetch": "^0.1.8",

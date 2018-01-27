@@ -78,6 +78,7 @@ class PGallery extends Component {
 		};
 	}
 	handleSet = (newState) => {
+		console.log(newState);
 		this.setState({
 			...newState
 		});
@@ -88,16 +89,18 @@ class PGallery extends Component {
 			<div className="wp-gallery">
 				<div className="__container">
 					<Header />
-					<Paths 
-						paths={paths}
-						pathSelect={pathSelect}
-						onSet={this.handleSet}
-					/>
-					<Imgs
-						paths={paths}
-						pathSelect={pathSelect}
-						onSet={this.handleSet}
-					/>
+					<div className="__contents">
+						<Paths 
+							paths={paths}
+							pathSelect={pathSelect}
+							onSet={this.handleSet}
+						/>
+						<Imgs
+							paths={paths}
+							pathSelect={pathSelect}
+							onSet={this.handleSet}
+						/>
+					</div>
 				</div>
 			</div>
 		);

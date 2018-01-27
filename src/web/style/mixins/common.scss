@@ -3,16 +3,21 @@
  * @param  {[string]} $key [l r b t]
  * @return {[string]}      [left right bottom top]
  */
+
 @function commonDirectionFill($key) {
-	@if ($key == 'l') {
+	@if ($key=='l') {
 		@return 'left';
-	} @else if ($key == 'r') {
+	}
+	@else if ($key=='r') {
 		@return 'right';
-	} @else if ($key == 't') {
+	}
+	@else if ($key=='t') {
 		@return 'top';
-	} @else if ($key == 'b') {
+	}
+	@else if ($key=='b') {
 		@return 'bottom';
-	} @else {
+	}
+	@else {
 		@return null;
 	}
 }
@@ -22,10 +27,12 @@
  * @param  {[number]} $value [值 可带单位]
  * @return {[number]}        [缩放后的值]
  */
+
 @function commonScale($value) {
 	@if (unitless($value)) {
 		@return $value / $scale#{$unit};
-	} @else {
+	}
+	@else {
 		@return $value / $scale;
 	}
 }
@@ -36,6 +43,7 @@
  * @param  {[number]} $total [总]
  * @return {[number]}        [所占比/总 * 100%]
  */
+
 @function commonColumnWidth($col, $total) {
 	@return percentage($col/$total);
 }
@@ -46,11 +54,13 @@
  * @param  {[number]} $h:$w [高度  默认等于宽度]
  * @return {[type]}       [宽高]
  */
-@mixin commonSize($w,$h:$w) {
+
+@mixin commonSize($w, $h:$w) {
 	@if (unitless($w)) {
 		width: $w / $scale#{$unit};
 		height: $h / $scale#{$unit};
-	} @else {
+	}
+	@else {
 		width: $w / $scale;
 		height: $h / $scale;
 	}
@@ -61,8 +71,9 @@
  * @param  {[string]} $border: ltbr          [border的方向缩写拼接]
  * @return {[type]}          [1px border]
  */
-@mixin commonBorder($border: ltbr, $color: $border-color, $width: 1, $border-type: solid ) {
-	@if ($width == 1) {
+
+@mixin commonBorder($border: ltbr, $color: $border-color, $width: 1, $border-type: solid) {
+	@if ($width==1) {
 		position: relative;
 		border: none;
 		transform: translateZ(0);
@@ -80,7 +91,7 @@
 			z-index: -1;
 			@each $key in $border {
 				$len: str_length($border);
-				@while $len > 0 {
+				@while $len>0 {
 					@if (commonDirectionFill(str_slice($border, $len, $len))) {
 						border-#{commonDirectionFill(str_slice($border, $len, $len))}: 1px $border-type $color;
 					}
@@ -88,28 +99,25 @@
 				}
 			}
 		}
-
-	} @else {
+	}
+	@else {
 		$len: str_length($border);
-		@if ($len >= 4) {
+		@if ($len >=4) {
 			border: $width / $scale $border-type $color;
-			 
-		} @else {
+		}
+		@else {
 
 			@each $key in $border {
-				
-				@while $len > 0 {
+
+				@while $len>0 {
 					@if (commonDirectionFill(str_slice($border, $len, $len))) {
 						border-#{commonDirectionFill(str_slice($border, $len, $len))}: $width / $scale $border-type $color;
-					
 					}
 					$len: $len - 1;
 				}
 			}
 		}
-		
 	}
-	
 }
 
 /**
@@ -117,9 +125,9 @@
  * @param  {[type]} $opacity [透明度]
  * @return {[type]}          [兼容透明度属性]
  */
+
 @mixin commonOpacity($opacity) {
-	opacity: $opacity;
-	// IE8 filter
+	opacity: $opacity; // IE8 filter
 	$opacity-ie: ($opacity * 100);
 	filter: "alpha(opacity=#{$opacity-ie})";
 }
@@ -132,12 +140,14 @@
  * @param  {[number]} $l: $r            [left的距离]
  * @return {[type]}     [description]
  */
+
 @mixin commonPadding($t, $r: $t, $b: $t, $l: $r) {
-	@if (type-of($t) == 'number') {
+	@if (type-of($t)=='number') {
 		padding: if(unitless($t), #{$t / $scale}#{$unit}, #{$t / $scale}) if(unitless($r), #{$r / $scale}#{$unit}, #{$r / $scale}) if(unitless($b), #{$b / $scale}#{$unit}, #{$b / $scale}) if(unitless($l), #{$l / $scale}#{$unit}, #{$l / $scale});
-	} @else if (type-of($t) == 'string') {
+	}
+	@else if (type-of($t)=='string') {
 		$len: str_length($t);
-		@while $len > 0 {
+		@while $len>0 {
 			@if (commonDirectionFill(str_slice($t, $len, $len))) {
 				padding-#{commonDirectionFill(str_slice($t, $len, $len))}: if(unitless($r), #{$r / $scale}#{$unit}, #{$r / $scale});
 			}
@@ -154,12 +164,14 @@
  * @param  {[number]} $l: $r            [left的距离]
  * @return {[type]}     [description]
  */
+
 @mixin commonMargin($t, $r: $t, $b: $t, $l: $r) {
-	@if (type-of($t) == 'number') {
+	@if (type-of($t)=='number') {
 		margin: if(unitless($t), #{$t / $scale}#{$unit}, #{$t / $scale}) if(unitless($r), #{$r / $scale}#{$unit}, #{$r / $scale}) if(unitless($b), #{$b / $scale}#{$unit}, #{$b / $scale}) if(unitless($l), #{$l / $scale}#{$unit}, #{$l / $scale});
-	} @else if (type-of($t) == 'string') {
+	}
+	@else if (type-of($t)=='string') {
 		$len: str_length($t);
-		@while $len > 0 {
+		@while $len>0 {
 			@if (commonDirectionFill(str_slice($t, $len, $len))) {
 				margin-#{commonDirectionFill(str_slice($t, $len, $len))}: if(unitless($r), #{$r / $scale}#{$unit}, #{$r / $scale});
 			}
@@ -173,15 +185,15 @@
  * @param  {[list]} $direction-val... [top, right, bottom, left 的值]
  * @return {[type]}                   [description]
  */
+
 @mixin commonAbsolute($direction-val...) {
 	position: absolute;
 	$direction: top, right, bottom, left;
 	@for $i from 1 through 4 {
-		@if (type_of(nth($direction-val, $i)) == 'number') {
+		@if (type_of(nth($direction-val, $i))=='number') {
 			#{nth($direction, $i)}: nth($direction-val, $i) / $scale;
 		}
 	}
-
 }
 
 @mixin commonBgLinear($angle: to bottom, $start: #fff, $end: #000) {
@@ -192,6 +204,7 @@
 /**
  * 水平垂直居中
  */
+
 @mixin commonFlexCc {
 	display: flex;
 	box-sizing: border-box;
@@ -202,6 +215,7 @@
 /**
  * 水平垂直居中
  */
+
 @mixin commonFlex {
 	display: flex;
 	box-sizing: border-box;
@@ -214,6 +228,7 @@
 /**
  * 一行文字
  */
+
 @mixin commonEllipsis {
 	width: auto;
 	overflow: hidden;
@@ -233,6 +248,7 @@
  * g-nobreak
  * 单词不换行
  */
+
 @mixin commonNoBreak {
 	word-break: break-all;
 	word-wrap: break-word;
@@ -242,6 +258,7 @@
  * [commonClearfix 清除浮动]
  * @return {[type]} [description]
  */
+
 @mixin commonClearfix {
 	zoom: 1;
 	&:before,
@@ -255,23 +272,21 @@
 	}
 }
 
-@mixin commonScroll {
+@mixin commonScroll($size: 4px) {
 	/**
 	 * scrollbar width
 	 */
-
 	&::-webkit-scrollbar {
-		width: 4px; // 很有影响
+		width: $size; // 很有影响
 	}
 
 	::-webkit-scrollbar:horizontal {
-		height: 4px;
+		height: $size;
 	}
 
 	/**
 	 * scrollbar bg
 	 */
-
 	&::-webkit-scrollbar-track {
 		-webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0);
 		-webkit-border-radius: 5px;
@@ -282,7 +297,6 @@
 	/**
 	 * Handle
 	 */
-
 	&::-webkit-scrollbar-thumb {
 		-webkit-border-radius: 5px;
 		border-radius: 5px;

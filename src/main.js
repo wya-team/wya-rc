@@ -20,5 +20,6 @@ export PGallery from './web/p-gallery/index';
 export PullScroll from './web/pull-scroll/index';
 export RcInstance from './web/rc-instance/index';
 export SetTtile from './web/set-title/index';
+export UpLoad from './web/up-load/index';
 export Utils from './web/utils/index';
 

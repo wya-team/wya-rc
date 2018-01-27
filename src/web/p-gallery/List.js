@@ -9,6 +9,17 @@ class List extends Component {
 		return (
 			<div className="__list">
 				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
 			</div>
 		);
 	}
