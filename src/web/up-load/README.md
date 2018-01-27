@@ -10,9 +10,10 @@ prefixCls | 外层标签prefixCls | `str` | c-upload
 className | 外层标签className | `str` | -
 multiple | 多图上传 | `bool` | false
 disabled | 禁用，增加样式`${prefixCls}-disabled` | `str` | false
-accept | 文件格式 | `string` | -
+accept | 文件格式 | `str` | -
 type | 文件归类（images / file）,提前定位文件类型（内置图片压缩） | `str` | images
 url | ajax:url -> 默认通过`RcInstance.init`注册 | `str` | -
+filename | 上传给后端获取的key | `str` | `Filedata`(业务历史原因...)
 data | ajax需要传递的参数 | `obj` | {}
 headers | ajax: headers | `obj` | {}
 onUploadBefore | 上传前回调 | `func` | -
