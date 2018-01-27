@@ -5,6 +5,6 @@ import { render } from 'react-dom';
 // import App from '../src/web/copy/examples/Basic';
 // import App from '../src/web/paging/examples/Basic';
 // import App from '../src/web/p-gallery/examples/Basic';
-import App from '../src/web/up-load/examples/Basic';
+import App from '../src/web/upload/examples/Basic';
 
 render(<App />, document.getElementById('pages'));

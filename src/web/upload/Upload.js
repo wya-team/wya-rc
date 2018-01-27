@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { ajax } from 'wya-fetch';
 import { getUid, attrAccept } from '../utils/utils';
 import RcInstance from '../rc-instance/index';
-class Uploader extends Component {
+class Upload extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = { 
@@ -101,7 +101,7 @@ class Uploader extends Component {
 			return;
 		}
 		const { url, type, filename, headers, data, onUploadStart, onProgress, onSuccess, onError } = this.props;
-		const { FILE_UPLOAD_URL, IMG_UPLOAD_URL } = RcInstance.config.UpLoad || {};
+		const { FILE_UPLOAD_URL, IMG_UPLOAD_URL } = RcInstance.config.Upload || {};
 		const _url = type === 'images' ? IMG_UPLOAD_URL : FILE_UPLOAD_URL;
 		const { uid } = file;
 		this.reqs[uid] = ajax({
@@ -192,7 +192,7 @@ class Uploader extends Component {
 		);
 	}
 }
-Uploader.propTypes = {
+Upload.propTypes = {
 	// 组件
 	tag: PropTypes.string,
 	style: PropTypes.object,
@@ -216,7 +216,7 @@ Uploader.propTypes = {
 	children: PropTypes.any
 
 };
-Uploader.defaultProps = {
+Upload.defaultProps = {
 	tag: 'span',
 	prefixCls: 'c-upload',
 	data: {},
@@ -230,4 +230,4 @@ Uploader.defaultProps = {
 	onUploadBefore: null,
 	type: 'images'
 };
-export default Uploader;
+export default Upload;

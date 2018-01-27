@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import UpLoad from '../index.js';
+import Upload from '../index.js';
 
-describe('UpLoad.js', () => {
+describe('Upload.js', () => {
 	test('default props', () => {
 		const $ = mount(
-			<UpLoad />
+			<Upload />
 		);
 
 		// expect($.exists()).toBe(true);

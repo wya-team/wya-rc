@@ -22,7 +22,6 @@
 	}
 }
 
-
 /**
  * [commonScale 缩放比例]
  * @param  {[number]} $value [值 可带单位]
@@ -38,7 +37,6 @@
 	}
 }
 
-
 /**
  * [commonColumnWidth 平均分配百分比]
  * @param  {[number]} $col   [所占比]
@@ -49,7 +47,6 @@
 @function commonColumnWidth($col, $total) {
 	@return percentage($col/$total);
 }
-
 
 /**
  * [commonSize 宽高 带有缩放功能]
@@ -68,7 +65,6 @@
 		height: $h / $scale;
 	}
 }
-
 
 /**
  * [commonBorder 1px的兼容问题]
@@ -124,7 +120,6 @@
 	}
 }
 
-
 /**
  * [commonOpacity 透明度的兼容]
  * @param  {[type]} $opacity [透明度]
@@ -136,7 +131,6 @@
 	$opacity-ie: ($opacity * 100);
 	filter: "alpha(opacity=#{$opacity-ie})";
 }
-
 
 /**
  * [commonPadding padding]
@@ -162,7 +156,6 @@
 	}
 }
 
-
 /**
  * [commonMargin margin]
 * @param  {[number/string]} $t  [string 方向首字母拼接 top的距离]
@@ -187,7 +180,6 @@
 	}
 }
 
-
 /**
  * [commonAbsolute absolute]
  * @param  {[list]} $direction-val... [top, right, bottom, left 的值]
@@ -209,7 +201,6 @@
 	background-image: linear-gradient($angle, $start, $end);
 }
 
-
 /**
  * 水平垂直居中
  */
@@ -221,7 +212,6 @@
 	justify-content: center;
 }
 
-
 /**
  * 水平垂直居中
  */
@@ -231,11 +221,9 @@
 	box-sizing: border-box;
 }
 
-
 /**
  * 文字相关
  */
-
 
 /**
  * 一行文字
@@ -256,7 +244,6 @@
 	-webkit-box-orient: vertical;
 }
 
-
 /**
  * g-nobreak
  * 单词不换行
@@ -266,7 +253,6 @@
 	word-break: break-all;
 	word-wrap: break-word;
 }
-
 
 /**
  * [commonClearfix 清除浮动]

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { UpLoad } from '../../../main';
+import { Upload } from '../../../main';
 import { RcInstance } from '../../../main';
 // 只需要注册一次
 RcInstance.init({
-	UpLoad: {
+	Upload: {
 		IMG_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
 		FILE_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
 	}
@@ -26,7 +26,7 @@ class Basic extends Component {
 	}
 	render() {
 		return (
-			<UpLoad
+			<Upload
 				tag="span"
 				// type="images" // 文件类型 images | files
 				// accept="" // input: 文件类型限制
@@ -41,8 +41,8 @@ class Basic extends Component {
 				onSuccess={this.handleSuccess}
 				onError={this.handleError}
 			>
-				<div>加载</div>
-			</UpLoad>
+				<div>上传</div>
+			</Upload>
 		);
 	}
 }

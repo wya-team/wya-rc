@@ -27,7 +27,7 @@ $border: 1px solid #e5e5e5;
 		border-bottom: $border;
 		height: $container-height - $content-height; // margin-bottom: 10px
 	}
-	.__contents{
+	.__contents {
 		@include commonFlex();
 	}
 	.__paths {
@@ -67,7 +67,7 @@ $border: 1px solid #e5e5e5;
 		background: $body-bg-color;
 		margin: 5px;
 		overflow: auto;
-		height: $imgs-height
+		height: $imgs-height;
 	}
 	.__item {
 		@include commonFlex();
