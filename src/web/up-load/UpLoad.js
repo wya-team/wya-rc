@@ -208,6 +208,8 @@ Uploader.propTypes = {
 	onUploadBefore: PropTypes.func,
 	onUploadStart: PropTypes.func,
 	onProgress: PropTypes.func,
+	onSuccess: PropTypes.func,
+	onError: PropTypes.func,
 	// 上传类型 images | file 影响调用接口
 	type: PropTypes.string,
 	// 元素
