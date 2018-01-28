@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default (fn, opts = {}) => {
+export default (fn, Loading, opts = {}) => {
 	class AsyncComponent extends Component {
 		constructor (props) {
 			super(props);
@@ -11,8 +11,16 @@ export default (fn, opts = {}) => {
 		}
 
 		async componentDidMount () {
+			const { onBefore, onAfter } = opts;
 			try {
+				// before
+				onBefore && onBefore();
+
+				// loading
 				const { default: WrapComponent } = await fn();
+
+				// after
+				onAfter && onAfter();
 
 				this.setState({
 					WrapComponent
@@ -27,7 +35,9 @@ export default (fn, opts = {}) => {
 			const { WrapComponent }  = this.state;
 			return WrapComponent
 				? <WrapComponent {...this.props} />
-				: null; // loading
+				: Loading 
+					? <Loading />
+					: null;
 		}
 	}
 
