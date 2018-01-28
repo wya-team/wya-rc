@@ -55,7 +55,7 @@ class Basic extends Component {
 	}
 	render() {
 		return (
-			<UpLoad
+			<Upload
 				tag="span"
 				// type="images" // 文件类型 images | files
 				// accept="" // input: 文件类型限制
@@ -71,8 +71,8 @@ class Basic extends Component {
 				onSuccess={this.handleSuccess}
 				onError={this.handleError}
 			>
-				<div>加载</div>
-			</UpLoad>
+				<div>上传</div>
+			</Upload>
 		);
 	}
 }
