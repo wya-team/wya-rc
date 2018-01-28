@@ -27,7 +27,7 @@ onError | 上传过程失败回调(res, file.current, file.total等可用参数)
 ```js
 // 只需要注册一次(项目中已注册无视)
 RcInstance.init({
-	UpLoad: {
+	Upload: {
 		IMG_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
 		FILE_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
 	}
@@ -36,7 +36,7 @@ RcInstance.init({
 - 使用
 ```jsx
 import React, { Component } from 'react';
-import { UpLoad } from 'wya-rc';
+import { Upload } from 'wya-rc';
 class Basic extends Component {
 	constructor(props, context) {
 		super(props, context);

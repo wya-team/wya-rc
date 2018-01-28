@@ -144,7 +144,7 @@ class Upload extends Component {
 		}
 	}
 
-	saveFileInput = (node) => {
+	setFileInput = (node) => {
 		this.fileInput = node;
 	}
 
@@ -180,7 +180,7 @@ class Upload extends Component {
 			>
 				<input
 					type="file"
-					ref={this.saveFileInput}
+					ref={this.setFileInput}
 					key={this.state.uid}
 					style={{ display: 'none' }}
 					accept={accept}

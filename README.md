@@ -36,12 +36,14 @@ import { CreatePrint, Copy } from 'wya-rc';
 ### 实例
 - [`RcInstance: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/)
 ### 通用（移动优先）
+- [`AsyncComponent`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/) 富文本组件
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 - [`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
 - [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
 - [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
 - [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
+- [`Editor: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/)
 - [`ImgsCrop: 图片裁剪`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-crop/)
 - [`ImgsPicker: 图片上传`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-picker/)
 - [`ImgsPreview: 图片预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)

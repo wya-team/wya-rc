@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -38,7 +38,12 @@
   "bugs": {
     "url": "https://github.com/wya-team/wya-rc/issues"
   },
+  "others_desc": [
+    "Don't want to use it directly: braft-editor, element-resize-event; Better control version",
+    "Often use: echarts, antd, antd-mobile, react, react-dom, classnames, lrz, wya-fetch;Load by yourself,`npm install -S **`"
+  ],
   "dependencies": {
+    "braft-editor": "^1.1.14",
     "element-resize-event": "^2.0.9"
   },
   "devDependencies": {
@@ -56,6 +61,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "braft-editor": "^1.1.14",
     "classnames": "^2.2.5",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
@@ -103,14 +109,14 @@
     "wya-fetch": "^0.1.10"
   },
   "peerDependencies": {
-    "wya-fetch": "^0.1.8",
+    "wya-fetch": ">=0.1.10",
     "react": ">=16.0.0",
     "react-dom": ">=16.0.0",
     "lrz": ">=4.9.40",
     "classnames": ">=2.2.5",
     "echarts": "^3.0.0 || ^4.0.0",
-    "antd": ">=3.0.0",
-    "antd-mobile": ">=2.0.0"
+    "antd": ">=3.1.4",
+    "antd-mobile": ">=2.1.4"
   },
   "lint-staged": {
     "{src,config}/**/*.{js,jsx}": [

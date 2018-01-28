@@ -1,4 +1,9 @@
 # 历史版本
+### 0.1.11 (2018-01-27)
+
+* 添加 [`AsyncComponent`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/) 异步加载组件
+* 添加 [`Editor`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/) 富文本组件
+
 ### 0.1.10 (2018-01-26)
 
 * 添加 [`Upload`](https://github.com/wya-team/wya-rc/tree/master/src/web/upload/) 上传
