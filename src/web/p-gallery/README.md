@@ -4,8 +4,40 @@
 ## API
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
-- | - | `any` | -
+url | 请求地址 | `object` | -
+request | 网络请求 | `() -> Promise` | -
 
+- url
+
+属性 | 说明 | 类型 | 默认值
+---|---|---|---
+URL_PGALLERY_PATHS_LIST_GET | 分类列表 | `string` | -
+URL_PGALLERY_PATHS_ITEM_RENAME_POST | 分类重命名 | `string` | -
+URL_PGALLERY_PATHS_ITEM_DEL_POST | 分类删除 | `string` | -
+URL_PGALLERY_PATHS_ITEM_ADD_POST | 分类增加 | `string` | -
+URL_PGALLERY_IMGS_LIST_GET | 图片列表 | `string` | -
+URL_PGALLERY_IMGS_ITEM_DEL_POST | 图片删除 | `string` | -
+URL_PGALLERY_IMGS_UPLOAD_POST | 图片上传地址（oss） | `string` | -
+URL_PGALLERY_IMGS_ITEM_ADD_POST | 图片上传（oss回调后增加） | `string` | -
+URL_PGALLERY_IMGS_ITEM_RENAME_POST | 图片上传（oss重命名） | `string` | -
+URL_PGALLERY_IMGS_ITEM_MOVE_POST | 图片移动 | `string` | -
+
+- 分类格式
+```
+{
+	cat_id: number
+	cat_name: string,
+	count: number
+}
+```
+- 图片格式
+```
+{
+	file_id: number
+	file_name: string,
+	file_url: string
+}
+```
 ## 基础用法
 ```js
 import { RcInstance } from 'wya-rc';

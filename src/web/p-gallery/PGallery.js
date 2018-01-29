@@ -1,3 +1,6 @@
+/**
+ * 功能大致实现，后续再考虑重构
+ */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -152,8 +155,8 @@ class PGallery extends Component {
 }
 
 PGallery.propTypes = {
-	// url,
-	// ajax
+	url: PropTypes.object,
+	request: PropTypes.func
 };
 
 export default PGallery;

@@ -8,7 +8,7 @@ class Header extends Component {
 		return (
 			<div className="__header">
 				<div>我的素材</div>		
-				<Icon type="close"/>
+				<Icon type="close" onClick={e => this.props.onClose()}/>
 			</div>
 		);
 	}
