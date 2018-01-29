@@ -6,20 +6,40 @@ class List extends Component {
 		super(props, context);
 	}
 	render() {
+		const {
+			itemArr,
+			itemObj,
+			onSelect,
+			onSetItem,
+			onInit,
+			onSet,
+			selectItem,
+			url,
+			request,
+			paths,
+			pathSelect
+		} = this.props;
 		return (
 			<div className="__list">
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
+				{
+					itemArr.map((item, index) => {
+						return (
+							<Item 
+								key={item} 
+								itemData={itemObj[item]} 
+								onSelect={onSelect} 
+								onSetItem={onSetItem} 
+								onInit={onInit}
+								onSet={onSet}
+								selectItem={selectItem}
+								url={url}
+								request={request}
+								paths={paths}
+								pathSelect={pathSelect}
+							/>
+						);
+					})
+				}
 			</div>
 		);
 	}

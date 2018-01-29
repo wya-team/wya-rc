@@ -6,11 +6,15 @@ class Search extends Component {
 	constructor(props, context) {
 		super(props, context);
 	}
+	handleSearch = (value) => {
+		this.props.onSearch(value);
+	}
 	render() {
 		return (
 			<Input.Search
-		    	placeholder="input search text"
-		    	onSearch={value => console.log(value)}
+				style={{ float: 'right', width: 300 }}
+		    	placeholder="搜索图片"
+		    	onSearch={this.handleSearch}
 		    	enterButton
 			/>
 		);

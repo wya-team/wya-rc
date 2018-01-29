@@ -12,6 +12,8 @@ class Upload extends Component {
 		};
 
 		this.reqs = {};
+
+		this.setDefaultCycle();
 	}
 
 	componentDidMount() {
@@ -62,10 +64,16 @@ class Upload extends Component {
 
 	uploadFiles(files) {
 		const postFiles = Array.prototype.slice.call(files);
+		const length = postFiles.length;
+		// reset
+		this.setDefaultCycle();
+		const { onBegin } = this.props;
+		onBegin && onBegin(postFiles);
+
 		postFiles.forEach((file, index) => {
 			file.uid = getUid();
 			file.current =  index + 1;
-			file.total =  postFiles.length;
+			file.total = length;
 			this.upload(file, postFiles);
 		});
 	}
@@ -100,11 +108,12 @@ class Upload extends Component {
 		if (!this._isMounted) {
 			return;
 		}
-		const { url, type, filename, headers, data, onUploadStart, onProgress, onSuccess, onError } = this.props;
-		const { FILE_UPLOAD_URL, IMG_UPLOAD_URL } = RcInstance.config.Upload || {};
-		const _url = type === 'images' ? IMG_UPLOAD_URL : FILE_UPLOAD_URL;
+		const { url, type, filename, headers, data, onUploadStart, onProgress, onSuccess, onError, onComplete } = this.props;
+		const { URL_UPLOAD_FILE_POST, URL_UPLOAD_IMG_POST } = RcInstance.config.Upload || {};
+		const _url = type === 'images' ? URL_UPLOAD_IMG_POST : URL_UPLOAD_FILE_POST;
 		const { uid } = file;
-		this.reqs[uid] = ajax({
+		const { request = ajax } = this.props;
+		this.reqs[uid] = request({
 			url: url || _url,
 			type: "FORM",
 			param: {
@@ -116,10 +125,27 @@ class Upload extends Component {
 			onProgress: onProgress ? e => { onProgress(e, file); } : null,
 		}).then((res) => {
 			delete this.reqs[uid];
-			onSuccess && onSuccess(res, file);
+			this.cycle.success++;
+			this.cycle.total++;
+			this.cycle.imgs = [...this.cycle.imgs, res];
+
+			onSuccess && onSuccess(res, file, { ...this.cycle });
+			// console.log(`success: ${this.cycle.success}, total: ${this.cycle.total}`);
+			if (this.cycle.total === file.total) {
+				onComplete && onComplete({ ...this.cycle } || {});
+				this.setDefaultCycle();
+			}
 		}).catch((res) => {
 			delete this.reqs[uid];
-			onError && onError(res, file);
+			this.cycle.error++;
+			this.cycle.total++;
+			// console.log(`error: ${this.cycle.error}, total: ${this.cycle.total}`);
+			onError && onError(res, file, { ...this.cycle });
+
+			if (this.cycle.total === file.total) {
+				onComplete && onComplete({ ...this.cycle } || {});
+				this.setDefaultCycle();
+			}
 		});
 		onUploadStart && onUploadStart(file);
 	}
@@ -147,7 +173,14 @@ class Upload extends Component {
 	setFileInput = (node) => {
 		this.fileInput = node;
 	}
-
+	setDefaultCycle = () => {
+		this.cycle = {
+			error: 0,
+			success: 0,
+			total: 0,
+			imgs: []
+		};
+	}
 	render() {
 		const {
 			tag: Tag,
@@ -203,6 +236,7 @@ Upload.propTypes = {
 	disabled: PropTypes.bool,
 	accept: PropTypes.string,
 	// ajax
+	request: PropTypes.func, 
 	data: PropTypes.object,
 	headers: PropTypes.object,
 	onUploadBefore: PropTypes.func,
@@ -210,6 +244,7 @@ Upload.propTypes = {
 	onProgress: PropTypes.func,
 	onSuccess: PropTypes.func,
 	onError: PropTypes.func,
+	onComplete: PropTypes.func,
 	// 上传类型 images | file 影响调用接口
 	type: PropTypes.string,
 	// 元素

@@ -1,9 +1,13 @@
 @import '../style/index.scss';
 $container-height: 650px;
-$container-width: 1004px;
+$container-width: 1010px;
 $content-height: 600px;
 $imgs-height: 480px;
 $border: 1px solid #e5e5e5;
+
+$index-gallery: 999;
+$index-mask: 997;
+$index-container: 998;
 .wp-gallery {
 	@include commonScroll();
 	@include commonFlexCc();
@@ -12,16 +16,46 @@ $border: 1px solid #e5e5e5;
 	right: 0;
 	left: 0;
 	bottom: 0;
-	background: rgba(0, 0, 0, 0.5);
+	z-index: 999;
+	.__mask {
+		position: absolute;
+		z-index: 997;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(#000, 0.1);
+		opacity: 0;
+		transition: opacity 0.2s;
+	}
 	.__container {
 		height: $container-height;
 		width: $container-width;
+		background: $white;
+		position: absolute;
+		z-index: 998;
+		top: 50%;
+		left: 50%;
+		border-radius: 3px;
+		box-shadow: 0 15px 30px rgba(#000, 0.1);
+		opacity: 0;
+		transform: translate(-50%, -50%);
+		transition: transform 0.2s, opacity 0.2s;
+	}
+	&.__active {
+		.__mask {
+			opacity: 1;
+		}
+		.__container {
+			opacity: 1;
+			transform: translate(-50%, -60%);
+		}
 	}
 	.__header {
 		@include commonFlex();
 		justify-content: space-between;
-		align-content: center;
-		background: $white;
+		align-items: center;
+		// background: $white;
 		padding: 10px 20px;
 		flex: 1;
 		border-bottom: $border;
@@ -32,7 +66,7 @@ $border: 1px solid #e5e5e5;
 	}
 	.__paths {
 		@include commonScroll();
-		background: $white;
+		// background: $white;
 		flex: 0 0 214px;
 		height: $content-height;
 		border-right: $border;
@@ -57,11 +91,11 @@ $border: 1px solid #e5e5e5;
 		justify-content: space-between;
 		flex: 1;
 		padding: 10px;
-		background: $white;
+		// background: $white;
 		flex-direction: column;
 	}
 	.__list {
-		// @include commonScroll();
+		@include commonScroll();
 		@include commonFlex();
 		flex-wrap: wrap;
 		background: $body-bg-color;
@@ -74,6 +108,7 @@ $border: 1px solid #e5e5e5;
 		flex-direction: column;
 		width: 180px;
 		margin: 5px;
+		position: relative;
 		img {
 			height: 180px;
 			width: 180px;
@@ -83,6 +118,17 @@ $border: 1px solid #e5e5e5;
 			@include commonFlex();
 			justify-content: space-between;
 			color: $main-color-2;
+			padding: 0 5px;
+			cursor: pointer;
+		}
+		.__select {
+			@include commonFlexCc();
+			position: absolute;
+			height: 180px;
+			width: 180px;
+			background: rgba(#000, 0.6);
+			color: white;
+			font-size: 36px;
 		}
 	}
 	.__line {
@@ -90,5 +136,14 @@ $border: 1px solid #e5e5e5;
 	}
 	.__footer {
 		flex-direction: row-reverse;
+	}
+}
+.wp-gallery-radio {
+	.ant-radio-group {
+		@include commonFlex();
+		flex-wrap: wrap;
+		.ant-radio-wrapper {
+			flex: 0 0 100%;
+		}
 	}
 }

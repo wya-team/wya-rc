@@ -4,87 +4,111 @@ import UpLoad from './UpLoad';
 import PathsEdit from './PathsEdit';
 import List from './List';
 import ImgsEdit from './ImgsEdit';
-import { Button } from 'antd';
+import Search from './Search';
+import { Button, message } from 'antd';
 import Paging from '../paging/index';
-const initState = {
-	currentPage: 0, // 当前页数
-	totalPage: 10, // 总页数
-	pageSize: 10, // 条数
-	isEnd: 0, // 加载完毕0(需要判断是否有数据), 1为加载中, 3数据异常
-	itemArr: {},
-	itemObj: {},
-	// 其他属性
-	selectArr: []
+import RcInstance from '../rc-instance/index';
+import { initPage, initItem } from '../utils/utils';
+const initialState = {
+	...initPage,
+	selectItem: {}
 };
-let id = 0;
-let _id = 0;
+
 class Imgs extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			...initState,
-			selectArr: []
-		};
-		this.actions = {
-			onDel: this.handleDel,
-			onSelectItem: this.handleSelectItem
+			...initialState,
+			selectArr: [],
+			keyword: ''
 		};
 		this.loadDataForPaging = this.loadDataForPaging.bind(this); // 加载数据
 	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props.pathSelect.cat_id !== nextProps.pathSelect.cat_id) {
+			this.request && this.request.catch();
+			this.setState({
+				...initialState
+			});
+		}
+	}
 	loadDataForPaging(page) {
 		page = page || 1;
-		const { currentPage, itemArr } = this.state;
-		// SETPAGE
-		if (itemArr[page]) {
+		const { config: { PGallery } } = RcInstance;
+		const { URL_PGALLERY_IMGS_LIST_GET: _url } = PGallery || {};
+		const { URL_PGALLERY_PATHS_LIST_GET: url } = this.props.url || {};
+		const { request, pathSelect: { cat_id } } = this.props;
+
+		if (!cat_id) return;
+		if (this.state.itemArr[page]) {
 			this.setState({
-				currentPage: page
+				curPage: page
 			});
 			return;
 		}
-		// ON
-		this.setState({
-			isEnd: 1
-		});
-
-		// SUCCESS
-		setTimeout(() => {
-			const itemObj = {};
-			for (let i = 0; i < 10; i++){
-				itemObj[_id] = {
-					id: _id++
-				};
-			}
-			this.setState({
-				isEnd: 0,
-				currentPage: page,
-				totalPage: 10,
-				itemArr: { ...this.state.itemArr, [page]: Array.from({ length: 10 }, () => id++) },
-				itemObj: { ...this.state.itemObj, ...itemObj }
+		this.setState({ 
+			isEnd: 1 
+		}, () => {
+			this.request = request({
+				url: url || _url,
+				type: "get",
+				param: {
+					page,
+					cat_id,
+					file_name: this.state.keyword
+				}
+			}).then((res) => {
+				let items = initItem(res.data.list || [], 'file_id');
+				let totalPage = res.data.totalPage;
+				this.setState({
+					isEnd: 0,
+					curPage: page,
+					totalPage,
+					itemArr: { 
+						...this.state.itemArr, 
+						[page]: items.itemArr
+					},
+					itemObj: { ...this.state.itemObj, ...items.itemObj }
+				});
+			}).catch((res = {}) => {
+				res.msg && message.error(res.msg);
 			});
-		}, 1000);
+		});
 	}
-	handleSelectItem = (id) => {
-		let { selectArr } = this.state;
-		if (selectArr.includes(id)){
-			selectArr = selectArr.filter(item => item !== id);
-		} else {
-			selectArr = [...selectArr, id];
-		}
+	handleSelect = (info) => {
 		this.setState({
-			selectArr: selectArr
+			selectItem: this.state.selectItem.file_id == info.file_id ? {} : info
+		});
+	}
+	handleSetItem = (id, itemData) => {
+		const { itemObj } = this.state;
+		this.setState({
+			itemObj: {
+				...itemObj,
+				[id]: {
+					...itemObj[id],
+					...itemData
+				}
+			}
+		});
+	}
+	handleInit = (keyword) => {
+		this.setState({
+			...initialState,
+			keyword
 		});
 	}
 	render() {
 
-		const { pathSelect, paths, onSet } = this.props;
+		const { pathSelect, paths, onSet, request, url, onSure } = this.props;
 
 		const {
 			isEnd,
-			currentPage,
+			curPage,
 			totalPage,
 			itemArr,
 			itemObj,
-			selectArr,
+			selectItem,
 			resetPage
 		} = this.state;
 		return (
@@ -94,8 +118,19 @@ class Imgs extends Component {
 						paths={paths}
 						pathSelect={pathSelect}
 						onSet={onSet}
+						onInit={this.handleInit}
+						request={request}
+						url={url}
 					/>
-					<UpLoad />
+					<UpLoad 
+						onInit={this.handleInit}
+						onSet={onSet}
+						paths={paths}
+						pathSelect={pathSelect}
+						request={request}
+						url={url}
+					/>
+					<Search onSearch={this.handleInit}/>
 				</div>
 				<Paging 
 					className="__no-pd"
@@ -103,22 +138,29 @@ class Imgs extends Component {
 					title={[]}
 					tHide={true}
 					isEnd={isEnd}
-					curPage={currentPage}
+					curPage={curPage}
 					totalPage={totalPage}
 
 					loadDataForPaging={this.loadDataForPaging}
-					resetPrvScrollTop={currentPage}
+					resetPrvScrollTop={curPage}
 					resetPage={resetPage}
 				>
 					<List 
-						itemArr={itemArr[currentPage] || []}
+						itemArr={itemArr[curPage] || []}
 						itemObj={itemObj}
-						selectArr={selectArr}
-						actions={this.actions}
+						selectItem={selectItem}
+						onSelect={this.handleSelect}
+						onSetItem={this.handleSetItem}
+						onSet={onSet}
+						onInit={this.handleInit}
+						request={request}
+						url={url}
+						paths={paths}
+						pathSelect={pathSelect}
 					/>
 					<ImgsEdit
-						selectArr={selectArr}
-						actions={this.actions}
+						onSure={onSure}
+						selectItem={selectItem}
 					/>
 				</Paging>
 			</div>

@@ -4,8 +4,8 @@ import { RcInstance } from '../../../main';
 // 只需要注册一次
 RcInstance.init({
 	Upload: {
-		IMG_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
-		FILE_UPLOAD_URL: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
+		URL_UPLOAD_IMG_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
+		URL_UPLOAD_FILE_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
 	}
 });
 class Basic extends Component {
@@ -24,6 +24,10 @@ class Basic extends Component {
 		console.log(`Error: 当前：${file.current}, 总数：${file.total}`);
 		console.log(res);
 	}
+	handleComplete = (info = {}) => {
+		console.log(`Error: ${info.error}, Success: ${info.success}, 总数：${info.total}`);
+		console.log(info.imgs);
+	}
 	render() {
 		return (
 			<Upload
@@ -40,6 +44,7 @@ class Basic extends Component {
 				// onUploadStart
 				onSuccess={this.handleSuccess}
 				onError={this.handleError}
+				onComplete={this.handleComplete}
 			>
 				<div>上传</div>
 			</Upload>

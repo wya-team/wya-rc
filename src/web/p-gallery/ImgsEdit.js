@@ -6,10 +6,14 @@ class Item extends Component {
 		super(props, context);
 	}
 	render() {
+		const { selectItem, onSure } = this.props;
+		const onClick = selectItem ? () => onSure && onSure(selectItem) : null;
 		return (
 			<div>
 				{/** <Button>全选</Button>*/}
 				<Button
+					type={selectItem.file_id ? 'primary' : ''}
+					onClick={onClick}
 				>使用选中图片</Button>
 				{/** <Button style={{ margin: '0 8px' }}>删除分组</Button>*/}
 			</div>

@@ -61,7 +61,6 @@ class Paging extends Component {
 			children,
 			tHide,
 		} = this.props;
-		console.log(style);
 		return (
 			<div className={classnames("c-paging", className)} style={{ ...style }}>
 				<div className="__conent">
