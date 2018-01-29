@@ -74,6 +74,11 @@ class UpLoad extends Component {
 				})
 			});
 			message.destroy();
+
+			// clear
+			this.success = 0;
+			this._success = 0;
+			this._request = 0;
 		}
 	}
 	render() {
