@@ -79,15 +79,15 @@ class Upload extends Component {
 	}
 
 	upload(file, fileList, index) {
-		const { onUploadBefore } = this.props;
+		const { onFileBefore } = this.props;
 
-		if (!onUploadBefore) {
+		if (!onFileBefore) {
 			// 总是异步的，以防使用react状态保存文件列表。
 			setTimeout(() => this.post(file), 0);
 			return;
 		}
 
-		const before = onUploadBefore(file, fileList);
+		const before = onFileBefore(file, fileList);
 		if (before && before.then) {
 			before.then((processedFile) => {
 				const processedFileType = Object.prototype.toString.call(processedFile);
@@ -108,7 +108,7 @@ class Upload extends Component {
 		if (!this._isMounted) {
 			return;
 		}
-		const { url, type, filename, headers, data, onUploadStart, onProgress, onSuccess, onError, onComplete } = this.props;
+		const { url, type, filename, headers, data, onFileStart, onFileProgress, onFileSuccess, onFileError, onComplete } = this.props;
 		const { URL_UPLOAD_FILE_POST, URL_UPLOAD_IMG_POST } = RcInstance.config.Upload || {};
 		const _url = type === 'images' ? URL_UPLOAD_IMG_POST : URL_UPLOAD_FILE_POST;
 		const { uid } = file;
@@ -122,14 +122,14 @@ class Upload extends Component {
 				data,
 			},
 			headers,
-			onProgress: onProgress ? e => { onProgress(e, file); } : null,
+			onProgress: onFileProgress ? e => { onFileProgress(e, file); } : null,
 		}).then((res) => {
 			delete this.reqs[uid];
 			this.cycle.success++;
 			this.cycle.total++;
 			this.cycle.imgs = [...this.cycle.imgs, res];
 
-			onSuccess && onSuccess(res, file, { ...this.cycle });
+			onFileSuccess && onFileSuccess(res, file, { ...this.cycle });
 			// console.log(`success: ${this.cycle.success}, total: ${this.cycle.total}`);
 			if (this.cycle.total === file.total) {
 				onComplete && onComplete({ ...this.cycle } || {});
@@ -140,14 +140,14 @@ class Upload extends Component {
 			this.cycle.error++;
 			this.cycle.total++;
 			// console.log(`error: ${this.cycle.error}, total: ${this.cycle.total}`);
-			onError && onError(res, file, { ...this.cycle });
+			onFileError && onFileError(res, file, { ...this.cycle });
 
 			if (this.cycle.total === file.total) {
 				onComplete && onComplete({ ...this.cycle } || {});
 				this.setDefaultCycle();
 			}
 		});
-		onUploadStart && onUploadStart(file);
+		onFileStart && onFileStart(file);
 	}
 	cancel(file) {
 		const { reqs } = this;
@@ -239,11 +239,12 @@ Upload.propTypes = {
 	request: PropTypes.func, 
 	data: PropTypes.object,
 	headers: PropTypes.object,
-	onUploadBefore: PropTypes.func,
-	onUploadStart: PropTypes.func,
-	onProgress: PropTypes.func,
-	onSuccess: PropTypes.func,
-	onError: PropTypes.func,
+	onFileBefore: PropTypes.func,
+	onFileStart: PropTypes.func,
+	onFileProgress: PropTypes.func,
+	onFileSuccess: PropTypes.func,
+	onFileError: PropTypes.func,
+	onBegin: PropTypes.func,
 	onComplete: PropTypes.func,
 	// 上传类型 images | file 影响调用接口
 	type: PropTypes.string,
@@ -257,12 +258,12 @@ Upload.defaultProps = {
 	data: {},
 	headers: {},
 	filename: 'Filedata',
-	onUploadStart: null,
-	onProgress: null,
-	onSuccess: null,
-	onError: null,
+	onFileStart: null,
+	onFileProgress: null,
+	onFileSuccess: null,
+	onFileError: null,
 	multiple: false,
-	onUploadBefore: null,
+	onFileBefore: null,
 	type: 'images'
 };
 export default Upload;

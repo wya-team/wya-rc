@@ -24,6 +24,9 @@ class Basic extends Component {
 		console.log(`Error: 当前：${file.current}, 总数：${file.total}`);
 		console.log(res);
 	}
+	handleBegin = (files) => {
+		
+	}
 	handleComplete = (info = {}) => {
 		console.log(`Error: ${info.error}, Success: ${info.success}, 总数：${info.total}`);
 		console.log(info.imgs);
@@ -39,11 +42,13 @@ class Basic extends Component {
 				// filename // ajax: formDate.append(filename, ....)
 				// headers // ajax: headers 
 				// data // ajax: data 
-				onProgress={this.handleProgress}
-				// onUploadBefore
-				// onUploadStart
-				onSuccess={this.handleSuccess}
-				onError={this.handleError}
+				// lrz={{}} // 图片压缩
+				onFileProgress={this.handleProgress}
+				// onFileBefore
+				// onFileStart
+				onFileSuccess={this.handleSuccess}
+				onFileError={this.handleError}
+				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
 			>
 				<div>上传</div>

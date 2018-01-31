@@ -96,11 +96,11 @@ class UpLoad extends Component {
 				disabled={disabled}
 				url={url || _url}
 				request={request}
-				// onProgress={this.handleProgress}
-				// onUploadBefore
-				// onUploadStart
-				onSuccess={this.handleSuccess}
-				onError={this.handleError}
+				// onFileProgress={this.handleProgress}
+				// onFileBefore
+				// onFileStart
+				onFileSuccess={this.handleSuccess}
+				onFileError={this.handleError}
 				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
 			>

@@ -1,4 +1,16 @@
 # 历史版本
+### 0.1.15 (2018-01-27)
+
+* 修改`Upload`几个参数，针对单个文件
+	* `onSuccess` -> `onFileSuccess`
+	* `onError` -> `onFileError`
+	* `onUploadBefore` -> `onFileBefore`
+	* `onUploadStart` -> `onFileStart`
+	* `onBegin`
+	* `onComplete`
+* `AsyncComponent`增加`refName`, `onLoaded`
+* 富文本编辑框（图片暂时无法编辑）
+
 ### 0.1.11 (2018-01-27)
 
 * 添加 [`AsyncComponent`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/) 异步加载组件

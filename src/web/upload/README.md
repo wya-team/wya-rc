@@ -1,6 +1,12 @@
 ## 功能
 上传功能
 
+- 多图上传为遍历单图提交，同时上传；
+
+## 待开发
+
+- 多图模式，队列上传；
+
 ## API
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
@@ -17,11 +23,11 @@ url | ajax:url -> 默认通过`RcInstance.init`注册 | `str` | -
 filename | 上传给后端获取的key | `str` | `Filedata`(业务历史原因...)
 data | ajax需要传递的参数 | `obj` | {}
 headers | ajax: headers | `obj` | {}
-onUploadBefore | 一个文件上传前回调 | `func` | -
-onUploadStart | 一个文件上传开始回调 | `func` | -
-onProgress | 上传过程回调(e.percent, file.current, file.total等可用参数) | `(e, file) => void` | -
-onSuccess | 上传过程成功回调(res, file.current, file.total等可用参数) | `(res, file) => void` | -
-onError | 上传过程失败回调(res, file.current, file.total等可用参数) | `(res, file) => void` | -
+onFileBefore | 单个文件上传前回调 | `func` | -
+onFileStart | 单个文件上传开始回调 | `func` | -
+onFileProgress | 单个文件上传过程回调(e.percent, file.current, file.total等可用参数) | `(e, file) => void` | -
+onFileSuccess | 单个文件上传过程成功回调(res, file.current, file.total等可用参数) | `(res, file) => void` | -
+onFileError | 单个文件上传过程失败回调(res, file.current, file.total等可用参数) | `(res, file) => void` | -
 onBegin | 一个周期上传前的回调(info: {}) | `(files) => void` | -
 onComplete | 一个周期上传后的回调(info: {}) | `(info) => void` | -
 
@@ -75,11 +81,11 @@ class Basic extends Component {
 				// headers // ajax: headers 
 				// data // ajax: data 
 				// lrz={{}} // 图片压缩
-				onProgress={this.handleProgress}
-				// onUploadBefore
-				// onUploadStart
-				onSuccess={this.handleSuccess}
-				onError={this.handleError}
+				onFileProgress={this.handleProgress}
+				// onFileBefore
+				// onFileStart
+				onFileSuccess={this.handleSuccess}
+				onFileError={this.handleError}
 				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
 			>

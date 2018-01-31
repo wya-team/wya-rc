@@ -52,7 +52,7 @@ module.exports = {
 	 * 解析相关相关
 	 */
 	transform: {
-		'^.+\\.jsx?$': 'babel-jest',
+		'^.+\\.jsx?$': 'babel-jest'
 	},
 	transformIgnorePatterns: [
 		'/dist/',
@@ -66,5 +66,7 @@ module.exports = {
 	 */
 	snapshotSerializers: [
 		'enzyme-to-json/serializer',
-	]
+	],
+	"moduleNameMapper": {
+	}
 };

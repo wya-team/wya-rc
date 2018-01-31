@@ -5,9 +5,6 @@ import PGallery from '../index.js';
 
 describe('PGallery.js', () => {
 	test('default props', () => {
-		const $ = mount(
-			<PGallery />
-		);
 
 		// expect($.exists()).toBe(true);
 
