@@ -1,0 +1,9 @@
+@import '../style/index.scss';
+$container-height: 650px;
+$container-width: 1010px;
+$content-height: 600px;
+$border: 1px solid #e5e5e5;
+
+.wp-popup {
+	@include commonPopup()
+}

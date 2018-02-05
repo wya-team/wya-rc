@@ -1,0 +1,55 @@
+@import '../style/index.scss';
+$container-height: 650px;
+$container-width: 1010px;
+$content-height: 480px;
+$imgs-height: 480px;
+$border: 1px solid #e5e5e5;
+
+.wp-select-goods {
+	@include commonScroll();
+	@include commonFlexCc();
+	.__title {
+		height: 40px;
+		line-height: 40px;
+		background: #f7f7f7;
+		text-align: center;
+		position: relative;
+	}
+	.__close {
+		position: absolute;
+		right: 10px;
+	}
+	.__content {
+		height: $content-height;
+		overflow: auto;
+	}
+	.__btn {
+		width: 60px;
+		line-height: 26px;
+		height: 26px;
+		text-align: center;
+		border: 1px solid #666;
+		border-radius: 20px;
+		cursor: pointer;
+		&.__active {
+			background: #f52556;
+			color: #fff;
+			border: none;
+		}
+	}
+	.__btns {
+		@include commonFlex();
+		padding-right: 20px;
+		justify-content: flex-end;
+		margin-top: -10px;
+	}
+	.__item {
+		@include commonFlex();
+		align-items: center;
+		padding: 10px;
+	}
+	.__img {
+		@include commonFlex();
+		flex: 1;
+	}
+}

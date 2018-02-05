@@ -6,13 +6,12 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { ajax } from 'wya-fetch';
 import RcInstance from '../rc-instance/index';
-import Header from './Header';
-import Paths from './Paths';
-import Imgs from './Imgs';
+import PPopup from '../p-popup';
+import Contents from './Contents';
 import './PGallery.scss';
 let Dom = document.body;
 let Statics = {};
-let cName = cName;
+let cName = 'PGallery';
 Statics = {
 	init(opts = {}){
 		return new Promise((resolve, reject) => {
@@ -68,42 +67,25 @@ class PGallery extends Component {
 		};
 	}
 	componentDidMount() {
-		this.gallery.classList.add('__active');
-
 		// loadData
 		this.loadDataForPaths();
 	}
 	componentWillUnmount() {
 		this.timer && clearTimeout(this.timer);
 	}
-	setGallery = (node) => {
-		this.gallery = node;
-	}
-	close() {
+	close = () => {
 		this && this.props.onClose && this.props.onClose();
 	}
-	handleClose = (e) => {
-		// 
-		e && e.preventDefault();
-		e && e.stopPropagation();
-
-		this.gallery.classList.remove('__active');
-		this.timer = setTimeout(() => {
-			// 主线程
-			this.close();
-		}, 201);
+	handleClose = () =>  {
+		this && this.props.onClose && this.props.onClose();
+	}
+	handleSure = (res) => {
+		this && this.props.onSure && this.props.onSure(res);
 	}
 	handleSet = (newState) => {
 		this.setState({
 			...newState
 		});
-	}
-	handleSure = (id) => {
-		
-		this.gallery.classList.remove('__active');
-		this.timer = setTimeout(() => {
-			this.props.onSure && this.props.onSure(id);
-		}, 201);
 	}
 	loadDataForPaths = () => {
 		const { config: { PGallery } } = RcInstance;
@@ -127,29 +109,15 @@ class PGallery extends Component {
 		const { paths, pathSelect } = this.state;
 		const { request, url } = this.props;
 		return (
-			<div className="wp-gallery" ref={this.setGallery}>
-				<div className="__mask" onClick={this.handleClose}/>
-				<div className="__container">
-					<Header onClose={this.handleClose}/>
-					<div className="__contents">
-						<Paths 
-							paths={paths}
-							pathSelect={pathSelect}
-							onSet={this.handleSet}
-							request={request}
-							url={url}
-						/>
-						<Imgs
-							paths={paths}
-							pathSelect={pathSelect}
-							onSet={this.handleSet}
-							onSure={this.handleSure}
-							request={request}
-							url={url}
-						/>
-					</div>
-				</div>
-			</div>
+			<PPopup title="我的素材" onClose={this.handleClose} onSure={this.handleSure} className="wp-gallery">
+				<Contents
+					paths={paths}
+					pathSelect={pathSelect}
+					request={request}
+					url={url}
+					onSet={this.handleSet}
+				/>
+			</PPopup>
 		);
 	}
 }

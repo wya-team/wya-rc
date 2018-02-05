@@ -1,4 +1,9 @@
 # 历史版本
+### 0.1.16 (2018-02-05)
+
+* 添加[`PPopup`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-popup/)
+* 添加[`PSelectGoods`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-select-goods/)
+
 ### 0.1.15 (2018-01-27)
 
 * 修改`Upload`几个参数，针对单个文件

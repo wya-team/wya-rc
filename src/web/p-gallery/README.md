@@ -21,6 +21,7 @@ URL_PGALLERY_IMGS_UPLOAD_POST | 图片上传地址（oss） | `string` | -
 URL_PGALLERY_IMGS_ITEM_ADD_POST | 图片上传（oss回调后增加） | `string` | -
 URL_PGALLERY_IMGS_ITEM_RENAME_POST | 图片上传（oss重命名） | `string` | -
 URL_PGALLERY_IMGS_ITEM_MOVE_POST | 图片移动 | `string` | -
+EXT_PGALLERY_IMG_SRC_SUF | 图片后缀 | `string` | -
 
 - 分类格式
 ```

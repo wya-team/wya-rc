@@ -4,8 +4,20 @@ class RcInstance {
 		this.hasInit = false;
 		this.APIS = {};
 		this.config = {
+			PSelectGoods: {
+				URL_PSELECTGOODS_LIST_GET: null,
+			},
 			PGallery: {
-
+				URL_PGALLERY_PATHS_LIST_GET: null,
+				URL_PGALLERY_PATHS_ITEM_RENAME_POST: null,
+				URL_PGALLERY_PATHS_ITEM_DEL_POST: null,
+				URL_PGALLERY_PATHS_ITEM_ADD_POST: null,
+				URL_PGALLERY_IMGS_LIST_GET: null,
+				URL_PGALLERY_IMGS_ITEM_DEL_POST: null,
+				URL_PGALLERY_IMGS_UPLOAD_POST: null,
+				URL_PGALLERY_IMGS_ITEM_ADD_POST: null,
+				URL_PGALLERY_IMGS_ITEM_RENAME_POST: null,
+				URL_PGALLERY_IMGS_ITEM_MOVE_POST: null,
 			},	
 			UpLoad: {
 				IMG_UPLOAD_URL: null,

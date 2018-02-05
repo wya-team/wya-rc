@@ -36,7 +36,7 @@ class Imgs extends Component {
 		page = page || 1;
 		const { config: { PGallery } } = RcInstance;
 		const { URL_PGALLERY_IMGS_LIST_GET: _url } = PGallery || {};
-		const { URL_PGALLERY_PATHS_LIST_GET: url } = this.props.url || {};
+		const { URL_PGALLERY_IMGS_LIST_GET: url } = this.props.url || {};
 		const { request, pathSelect: { cat_id } } = this.props;
 
 		if (!cat_id) return;

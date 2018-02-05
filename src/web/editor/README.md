@@ -26,7 +26,7 @@ controls | 指定控制栏组件 | `arr` | -
 > 保存格式统一，如下
 
 ```json
-{
+rtf: {
 	html: "",
 	raw: {}
 }

@@ -189,9 +189,11 @@ class Item extends Component {
 	render() {
 		const { itemData, selectItem } = this.props;
 		const { file_id, file_url, file_name } = itemData || {};
+		const { config: { PGallery } } = RcInstance;
+		const { EXT_PGALLERY_IMG_SRC_SUF } = PGallery || {};
 		return (
 			<div className="__item">
-				<img src={file_url} alt="" onClick={e => this.props.onSelect(itemData)}/>
+				<img src={`${file_url}${EXT_PGALLERY_IMG_SRC_SUF || ''}`} alt="" onClick={e => this.props.onSelect(itemData)}/>
 				{selectItem.file_id == file_id && <Icon className="__select" type="check-circle" onClick={e => this.props.onSelect(itemData)} />}
 
 				<div className="__line">

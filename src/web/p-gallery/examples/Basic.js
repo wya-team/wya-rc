@@ -14,6 +14,7 @@ RcInstance.init({
 		URL_PGALLERY_IMGS_ITEM_ADD_POST: 'https://managexcx.ruishan666.com/uploadfile/upload-img.json', // post, cat_id, file_id
 		URL_PGALLERY_IMGS_ITEM_RENAME_POST: 'https://managexcx.ruishan666.com/uploadfile/rename-img.json', // get, file_id, file_name
 		URL_PGALLERY_IMGS_ITEM_MOVE_POST: 'https://managexcx.ruishan666.com/uploadfile/move-img.json', // get, file_id, cate_id
+		EXT_PGALLERY_IMG_SRC_SUF: '!4-4',
 	}
 });
 class Basic extends Component {

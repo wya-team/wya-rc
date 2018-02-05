@@ -31,9 +31,16 @@ const initRaw = {
 class Basic extends Component {
 	constructor(props, context) {
 		super(props, context);
+		this.state = {
+			raw: {
+				...initRaw
+			}
+		};
 	}
-	handleRawChange = (html) => {
-		console.log(`HTML: ${html}`);
+	handleRawChange = (raw) => {
+		this.setState({
+			raw
+		});
 	}
 	handleHTMLChange = (html) => {
 		console.log(`HTML: ${html}`);
@@ -44,7 +51,7 @@ class Basic extends Component {
 	render() {
 		return (
 			<Editor 
-				initialContent={initRaw}
+				initialContent={this.state.raw}
 				onRAWChange={this.handleRawChange}
 				onHTMLChange={this.handleHTMLChange}
 				onChange={this.handleChange}
