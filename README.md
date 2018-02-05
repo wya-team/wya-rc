@@ -43,7 +43,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
 - [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
 - [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
-- [`Editor: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/)
+- [`Editor: 富文本`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/)
 - [`ImgsCrop: 图片裁剪`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-crop/)
 - [`ImgsPicker: 图片上传`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-picker/)
 - [`ImgsPreview: 图片预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)
