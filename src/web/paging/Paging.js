@@ -60,12 +60,13 @@ class Paging extends Component {
 			totalPage,
 			children,
 			tHide,
+			...pagination
 		} = this.props;
 		return (
 			<div className={classnames("c-paging", className)} style={{ ...style }}>
 				<div className="__conent">
 					{
-						tHide 
+						tHide
 							? children[0] || children
 							: (
 								<table className="__table" >
@@ -84,7 +85,7 @@ class Paging extends Component {
 								</table>
 							)
 					}
-					
+
 				</div>
 				{isEnd === 1 && <Spin />}
 				{isEnd === 3 && <div className="__error">加载失败...</div>}
@@ -92,10 +93,11 @@ class Paging extends Component {
 					<div className="__left">
 						{children[1] || ''}
 					</div>
-					<Pagination 
-						showQuickJumper 
-						defaultPageSize={1} 
-						current={curPage} 
+					<Pagination
+						{...pagination}
+						showQuickJumper
+						defaultPageSize={1}
+						current={curPage}
 						total={totalPage}
 						onChange={this.handleChange}
 					/>
