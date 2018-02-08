@@ -4,6 +4,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { message } from 'antd';
 import { ajax } from 'wya-fetch';
 import RcInstance from '../rc-instance/index';
 import { initPage, initItem } from '../utils/utils';
@@ -27,7 +28,7 @@ Statics = {
 				select: opts.select || [],
 				activeText: opts.activeText || '已选',
 				staticText: opts.staticText || '选取',
-				multiple: opts.multiple || true,
+				max: opts.max || 0,
 				id: opts.id || "product_id",
 				onCloseSoon: () => {
 					ReactDOM.unmountComponentAtNode(div);
@@ -90,40 +91,32 @@ class PSelectGoods extends Component {
 	}
 	handleSure = () => {
 		let arr = [];
-		const { multiple } = this.props;
+		const { max } = this.props;
 		const { selectObj, selectArr } = this.state;
-		if (multiple){
-			selectArr.map((item, index) => {
+		selectArr.map((item, index) => {
+			if (max == 0 || index < max){
 				arr.push(selectObj[item]);
-			});
-		} else {
-			selectArr[0] && arr.push(selectObj[selectArr[0]]);
-		}
+			}
+		});
 		this.props.onSure && this.props.onSure(arr); 
 	}
 	handleSelect = (flag, id, data) => {
-		const { multiple } = this.props;
-		if (!multiple){
-			this.setState({
-				selectObj: {
-					[id]: {
-						...data
-					}
-				},
-				selectArr: [id]
-			});
-			return;
-		}
+		const { max } = this.props;
 		let newArr = [ ...this.state.selectArr ];
 		let newObj = { ...this.state.selectObj };
 		if (flag){
-			newObj = {
-				...newObj,
-				[id]: {
-					...data
-				}
-			};
-			newArr.unshift(id);
+			if (max != 0 && newArr.length >= max){
+				message.warn('最多选择' + max + '个，请先取消在进行选择。');
+			} else {
+				newArr.unshift(id);
+				newObj = {
+					...newObj,
+					[id]: {
+						...data
+					}
+				};
+			}
+			
 		} else {
 			delete newObj[id];
 			newArr = this.state.selectArr.filter((item, index) => {
@@ -134,6 +127,7 @@ class PSelectGoods extends Component {
 			selectObj: newObj,
 			selectArr: newArr
 		});
+		
 	}
 	render() {
 		const { request, url, activeText, staticText, id, component, multiple } = this.props;
@@ -143,8 +137,8 @@ class PSelectGoods extends Component {
 				<Goods 
 					request={request}
 					url={url}
-					selectArr={multiple ? selectArr : selectArr[0] ? [selectArr[0]] : []}
-					selectObj={multiple ? selectObj : selectArr[0] ? { [selectArr[0]]: { ...selectObj[selectArr[0]] } } : {}}
+					selectArr={selectArr}
+					selectObj={selectObj}
 					onClick={this.handleSelect}
 					activeText={activeText}
 					staticText={staticText}
