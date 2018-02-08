@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.1.16",
+  "version": "0.1.18",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [

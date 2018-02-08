@@ -13,8 +13,7 @@ $index-container: 998;
 		@include commonFlex();
 	}
 	.__paths {
-		@include commonScroll();
-		// background: $white;
+		@include commonScroll(); // background: $white;
 		flex: 0 0 214px;
 		height: $content-height;
 		border-right: $border;
@@ -38,8 +37,7 @@ $index-container: 998;
 		@include commonFlex();
 		justify-content: space-between;
 		flex: 1;
-		padding: 10px;
-		// background: $white;
+		padding: 10px; // background: $white;
 		flex-direction: column;
 	}
 	.__list {
@@ -86,6 +84,7 @@ $index-container: 998;
 		flex-direction: row-reverse;
 	}
 }
+
 .wp-gallery-radio {
 	.ant-radio-group {
 		@include commonFlex();

@@ -8,31 +8,30 @@ $border: 1px solid #e5e5e5;
 .wp-select-goods {
 	@include commonScroll();
 	@include commonFlexCc();
-	.__title{
+	.__title {
 		height: 40px;
 		line-height: 40px;
 		background: #f7f7f7;
 		text-align: center;
-		line-height: 40px;
 		position: relative;
 	}
-	.__close{
-		position:absolute;
+	.__close {
+		position: absolute;
 		right: 10px;
 	}
-	.__content{
+	.__content {
 		height: $content-height;
 		overflow: auto;
 	}
-	.__btn{
+	.__btn {
 		width: 60px;
 		line-height: 26px;
-		height:26px;
+		height: 26px;
 		text-align: center;
 		border: 1px solid #666;
 		border-radius: 20px;
 		cursor: pointer;
-		&.__active{
+		&.__active {
 			background: #f52556;
 			color: #fff;
 			border: none;
@@ -42,12 +41,12 @@ $border: 1px solid #e5e5e5;
 		@include commonFlex();
 		padding-right: 20px;
 		justify-content: flex-end;
-		margin-top: -10px
+		margin-top: -10px;
 	}
 	.__item {
 		@include commonFlex();
 		align-items: center;
-		padding: 10px
+		padding: 10px;
 	}
 	.__img {
 		@include commonFlex();

@@ -42,10 +42,12 @@ class Goods extends Component {
 			}).then((res) => {
 				let items = initItem(res.data.list || [], id);
 				let totalPage = res.data.totalPage;
+				let totalCount = res.data.totalCount;
 				this.setState({
 					isEnd: 0,
 					curPage: page,
 					totalPage,
+					totalCount,
 					itemArr: { 
 						...this.state.itemArr, 
 						[page]: items.itemArr
@@ -65,6 +67,7 @@ class Goods extends Component {
 			isEnd,
 			curPage,
 			totalPage,
+			totalCount,
 			itemArr,
 			itemObj,
 			resetPage
@@ -79,6 +82,8 @@ class Goods extends Component {
 					isEnd={isEnd}
 					curPage={curPage}
 					totalPage={totalPage}
+					showTotal={() => totalCount ? `共 ${totalCount} 条` : null}
+
 					loadDataForPaging={this.loadDataForPaging}
 					resetPrvScrollTop={curPage}
 					resetPage={resetPage}

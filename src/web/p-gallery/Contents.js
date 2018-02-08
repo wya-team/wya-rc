@@ -13,14 +13,14 @@ class Contents extends Component {
 				<Paths 
 					paths={paths}
 					pathSelect={pathSelect}
-					onSet={this.handleSet}
+					onSet={onSet}
 					request={request}
 					url={url}
 				/>
 				<Imgs
 					paths={paths}
 					pathSelect={pathSelect}
-					onSet={this.handleSet}
+					onSet={onSet}
 					onSure={onSure}
 					request={request}
 					url={url}

@@ -53,7 +53,8 @@ Statics = {
 	 * 	select,
 	 * 	id,
 	 * 	activeText,
-	 * 	statusText
+	 * 	statusText,
+	 * 	limit
 	 * }
 	 */
 	popup(opts = {}){
