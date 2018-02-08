@@ -27,6 +27,7 @@ Statics = {
 				select: opts.select || [],
 				activeText: opts.activeText || '已选',
 				staticText: opts.staticText || '选取',
+				multiple: opts.multiple || true,
 				id: opts.id || "product_id",
 				onCloseSoon: () => {
 					ReactDOM.unmountComponentAtNode(div);
@@ -89,16 +90,30 @@ class PSelectGoods extends Component {
 	}
 	handleSure = () => {
 		let arr = [];
-		const { id } = this.props;
-		const { selectObj } = this.state;
-		for (let i in selectObj){
-			if (!!selectObj[i][id]){
-				arr = [...arr, selectObj[i]];
-			}
+		const { multiple } = this.props;
+		const { selectObj, selectArr } = this.state;
+		if (multiple){
+			selectArr.map((item, index) => {
+				arr.push(selectObj[item]);
+			});
+		} else {
+			selectArr[0] && arr.push(selectObj[selectArr[0]]);
 		}
 		this.props.onSure && this.props.onSure(arr); 
 	}
 	handleSelect = (flag, id, data) => {
+		const { multiple } = this.props;
+		if (!multiple){
+			this.setState({
+				selectObj: {
+					[id]: {
+						...data
+					}
+				},
+				selectArr: [id]
+			});
+			return;
+		}
 		let newArr = [ ...this.state.selectArr ];
 		let newObj = { ...this.state.selectObj };
 		if (flag){
@@ -108,23 +123,28 @@ class PSelectGoods extends Component {
 					...data
 				}
 			};
+			newArr.unshift(id);
 		} else {
 			delete newObj[id];
+			newArr = this.state.selectArr.filter((item, index) => {
+				return item != id;
+			});
 		}
 		this.setState({
-			selectObj: newObj
+			selectObj: newObj,
+			selectArr: newArr
 		});
 	}
 	render() {
-		const { request, url, activeText, staticText, id, component } = this.props;
+		const { request, url, activeText, staticText, id, component, multiple } = this.props;
 		const { selectArr, selectObj } = this.state;
 		return (
 			<PPopup title="商品选择" onClose={this.handleClose} onSure={this.handleSure} className="wp-select-goods">
 				<Goods 
 					request={request}
 					url={url}
-					selectArr={selectArr}
-					selectObj={selectObj}
+					selectArr={multiple ? selectArr : selectArr[0] ? [selectArr[0]] : []}
+					selectObj={multiple ? selectObj : selectArr[0] ? { [selectArr[0]]: { ...selectObj[selectArr[0]] } } : {}}
 					onClick={this.handleSelect}
 					activeText={activeText}
 					staticText={staticText}
