@@ -60,9 +60,11 @@ class Imgs extends Component {
 			}).then((res) => {
 				let items = initItem(res.data.list || [], 'file_id');
 				let totalPage = res.data.totalPage;
+				let totalCount = res.data.totalCount;
 				this.setState({
 					isEnd: 0,
 					curPage: page,
+					totalCount,
 					totalPage,
 					itemArr: { 
 						...this.state.itemArr, 
@@ -106,6 +108,7 @@ class Imgs extends Component {
 			isEnd,
 			curPage,
 			totalPage,
+			totalCount,
 			itemArr,
 			itemObj,
 			selectItem,
@@ -140,6 +143,7 @@ class Imgs extends Component {
 					isEnd={isEnd}
 					curPage={curPage}
 					totalPage={totalPage}
+					showTotal={() => totalCount ? `共 ${totalCount} 条` : null}
 
 					loadDataForPaging={this.loadDataForPaging}
 					resetPrvScrollTop={curPage}

@@ -1,4 +1,8 @@
 # 历史版本
+### 0.1.19 (2018-02-09)
+
+* 添加[`PSelectGoods`] 增加选择限制`max`
+
 ### 0.1.16 (2018-02-05)
 
 * 添加[`PPopup`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-popup/)
