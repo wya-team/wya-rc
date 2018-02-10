@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
 import './PPopup.scss';
+
+import createLanguage from '../create-language/index.js';
+@createLanguage()
 class PSelect extends Component {
 	constructor(props, context) {
 		super(props, context);

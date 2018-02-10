@@ -23,7 +23,7 @@ format| 时间格式 `DD \| DD:HH \| DD:HH:MM \| DD:HH:MM:SS` | `str` | DD:HH:MM
 
 ```jsx
 import React, { Component } from 'react';
-import { DownCount } from '../../../main.js';
+import { DownCount } from 'wya-rc';
 import { message } from 'antd';
 class Basic extends Component {
 	constructor(props, context) {

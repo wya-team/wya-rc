@@ -4,6 +4,7 @@
 export BetterScroll from './web/better-scroll/index';
 export Copy from './web/copy/index';
 export CreateAccordion from './web/create-accordion/index';
+export CreateLanguage from './web/create-language/index';
 export CreatePrint from './web/create-print/index';
 export DownCount from './web/down-count/index';
 export Echarts from './web/echarts/index';
