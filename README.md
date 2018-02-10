@@ -36,7 +36,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 ### 实例
 - [`RcInstance: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/)
 ### 通用（移动优先）
-- [`AsyncComponent`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/) 富文本组件
+- [`AsyncComponent: 异步加载组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/)
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 - [`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
@@ -64,7 +64,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 
 ### PC - PC端
 - [`PTabs: PC端tabs`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-tabs/)
-- [`PPopup: 图片选择器`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-popup/)
+- [`PPopup: 弹出层`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-popup/)
 - [`PGallery: 图片库`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-gallery/)
 - [`PSelectGoods: 商品选择器`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-select-goods/)
 
