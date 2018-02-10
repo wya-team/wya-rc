@@ -2,9 +2,9 @@
 倒计时
 
 ## API
+
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
-- | - | `any` | -
 id:| - | `any` | -
 tag| 外层标签 | `str` | span
 textBefore| 前缀 | `str` | -
@@ -18,6 +18,7 @@ onChange| 改变回调 | `(timer) => void` | -
 onEnd| 结束回调 | `() => void` | -
 onTip| 提示弹窗 | `(msg) => void` | -
 format| 时间格式 `DD || DD:HH || DD:HH:MM || DD:HH:MM:SS` | `str` | DD:HH:MM:SS
+
 ## 基础用法
 
 ```jsx
