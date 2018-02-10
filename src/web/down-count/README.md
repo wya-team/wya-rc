@@ -7,8 +7,8 @@
 ---|---|---|---
 id| - | `any` | -
 tag| 外层标签 | `str` | span
-textBefore| 前缀 | `str` | -
-textAfter| 后缀 | `str` | -
+beforeText| 前缀 | `str` | -
+afterText| 后缀 | `str` | -
 T| 定时器周期 | `num` | -
 targetTime| 目标时间 | `str \| num` | -
 serverTime| 服务器时间 | `str \| num` | -

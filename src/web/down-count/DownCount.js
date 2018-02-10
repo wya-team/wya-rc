@@ -78,7 +78,7 @@ class DownCount extends Component {
 		return newDate;
 	};
 	runStart() {
-		const { targetTime, T, textBefore, textAfter, format, onChange } = this.props;
+		const { targetTime, T, beforeText, afterText, format, onChange } = this.props;
 
 		const setDate = targetTime.replace(/-/g, "/");
 		const currentDate = this.getCurDate();
@@ -105,22 +105,22 @@ class DownCount extends Component {
 		let downCount;
 		switch (format) {
 			case "DD":
-				downCount = `${textBefore}${daysC}天${textAfter}`;
+				downCount = `${beforeText}${daysC}天${afterText}`;
 				break;
 			case "DD:HH":
-				downCount = `${textBefore}${daysC}天${hoursC}小时${textAfter}`;
+				downCount = `${beforeText}${daysC}天${hoursC}小时${afterText}`;
 				break;
 			case "DD:HH:MM":
-				downCount = `${textBefore}${daysC}天${hoursC}小时${minutesC}分${textAfter}`;
+				downCount = `${beforeText}${daysC}天${hoursC}小时${minutesC}分${afterText}`;
 				break;
 			default:
-				downCount = `${textBefore}${daysC}天${hoursC}小时${minutesC}分${secondsC}秒${T == 10 ? msecondsC : ''}${textAfter}`;
+				downCount = `${beforeText}${daysC}天${hoursC}小时${minutesC}分${secondsC}秒${T == 10 ? msecondsC : ''}${afterText}`;
 				break;
 		}
 		this.setState({
 			// downCount: difference < 0 ? '已结束！' : downCount
 			// 临时处理 1分以下不显示
-			downCount: difference <= 60000 ?  `${textBefore}00天00小时01分${textAfter}` : downCount
+			downCount: difference <= 60000 ?  `${beforeText}00天00小时01分${afterText}` : downCount
 		}, () => {
 			onChange && onChange({
 				daysC: daysC < 0 ? '00' : daysC,
@@ -154,8 +154,8 @@ DownCount.propTypes = {
 	/**
 	 * 文本
 	 */
-	textBefore: PropTypes.string,
-	textAfter: PropTypes.string,
+	beforeText: PropTypes.string,
+	afterText: PropTypes.string,
 	/**
 	 * 毫秒/秒
 	 * 10/1000
@@ -186,8 +186,8 @@ DownCount.propTypes = {
 DownCount.defaultProps = {
 	id: null,
 	tag: 'span',
-	textBefore: "",
-	textAfter: "",
+	beforeText: "",
+	afterText: "",
 	T: 1000,
 	// targetTime: '',
 	// serverTime: '',
