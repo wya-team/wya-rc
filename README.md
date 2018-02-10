@@ -40,6 +40,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 - [`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
+- [`CreateLanguage: 语言包`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-language/)
 - [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
 - [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
 - [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
