@@ -1,4 +1,9 @@
 # 历史版本
+
+### 0.1.20 (2018-02-10)
+
+* 添加[`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
+
 ### 0.1.19 (2018-02-09)
 
 * 添加[`PSelectGoods`] 增加选择限制`max`
