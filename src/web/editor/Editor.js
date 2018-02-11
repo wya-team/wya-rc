@@ -32,27 +32,27 @@ class Editor extends Component {
 				validateFn: null, // 指定本地校验函数，说明见下文
 				uploadFn: null // 指定上传函数，说明见下文
 			},
-			// extendControls: [
-			// 	{
-			// 		type: 'button',
-			// 		text: <Icon type="upload"/>,
-			// 		onClick: () => {
-			// 			PGallery.popup({
+			extendControls: [
+				{
+					type: 'button',
+					text: <Icon type="upload"/>,
+					onClick: () => {
+						PGallery.popup({
 
-			// 			}).then((res) => {
-			// 				this.insertMedias([
-			// 					{
-			// 						type: 'IMAGE',
-			// 						name: 'New Photo',
-			// 						url: res.file_url.replace(/!4-4/g, '')
-			// 					}
-			// 				]);
-			// 			}).catch((res) => {
-			// 				console.log(res);
-			// 			});
-			// 		}
-			// 	}
-			// ],
+						}).then((res) => {
+							this.insertMedias([
+								{
+									type: 'IMAGE',
+									name: 'New Photo',
+									url: res.file_url.replace(/!4-4/g, '')
+								}
+							]);
+						}).catch((res) => {
+							console.log(res);
+						});
+					}
+				}
+			],
 			...this.props
 		};
 		return editorProps;
