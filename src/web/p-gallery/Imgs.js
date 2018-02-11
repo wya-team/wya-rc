@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { findDOMNode } from 'react-dom';
 import { Pagination } from 'antd';
 import UpLoad from './UpLoad';
 import PathsEdit from './PathsEdit';
@@ -11,16 +12,15 @@ import RcInstance from '../rc-instance/index';
 import { initPage, initItem } from '../utils/utils';
 const initialState = {
 	...initPage,
-	selectItem: {}
+	selectItem: {},
+	keyword: ''
 };
 
 class Imgs extends Component {
 	constructor(props, context) {
 		super(props, context);
 		this.state = {
-			...initialState,
-			selectArr: [],
-			keyword: ''
+			...initialState
 		};
 		this.loadDataForPaging = this.loadDataForPaging.bind(this); // 加载数据
 	}
@@ -30,6 +30,7 @@ class Imgs extends Component {
 			this.setState({
 				...initialState
 			});
+			findDOMNode(this.refs.search).getElementsByTagName('input')[0].value = '';
 		}
 	}
 	loadDataForPaging(page) {
@@ -133,7 +134,7 @@ class Imgs extends Component {
 						request={request}
 						url={url}
 					/>
-					<Search onSearch={this.handleInit}/>
+					<Search onSearch={this.handleInit} ref="search"/>
 				</div>
 				<Paging 
 					className="__no-pd"

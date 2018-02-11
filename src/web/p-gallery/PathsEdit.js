@@ -79,6 +79,8 @@ class PathsEdit extends Component {
 					paths
 				});
 			}).catch((res) => {
+				message.destroy();
+				message.error(res.msg);
 				console.log(res);
 			});
 		} catch (e) {

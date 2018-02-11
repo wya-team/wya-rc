@@ -76,7 +76,7 @@ class Item extends Component {
 		
 	}
 	handleDel = (e) => {
-		const { itemData } = this.props;
+		const { itemData, paths, pathSelect: { cat_id } } = this.props;
 		const { file_id, file, file_name } = itemData || {};
 		message.destroy();
 		message.loading('加载中...', 0);
@@ -94,6 +94,17 @@ class Item extends Component {
 		}).then((res) => {
 			message.destroy();
 			this.props.onInit();
+			this.props.onSet({
+				paths: paths.map((item) => {
+					if (item.cat_id == cat_id) {
+						return {
+							...item,
+							count: Number(item.count) - 1
+						};
+					}
+					return item;
+				})
+			});
 		}).catch((res = {}) => {
 			message.destroy();
 			res.msg && message.error(res.msg);
