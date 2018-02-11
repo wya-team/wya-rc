@@ -58,5 +58,5 @@ class RcInstance {
 		
 	}
 }
-// 单例
+// `new 单例` 或直接放入 `{}`
 export default new RcInstance;
