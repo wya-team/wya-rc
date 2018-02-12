@@ -28,6 +28,7 @@ Statics = {
 				select: opts.select || [],
 				activeText: opts.activeText || '已选',
 				staticText: opts.staticText || '选取',
+				disableText: opts.disableText || '已参加其他活动',
 				max: opts.max || 0,
 				id: opts.id || "product_id",
 				onCloseSoon: () => {
@@ -98,7 +99,7 @@ class PSelectGoods extends Component {
 				arr.push(selectObj[item]);
 			}
 		});
-		this.props.onSure && this.props.onSure(arr); 
+		this.props.onSure && this.props.onSure(arr);
 	}
 	handleSelect = (flag, id, data) => {
 		const { max } = this.props;
@@ -116,7 +117,7 @@ class PSelectGoods extends Component {
 					}
 				};
 			}
-			
+
 		} else {
 			delete newObj[id];
 			newArr = this.state.selectArr.filter((item, index) => {
@@ -127,14 +128,14 @@ class PSelectGoods extends Component {
 			selectObj: newObj,
 			selectArr: newArr
 		});
-		
+
 	}
 	render() {
-		const { request, url, activeText, staticText, id, component, multiple } = this.props;
+		const { request, url, activeText, staticText, disableText, disabledId, id, component, multiple } = this.props;
 		const { selectArr, selectObj } = this.state;
 		return (
 			<PPopup title="商品选择" onClose={this.handleClose} onSure={this.handleSure} className="wp-select-goods">
-				<Goods 
+				<Goods
 					request={request}
 					url={url}
 					selectArr={selectArr}
@@ -142,10 +143,12 @@ class PSelectGoods extends Component {
 					onClick={this.handleSelect}
 					activeText={activeText}
 					staticText={staticText}
+					disableText={disableText}
+					disabledId={disabledId}
 					component={component}
 					id={id}
 				/>
-				<Btn 
+				<Btn
 					activeText={activeText}
 					staticText={staticText}
 				/>
@@ -160,8 +163,15 @@ PSelectGoods.propTypes = {
 	select: PropTypes.array,
 	activeText: PropTypes.string,
 	staticText: PropTypes.string,
+	disableText: PropTypes.string,
+	disabledId: PropTypes.array,
 	id: PropTypes.any,
 	// component
 };
+
+PSelectGoods.defaultProps = {
+	disabledId: [],
+};
+
 
 export default PSelectGoods;

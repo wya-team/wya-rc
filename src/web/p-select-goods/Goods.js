@@ -30,8 +30,8 @@ class Goods extends Component {
 		const { config: { PSelectGoods } } = RcInstance;
 		const { URL_PSELECTGOODS_LIST_GET: _url } = PSelectGoods || {};
 		const { URL_PSELECTGOODS_LIST_GET: url } = this.props.url || {};
-		this.setState({ 
-			isEnd: 1 
+		this.setState({
+			isEnd: 1
 		}, () => {
 			this.request = request({
 				url: url || _url,
@@ -48,8 +48,8 @@ class Goods extends Component {
 					curPage: page,
 					totalPage,
 					totalCount,
-					itemArr: { 
-						...this.state.itemArr, 
+					itemArr: {
+						...this.state.itemArr,
 						[page]: items.itemArr
 					},
 					itemObj: { ...this.state.itemObj, ...items.itemObj }
@@ -61,7 +61,7 @@ class Goods extends Component {
 	}
 	render() {
 
-		const { selectArr, selectObj, onClick, activeText, staticText, component } = this.props;
+		const { selectArr, selectObj, onClick, activeText, staticText, disableText, disabledId, component } = this.props;
 
 		const {
 			isEnd,
@@ -74,7 +74,7 @@ class Goods extends Component {
 		} = this.state;
 		return (
 			<div className="__imgs" style={{ padding: "20px" }}>
-				<Paging 
+				<Paging
 					className="__no-pd"
 					style={{ height: '100%' }}
 					title={[]}
@@ -88,7 +88,7 @@ class Goods extends Component {
 					resetPrvScrollTop={curPage}
 					resetPage={resetPage}
 				>
-					<List 
+					<List
 						itemArr={itemArr[curPage] || []}
 						itemObj={itemObj}
 						onClick={onClick}
@@ -96,6 +96,8 @@ class Goods extends Component {
 						selectObj={selectObj}
 						activeText={activeText}
 						staticText={staticText}
+						disableText={disableText}
+						disabledId={disabledId}
 						component={component || Item}
 					/>
 				</Paging>

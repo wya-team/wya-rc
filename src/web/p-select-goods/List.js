@@ -9,7 +9,9 @@ const List = (props) => {
 		selectObj,
 		activeText,
 		staticText,
-		component
+		component,
+		disableText,
+		disabledId,
 	} = props;
 	return (
 		<div className="__content">
@@ -23,6 +25,8 @@ const List = (props) => {
 							show: selectObj[item],
 							activeText: activeText,
 							staticText: staticText,
+							disableText: disableText,
+							disabledId: disabledId,
 						})
 					);
 				})
