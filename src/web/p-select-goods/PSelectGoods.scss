@@ -25,7 +25,8 @@ $border: 1px solid #e5e5e5;
 		overflow: auto;
 	}
 	.__btn {
-		width: 60px;
+		min-width: 60px;
+		padding: 0 8px;
 		line-height: 26px;
 		height: 26px;
 		text-align: center;
