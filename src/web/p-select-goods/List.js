@@ -11,7 +11,7 @@ const List = (props) => {
 		staticText,
 		component,
 		disableText,
-		disabledId,
+		disableSelect,
 	} = props;
 	return (
 		<div className="__content">
@@ -26,7 +26,7 @@ const List = (props) => {
 							activeText: activeText,
 							staticText: staticText,
 							disableText: disableText,
-							disabledId: disabledId,
+							disableSelect: disableSelect,
 						})
 					);
 				})

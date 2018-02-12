@@ -8,7 +8,9 @@ url | 请求地址 | `object` | -
 request | 网络请求 | `() -> Promise` | -
 activeText | - | `-` | -
 staticText | - | `-` | -
+disableText | - | `-` | -
 select | - | `-` | -
+disableSelect | - | `-` | -
 id | - | `-` | -
 componentDidMount | - | `-` | -
 - url

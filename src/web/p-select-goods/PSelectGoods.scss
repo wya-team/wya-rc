@@ -20,6 +20,7 @@ $border: 1px solid #e5e5e5;
 		right: 10px;
 	}
 	.__content {
+		@include commonScroll();
 		height: $content-height;
 		overflow: auto;
 	}
@@ -35,6 +36,13 @@ $border: 1px solid #e5e5e5;
 			background: #f52556;
 			color: #fff;
 			border: none;
+		}
+		&.__disable {
+			background: #ededf4;
+			color: #777;
+			border: none;
+			cursor: none;
+			pointer-events: none;
 		}
 	}
 	.__btns {

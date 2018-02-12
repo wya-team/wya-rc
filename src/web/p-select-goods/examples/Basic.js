@@ -7,13 +7,16 @@ RcInstance.init({
 		URL_PSELECTGOODS_LIST_GET: 'https://managexcx.ruishan666.com/product/product/list.json'
 	}
 });
+
 class Basic extends Component {
 	constructor(props, context) {
 		super(props, context);
 	}
 	componentDidMount() {
 		PSelectGoods.popup({
-
+			max: 1,
+			disableSelect: ['217', '218', '220'],
+			disableText: '不让点',
 		}).then((info) => {
 			console.log(info, 'info');
 		}).catch((e) => {

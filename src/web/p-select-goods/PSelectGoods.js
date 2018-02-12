@@ -107,6 +107,7 @@ class PSelectGoods extends Component {
 		let newObj = { ...this.state.selectObj };
 		if (flag){
 			if (max != 0 && newArr.length >= max){
+				message.destroy();
 				message.warn('最多选择' + max + '个，请先取消在进行选择。');
 			} else {
 				newArr.unshift(id);
@@ -131,7 +132,7 @@ class PSelectGoods extends Component {
 
 	}
 	render() {
-		const { request, url, activeText, staticText, disableText, disabledId, id, component, multiple } = this.props;
+		const { request, url, activeText, staticText, disableText, disableSelect, id, component, multiple } = this.props;
 		const { selectArr, selectObj } = this.state;
 		return (
 			<PPopup title="商品选择" onClose={this.handleClose} onSure={this.handleSure} className="wp-select-goods">
@@ -144,13 +145,14 @@ class PSelectGoods extends Component {
 					activeText={activeText}
 					staticText={staticText}
 					disableText={disableText}
-					disabledId={disabledId}
+					disableSelect={disableSelect}
 					component={component}
 					id={id}
 				/>
 				<Btn
 					activeText={activeText}
 					staticText={staticText}
+					disableText={disableText}
 				/>
 			</PPopup>
 		);
@@ -164,13 +166,13 @@ PSelectGoods.propTypes = {
 	activeText: PropTypes.string,
 	staticText: PropTypes.string,
 	disableText: PropTypes.string,
-	disabledId: PropTypes.array,
+	disableSelect: PropTypes.array,
 	id: PropTypes.any,
 	// component
 };
 
 PSelectGoods.defaultProps = {
-	disabledId: [],
+	disableSelect: [],
 };
 
 
