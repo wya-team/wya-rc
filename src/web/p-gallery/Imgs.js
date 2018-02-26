@@ -12,7 +12,8 @@ import RcInstance from '../rc-instance/index';
 import { initPage, initItem } from '../utils/utils';
 const initialState = {
 	...initPage,
-	selectItem: {},
+	selectArr: [],
+	selectObj: {},
 	keyword: ''
 };
 
@@ -55,7 +56,7 @@ class Imgs extends Component {
 				type: "get",
 				param: {
 					page,
-					cat_id,
+					cat_id: String(cat_id),
 					file_name: this.state.keyword
 				}
 			}).then((res) => {
@@ -79,8 +80,32 @@ class Imgs extends Component {
 		});
 	}
 	handleSelect = (info) => {
+		const { max } = this.props;
+		const { selectArr, selectObj = {} } = this.state;
+		const { file_id } = info || {};
+		// 验证
+		if (max != 0 && selectArr.length >= max && !selectArr.includes(file_id)){
+			message.destroy();
+			message.warn('最多选择' + max + '个，请先取消在进行选择。');
+			return;
+		}
+		// 输出
+		let _selectArr, _selectObj;
+		if (selectArr.includes(file_id)) {
+			_selectArr = selectArr.filter(item => item != file_id);
+			delete selectObj[file_id];
+		} else {
+			_selectArr = [...selectArr, file_id];
+			_selectObj = {
+				...selectObj,
+				[file_id]: {
+					...info
+				}
+			};
+		}
 		this.setState({
-			selectItem: this.state.selectItem.file_id == info.file_id ? {} : info
+			selectArr: _selectArr,
+			selectObj: _selectObj
 		});
 	}
 	handleSetItem = (id, itemData) => {
@@ -103,7 +128,7 @@ class Imgs extends Component {
 	}
 	render() {
 
-		const { pathSelect, paths, onSet, request, url, onSure } = this.props;
+		const { pathSelect, paths, onSet, request, url, onSure, max } = this.props;
 
 		const {
 			isEnd,
@@ -112,7 +137,8 @@ class Imgs extends Component {
 			totalCount,
 			itemArr,
 			itemObj,
-			selectItem,
+			selectArr,
+			selectObj,
 			resetPage
 		} = this.state;
 		return (
@@ -153,7 +179,7 @@ class Imgs extends Component {
 					<List 
 						itemArr={itemArr[curPage] || []}
 						itemObj={itemObj}
-						selectItem={selectItem}
+						selectArr={selectArr}
 						onSelect={this.handleSelect}
 						onSetItem={this.handleSetItem}
 						onSet={onSet}
@@ -165,7 +191,9 @@ class Imgs extends Component {
 					/>
 					<ImgsEdit
 						onSure={onSure}
-						selectItem={selectItem}
+						selectArr={selectArr}
+						selectObj={selectObj}
+						max={max}
 					/>
 				</Paging>
 			</div>

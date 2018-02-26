@@ -6,6 +6,7 @@
 ---|---|---|---
 url | 请求地址 | `object` | -
 request | 网络请求 | `() -> Promise` | -
+max | 选择数量 | `number` | 0(任意)
 
 - url
 
@@ -79,8 +80,8 @@ class Basic extends Component {
 	componentDidMount() {
 		PGallery.popup({
 
-		}).then((id, info) => {
-			console.log(id, info);
+		}).then((res) => {
+			console.log(res);
 		}).catch(() => {
 
 		});

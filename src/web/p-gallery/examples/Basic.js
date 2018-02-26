@@ -23,7 +23,7 @@ class Basic extends Component {
 	}
 	componentDidMount() {
 		PGallery.popup({
-
+			max: 1
 		}).then((info) => {
 			console.log(info);
 		}).catch(() => {

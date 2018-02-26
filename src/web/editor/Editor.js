@@ -19,11 +19,17 @@ class Editor extends Component {
 	setOpts() {
 		const editorProps = {
 			placeholder: '请输入需要编辑的信息',
+			// controls: [
+			// 	'undo', 'redo', 'split', 'font-size', 'font-family', 'text-color',
+			// 	'bold', 'italic', 'underline', 'strike-through', 'superscript',
+			// 	'subscript', 'text-align', 'split', 'headings', 'list_ul', 'list_ol',
+			// 	'blockquote', 'code', 'split', 'link', 'split', 'media'
+			// ],
 			controls: [
-				'undo', 'redo', 'split', 'font-size', 'font-family', 'text-color',
+				'undo', 'redo', 'split', 'font-size', 'text-color',
 				'bold', 'italic', 'underline', 'strike-through', 'superscript',
 				'subscript', 'text-align', 'split', 'headings', 'list_ul', 'list_ol',
-				'blockquote', 'code', 'split', 'link', 'split', 'media'
+				'blockquote', 'split', 'link', 'split', 'media'
 			],
 			media: {
 				image: false, // 开启图片插入功能
@@ -38,13 +44,13 @@ class Editor extends Component {
 					text: <Icon type="upload"/>,
 					onClick: () => {
 						PGallery.popup({
-
+							max: 1,
 						}).then((res) => {
 							this.insertMedias([
 								{
 									type: 'IMAGE',
 									name: 'New Photo',
-									url: res.file_url.replace(/!4-4/g, '')
+									url: res[0].file_url.replace(/!4-4/g, '')
 								}
 							]);
 						}).catch((res) => {

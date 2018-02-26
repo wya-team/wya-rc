@@ -21,6 +21,7 @@ Statics = {
 			opts = {
 				...opts,
 				request: opts.request || ajax,
+				max: opts.max || 0,
 				show: true,
 				onCloseSoon: () => {
 					ReactDOM.unmountComponentAtNode(div);
@@ -42,6 +43,8 @@ Statics = {
 	/**
 	 * 弹出项目，验证数据结构是否合法
 	 * opts {
+	 * 	request,
+	 * 	max
 	 * }
 	 */
 	popup(opts = {}){
@@ -107,7 +110,7 @@ class PGallery extends Component {
 	}
 	render() {
 		const { paths, pathSelect } = this.state;
-		const { request, url } = this.props;
+		const { request, url, max } = this.props;
 		return (
 			<PPopup title="我的素材" onClose={this.handleClose} onSure={this.handleSure} className="wp-gallery">
 				<Contents
@@ -115,6 +118,7 @@ class PGallery extends Component {
 					pathSelect={pathSelect}
 					request={request}
 					url={url}
+					max={max}
 					onSet={this.handleSet}
 				/>
 			</PPopup>

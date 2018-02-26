@@ -13,7 +13,7 @@ class List extends Component {
 			onSetItem,
 			onInit,
 			onSet,
-			selectItem,
+			selectArr,
 			url,
 			request,
 			paths,
@@ -31,7 +31,7 @@ class List extends Component {
 								onSetItem={onSetItem} 
 								onInit={onInit}
 								onSet={onSet}
-								selectItem={selectItem}
+								selectArr={selectArr}
 								url={url}
 								request={request}
 								paths={paths}
