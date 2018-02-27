@@ -37,6 +37,7 @@ Statics = {
 					reject(res);
 				},
 			};
+			RcInstance.APIS[cName] = div;
 			return ReactDOM.render(<PGallery {...opts} />, div);
 		});
 	},

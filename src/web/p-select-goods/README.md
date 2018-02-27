@@ -9,8 +9,9 @@ request | 网络请求 | `() -> Promise` | -
 activeText | - | `-` | -
 staticText | - | `-` | -
 disableText | - | `-` | -
-select | - | `-` | -
-disableSelect | - | `-` | -
+selectArr | - | `-` | -
+selectObj | - | `-` | -
+disableArr | - | `-` | -
 id | - | `-` | -
 max | 选择的数量，如`max:1`表示单选 | `-` | 0（无限）
 - url

@@ -1,5 +1,10 @@
 # 历史版本
 
+### 0.1.27 (2018-02-27)
+
+* 修改`PGallery` -> `cat_id = 0`,显示全部图片，增加多选功能（默认多选） 
+* 修改`PSelectGooods`, `select` ->  `selectArr`, `disableSelect` -> `disableArr`
+
 ### 0.1.20 (2018-02-10)
 
 * 添加[`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
