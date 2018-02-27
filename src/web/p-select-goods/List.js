@@ -6,12 +6,12 @@ const List = (props) => {
 		itemArr,
 		itemObj,
 		onClick,
-		selectObj,
+		selectArr,
 		activeText,
 		staticText,
 		component,
 		disableText,
-		disableSelect,
+		disableArr,
 	} = props;
 	return (
 		<div className="__content">
@@ -22,11 +22,11 @@ const List = (props) => {
 							key: `${item}_${index}`,
 							itemData: itemObj[item],
 							onClick: onClick,
-							show: selectObj[item],
 							activeText: activeText,
 							staticText: staticText,
 							disableText: disableText,
-							disableSelect: disableSelect,
+							disableArr: disableArr,
+							selectArr: selectArr
 						})
 					);
 				})

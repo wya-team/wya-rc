@@ -61,7 +61,7 @@ class Goods extends Component {
 	}
 	render() {
 
-		const { selectArr, selectObj, onClick, activeText, staticText, disableText, disableSelect, component } = this.props;
+		const { selectArr, onClick, activeText, staticText, disableText, disableArr, component } = this.props;
 
 		const {
 			isEnd,
@@ -93,11 +93,10 @@ class Goods extends Component {
 						itemObj={itemObj}
 						onClick={onClick}
 						selectArr={selectArr}
-						selectObj={selectObj}
 						activeText={activeText}
 						staticText={staticText}
 						disableText={disableText}
-						disableSelect={disableSelect}
+						disableArr={disableArr}
 						component={component || Item}
 					/>
 				</Paging>

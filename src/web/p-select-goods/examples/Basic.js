@@ -14,8 +14,10 @@ class Basic extends Component {
 	}
 	componentDidMount() {
 		PSelectGoods.popup({
-			max: 1,
-			disableSelect: ['217', '218', '220'],
+			max: 2,
+			selectArr: ['302', '1'],
+			selectObj: { 302: {}, 1: {} },
+			disableArr: ['301', '218', '220'],
 			disableText: '不让点',
 		}).then((info) => {
 			console.log(info, 'info');

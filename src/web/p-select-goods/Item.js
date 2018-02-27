@@ -5,17 +5,16 @@ class Item extends Component {
 	}
 
 	render() {
-		const { itemData = {}, onClick, show, activeText, staticText, disableText, disableSelect } = this.props;
+		const { itemData = {}, onClick, activeText, staticText, disableText, disableArr, selectArr } = this.props;
 
 		const {
 			product_name,
 			cover_img,
 			product_id
-
 		} = itemData;
 
-		const disabled = disableSelect.includes(product_id);
-
+		const disabled = disableArr.includes(product_id);
+		const show = selectArr.includes(product_id);
 		return (
 			<div className="__item">
 				<div className="__img">

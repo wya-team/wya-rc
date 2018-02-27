@@ -25,10 +25,12 @@ Statics = {
 				...opts,
 				url: null,
 				request: opts.request || ajax,
-				select: opts.select || [],
+				selectArr: opts.selectArr || [],
+				selectObj: opts.selectObj || {},
 				activeText: opts.activeText || '已选',
 				staticText: opts.staticText || '选取',
 				disableText: opts.disableText || '已参加其他活动',
+				disableArr: opts.disableArr || [],
 				max: opts.max || 0,
 				id: opts.id || "product_id",
 				onCloseSoon: () => {
@@ -77,10 +79,8 @@ class PSelectGoods extends Component {
 	};
 	constructor(props, context) {
 		super(props, context);
-		const { itemArr, itemObj } = initItem(props.select, props.id);
 		this.state = {
-			selectArr: itemArr,
-			selectObj: itemObj,
+			selectArr: props.selectArr
 		};
 	}
 	// 关闭， 移除dom
@@ -92,11 +92,11 @@ class PSelectGoods extends Component {
 	}
 	handleSure = () => {
 		let arr = [];
-		const { max } = this.props;
-		const { selectObj, selectArr } = this.state;
+		const { max, selectObj } = this.props;
+		const { selectArr } = this.state;
 		selectArr.map((item, index) => {
 			if (max == 0 || index < max){
-				arr.push(selectObj[item]);
+				arr.push(this.goods.state.itemObj[item] || selectObj[item]);
 			}
 		});
 		this.props.onSure && this.props.onSure(arr);
@@ -104,48 +104,39 @@ class PSelectGoods extends Component {
 	handleSelect = (flag, id, data) => {
 		const { max } = this.props;
 		let newArr = [ ...this.state.selectArr ];
-		let newObj = { ...this.state.selectObj };
 		if (flag){
 			if (max != 0 && newArr.length >= max){
 				message.destroy();
 				message.warn('最多选择' + max + '个，请先取消在进行选择。');
 			} else {
 				newArr.unshift(id);
-				newObj = {
-					...newObj,
-					[id]: {
-						...data
-					}
-				};
 			}
 
 		} else {
-			delete newObj[id];
 			newArr = this.state.selectArr.filter((item, index) => {
 				return item != id;
 			});
 		}
 		this.setState({
-			selectObj: newObj,
 			selectArr: newArr
 		});
 
 	}
 	render() {
-		const { request, url, activeText, staticText, disableText, disableSelect, id, component, multiple } = this.props;
+		const { request, url, activeText, staticText, disableText, disableArr, id, component, multiple } = this.props;
 		const { selectArr, selectObj } = this.state;
 		return (
 			<PPopup title="商品选择" onClose={this.handleClose} onSure={this.handleSure} className="wp-select-goods">
 				<Goods
+					ref={goods => this.goods = goods}
 					request={request}
 					url={url}
 					selectArr={selectArr}
-					selectObj={selectObj}
 					onClick={this.handleSelect}
 					activeText={activeText}
 					staticText={staticText}
 					disableText={disableText}
-					disableSelect={disableSelect}
+					disableArr={disableArr}
 					component={component}
 					id={id}
 				/>
@@ -166,13 +157,13 @@ PSelectGoods.propTypes = {
 	activeText: PropTypes.string,
 	staticText: PropTypes.string,
 	disableText: PropTypes.string,
-	disableSelect: PropTypes.array,
+	disableArr: PropTypes.array,
 	id: PropTypes.any,
 	// component
 };
 
 PSelectGoods.defaultProps = {
-	disableSelect: [],
+	disableArr: [],
 };
 
 
