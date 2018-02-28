@@ -5,8 +5,10 @@ const prompt = require('prompt');
 const fs = require('fs-extra');
 // 开始写入
 prompt.start();
-const ENV_IS_DEV = process.env.MODE_ENV !== `build`;
-prompt.get([ENV_IS_DEV ? 'port' : 'libName'],  (err, result) =>  {
+prompt.get(['port', 'component'],  (err, result) =>  {
+	let { port, component: str } = result;
+	result.component = str ? str.replace(/([a-z\dA-Z])([A-Z])/g, '$1-$2').toLowerCase() : str;
+
 	let contents = '';
 	// 对用户输入的信息处理
 	// to do ....
@@ -14,5 +16,5 @@ prompt.get([ENV_IS_DEV ? 'port' : 'libName'],  (err, result) =>  {
 
 	// 输出
 	contents = `let obj = ${strObj};module.exports = obj;`;
-	fs.outputFileSync('./config/user.config.js', contents);
+	fs.outputFileSync('./config/user.config.js', `let obj = ${{}};module.exports = obj;`);
 });

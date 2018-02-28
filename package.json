@@ -6,14 +6,14 @@
   "files": [
     "src/**",
     "dist/**",
-    "examples/**",
+    "templates/**",
     "lib/**"
   ],
   "scripts": {
     "start": "npm run dev",
     "dev": "npm run prompt && npm run all",
     "serve": "node --max_old_space_size=8192 ./node_modules/webpack-dev-server/bin/webpack-dev-server --config  ./config/webpack.config.dev.js --color --progress --hot",
-    "dist": "cross-env MODE_ENV=build npm run prompt &&npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
+    "dist": "npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
     "build": "npm run dist -- -p",
     "build:dev": "npm run dist",
     "lib": "rm -rf lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/**",
@@ -27,7 +27,8 @@
     "all": "npm-run-all --parallel --race --continue-on-error lint:watch serve",
     "lint-staged": "lint-staged",
     "pre-commit:install": "cp .hooks/* .git/hooks/",
-    "test": "jest --config ./tests/config/jest.config.js"
+    "test": "jest --config ./tests/config/jest.config.js",
+    "examples": "node --max_old_space_size=8192 ./node_modules/webpack-dev-server/bin/webpack-dev-server --config config/webpack.config.js"
   },
   "author": "wya-team",
   "license": "MIT",
@@ -64,6 +65,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "classnames": "^2.2.5",
+    "copy-webpack-plugin": "^4.4.2",
     "cross-env": "^5.1.1",
     "css-loader": "^0.28.7",
     "echarts": "^4.0.2",
@@ -77,6 +79,7 @@
     "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^22.0.4",

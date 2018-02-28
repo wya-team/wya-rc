@@ -43,3 +43,5 @@ Thumbs.db
 # others
 /tests/coverage
 /config/user.config.js
+/build
+/temp

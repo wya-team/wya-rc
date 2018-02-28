@@ -5,17 +5,17 @@ const ENV_IS_DEV = process.env.NODE_ENV === 'development';
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const userConfig = require('./user.config.js') || {};
+const { port } = require('./user.config.js') || {};
+const { entry, getHTMLConfig } = require('./temp.config.js') || {};
 
 const localPort = ((addPath) => {
 	if (ENV_IS_DEV) {
-		return userConfig.port || 8088;
+		return port || 8088;
 	} else {
 		return 9098;
 	}
 })();
 
-const libName = userConfig.libName || `rc`;
 const localIp = (() => {
 	let ips = [];
 	let os = require('os');
@@ -46,18 +46,15 @@ const webpackConfig = {
 		alias: {
 		}
 	},
-	entry: {
-		main: path.resolve(APP_ROOT, `${ENV_IS_DEV ? 'examples' : 'src'}/main.js`)
-	},
+	entry: Object.assign({}, entry),
 	output: {
 		path: path.resolve(APP_ROOT, 'dist'),
-		filename: ENV_IS_DEV ? '[name].[hash:8].bundle.js' : `${libName}.min.js`,
+		filename: '[name].[hash:8].js',
 		libraryTarget: 'umd',
 		/**
-		 * html引用路径
-		 * publicPath: ENV_IS_DEV ? './' : 'https://cdn.example.com/'
+		 * html引用路径,github展示用
 		 */
-		publicPath: '/'
+		publicPath: ENV_IS_DEV ? '/' : '/wya-rc/dist'
 	},
 	module: {
 		exprContextCritical: false,
@@ -121,6 +118,7 @@ const webpackConfig = {
 		 * 报错继续运行2.0弃用NoErrorsPlugin，改用NoEmitOnErrorsPlugin
 		 */
 		new webpack.NoEmitOnErrorsPlugin(),
+		...getHTMLConfig()
 	]
 };
 
@@ -133,7 +131,7 @@ const defaultConfig = {
 	},
 	devServer: {
 		host: localIp,
-		contentBase: "/",
+		// contentBase: "/",
 		port: localPort,
 		inline: true,
 		// compress: true, // gzip
@@ -169,6 +167,7 @@ const defaultConfig = {
 
 module.exports = {
 	APP_ROOT,
+	ENV_IS_DEV,
 	localIp,
 	localPort,
 	commonConfig: webpackMerge(

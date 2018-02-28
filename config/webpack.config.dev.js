@@ -10,17 +10,18 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 const { APP_ROOT, commonConfig, localIp, localPort } = require('./webpack.config.common');
 
+const { component } = require('./user.config.js') || {};
+const { entry, openPage } = require('./temp.config.js') || {};
+
+let host = `http://${localIp}:${localPort}`;
+let messages = [`Dev Server: ${host}`];
+if (component && Object.keys(openPage).length > 0 ) {
+	for (let item in openPage) {
+		messages.push(`${item}: ${host}${openPage[item]}`);
+	}
+}
 let webpackConfig = {
 	plugins: [
-		/**
-		 * 输出html
-		 */
-		new HtmlWebpackPlugin({
-			template: path.resolve(APP_ROOT, 'examples/index.tpl.html'),
-			chunks: ['main'], // 当前路由所包含的模块，注意common引入方式
-			inject: 'body',
-			filename: './index.html'
-		}),
 		/**
 		 * 开发环境
 		 */
@@ -30,10 +31,12 @@ let webpackConfig = {
 		}),
 		/**
 		 * 友好提示
+		openPage: 'web/preview.html?page=containers/tab-bar/index.js',
+		 * 
 		 */
 		new FriendlyErrorsWebpackPlugin({
 			compilationSuccessInfo: {
-				messages: [`Dev Server: http://${localIp}:${localPort}`],
+				messages,
 				notes: [`Success!`]
 			},
 			onErrors: function (severity, errors) {

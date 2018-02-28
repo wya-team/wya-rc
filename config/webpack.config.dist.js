@@ -1,10 +1,15 @@
 process.env.NODE_ENV = 'production';
-const path = require('path');
+// 初始化配置文件
+const fs = require('fs-extra');
+fs.outputFileSync('./config/user.config.js', `let obj = {};module.exports = obj;`);
 
+const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
 const { APP_ROOT, commonConfig, localIp, localPort } = require('./webpack.config.common');
+
+
 
 let webpackConfig = {
 	plugins: [
