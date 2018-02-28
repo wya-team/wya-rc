@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, message, Input } from 'antd';
+import { Modal, Button, message, Input, Checkbox } from 'antd';
 // 置顶
 // 类目名称
 // 类目级数
@@ -19,7 +19,7 @@ class Item extends Component {
 		this.handleSelect = ::this.handleSelect;
 	}
 	componentWillMount() {}
-	
+
 	handleDel(){
 		Modal.confirm({
 			title: '你确定要删除这些内容么?',
@@ -66,17 +66,19 @@ class Item extends Component {
 		// message.error('后续内部集成', 1.5);
 	}
 	render() {
-		const { itemData = {}, actions, keyword, selectArr = [] } = this.props;
+		const { itemData = {}, actions, keyword, selectArr = [], rowSelection } = this.props;
 		const { id } = itemData;
 		return (
 			<tr>
-				<td>
-					<input 
-						type="checkbox" 
-						checked = {selectArr.includes(id)}
-						onChange = {this.handleSelect}
-					/>
-				</td>
+				{rowSelection &&
+					<td>
+						<Checkbox
+							disabled={rowSelection.disabled}
+							checked={rowSelection.checked}
+							onChange={rowSelection.onChange}
+						/>
+					</td>
+				}
 				<td>2</td>
 				<td>3</td>
 				<td>4</td>
