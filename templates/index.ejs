@@ -379,7 +379,7 @@
 		<ul id="files" class="view-tiles">
 		<% for (var item in htmlWebpackPlugin.options.openPage) { %>
 			<li>
-				<a href="<%=htmlWebpackPlugin.options.openPage[item] %>" class="icon icon-directory" title="button">
+				<a href="<%=htmlWebpackPlugin.options.publicPath %><%=htmlWebpackPlugin.options.openPage[item] %>" class="icon icon-directory" title="button">
 					<span class="name"><%=item %></span>
 				</a>
 			</li>

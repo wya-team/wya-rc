@@ -1,3 +1,5 @@
+const ENV_IS_DEV = process.env.NODE_ENV === 'development';
+
 const path = require('path');
 const fs = require('fs-extra');
 const glob = require('glob');
@@ -93,6 +95,7 @@ const getHTMLConfig = () => {
 		new HtmlWebpackPlugin({
 			inject: false,
 			title: `${component ? component : 'All'} Demo`,
+			publicPath: ENV_IS_DEV ? '' : '/wya-rc/dist',
 			openPage,
 			template: path.resolve(APP_ROOT, 'templates/index.ejs'),
 			// filename: path.join(APP_ROOT, 'dist/web/index.html')

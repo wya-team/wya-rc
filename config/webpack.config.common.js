@@ -167,7 +167,6 @@ const defaultConfig = {
 
 module.exports = {
 	APP_ROOT,
-	ENV_IS_DEV,
 	localIp,
 	localPort,
 	commonConfig: webpackMerge(

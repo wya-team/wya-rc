@@ -1,7 +1,7 @@
 # wya-rc
 [![npm][npm-image]][npm-url] [![changelog][changelog-image]][changelog-url]
 
-## [Demo](https://wya-team.github.io/wya-rc/dist)
+## [Demo](https://wya-team.github.io/wya-rc/dist/index.html)
 
 ## 安装
 
