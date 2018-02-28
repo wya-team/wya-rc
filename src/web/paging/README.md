@@ -1,3 +1,5 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/paging/Basic.html)
+
 ## 功能
 取代`antd`中`Table`（键值对形式，不适合开发）
 

@@ -1,3 +1,4 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/echarts/Basic.html)
 ## 功能
 提取`echarts`作为单独的分包；
 

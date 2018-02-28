@@ -1,3 +1,4 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/create-print/Basic.html)
 ## 功能
 负责打印内容（window.print）
 

@@ -1,3 +1,4 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/upload/Basic.html)
 ## 功能
 上传功能
 

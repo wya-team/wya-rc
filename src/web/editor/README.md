@@ -1,3 +1,4 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/editor/Basic.html)
 ## 功能
 富文本编辑器(内部集成上传ajax等，之后更新)
 

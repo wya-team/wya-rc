@@ -1,5 +1,6 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/p-select-goods/Basic.html)
 ## 功能
-我的素材库（图片管理）
+业务：商品选择器
 
 ## API
 属性 | 说明 | 类型 | 默认值

@@ -1,3 +1,4 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/copy/Basic.html)
 ## 功能
 复制内容
 
