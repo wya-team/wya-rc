@@ -52,7 +52,7 @@ class Basic extends Component {
 		return (
 			<Editor 
 				initialContent={this.state.raw}
-				onRAWChange={this.handleRawChange}
+				onRawChange={this.handleRawChange}
 				onHTMLChange={this.handleHTMLChange}
 				onChange={this.handleChange}
 			/>
