@@ -27,8 +27,7 @@
     "all": "npm-run-all --parallel --race --continue-on-error lint:watch serve",
     "lint-staged": "lint-staged",
     "pre-commit:install": "cp .hooks/* .git/hooks/",
-    "test": "jest --config ./tests/config/jest.config.js",
-    "examples": "node --max_old_space_size=8192 ./node_modules/webpack-dev-server/bin/webpack-dev-server --config config/webpack.config.js"
+    "test": "jest --config ./tests/config/jest.config.js"
   },
   "author": "wya-team",
   "license": "MIT",
