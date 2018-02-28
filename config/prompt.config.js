@@ -16,5 +16,5 @@ prompt.get(['port', 'component'],  (err, result) =>  {
 
 	// 输出
 	contents = `let obj = ${strObj};module.exports = obj;`;
-	fs.outputFileSync('./config/user.config.js', `let obj = ${{}};module.exports = obj;`);
+	fs.outputFileSync('./config/user.config.js', contents);
 });
