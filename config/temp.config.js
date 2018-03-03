@@ -1,6 +1,7 @@
 const ENV_IS_DEV = process.env.NODE_ENV === 'development';
 
 const path = require('path');
+const upath = require('upath');
 const fs = require('fs-extra');
 const glob = require('glob');
 
@@ -17,7 +18,7 @@ let openPage = {};
 // 入口文件
 const getEntryFileContent = (entryPath, fullpath) => {
 	let relativePath = path.relative(path.join(entryPath, '../'), fullpath);
-
+	relativePath = upath.normalize(relativePath);
 	let contents = '';
 	contents += `\nimport React, { Component } from 'react';\n`;
 	contents += `\nimport PropTypes from 'prop-types';\n`;
@@ -34,20 +35,21 @@ const getEntryFile = (dir) => {
 	fs.readdirSync(directory).forEach((file) => {
 		// 文件地址
 		const fullpath = path.join(directory, file);
+		const paths = upath.normalize(fullpath).split('/') || [];
 		// 获取文件信息
 		const stat = fs.statSync(fullpath);
 		// 获取文件后缀名
 		const extname = path.extname(fullpath);
-		let paths = fullpath.split('/') || [];
 		if (stat.isFile() 
 			&& extname === '.js' 
 			&& ( !component || fullpath.includes(component))
 			&& paths.length >= 2 && paths[paths.length - 2] === 'examples'
 		) {
 			// 获取文件名字
-			const name = path.join(dir, path.basename(file, extname));
+			let name = path.join(dir, path.basename(file, extname));
+			name = upath.normalize(name);
 			// 用户测试单独文件
-			const entryFile = path.join('temp', dir.replace(/\/examples/, ''), file);
+			const entryFile = path.join('temp', upath.normalize(dir).replace(/\/examples/, ''), file);
 			fs.outputFileSync(path.join(entryFile), getEntryFileContent(entryFile, fullpath));
 			// 文件路径
 			entry[name.replace(/\/examples/, '')] = path.join(APP_ROOT, entryFile);
@@ -62,6 +64,7 @@ getEntryFile('web');
 // 	const foundScripts = glob.sync('temp/web/*/', {});
 // 	const ret = [];
 // 	foundScripts.forEach(fullpath => {
+// 		fullpath = upath.normalize(fullpath);
 // 		let filename = path.join(APP_ROOT, fullpath.replace(/temp\//, 'dist/'), 'index.html');
 // 		if (!/(__tpl__|__test__)/.test(fullpath)) {
 // 			ret.push({
@@ -77,6 +80,7 @@ const getHTMLConfig = () => {
 	const foundScripts = glob.sync(`temp/web/${component ? component : '*'}/*.js`, {});
 	const ret = [];
 	foundScripts.forEach(fullpath => {
+		fullpath = upath.normalize(fullpath);
 		if (!/(__tpl__|__test__)/.test(fullpath)) {
 			let chunk = fullpath.replace(/temp\//, '').replace(/^(.*)\.js$/, '$1');
 			let filename = path.join(APP_ROOT, fullpath.replace(/temp\//, 'dist/').replace(/\.js/, '.html'));
