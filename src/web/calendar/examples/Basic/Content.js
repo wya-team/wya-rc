@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import Calendar from '../../Calendar';
 import Item from './Item';
+import '../../Calendar.scss';
 
 class Content extends Component {
 	constructor(props) {
@@ -52,12 +53,12 @@ class Content extends Component {
 	render() {
 		const { year, month } = this.state;
 		return (
-			<div>
-				<div className="rc-tc">{year}-{month}</div>
-				<div className="rc-flex-ac" style={{ width: '100%' }}>
+			<div className="c-calendar">
+				<div className="_tc">{year}-{month}</div>
+				<div className="_flex-ac" style={{ width: '100%' }}>
 					<span onClick={this.handlePrev}>PREV</span>
 					<Calendar
-						className="rc-col"
+						className="_flex-col"
 						renderDayItem={Item}
 						selectedDate={`${year}-${month}`}
 					/>

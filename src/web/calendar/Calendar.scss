@@ -15,35 +15,35 @@
 			box-shadow: 1px 2px 10px #2f8aef;
 		}
 	}
-}
 
-.rc-col {
-	flex: 1;
-}
-.rc-flex-ac {
-	display: flex;
-	align-items: center;
-}
-.rc-fd-c {
-	flex-direction: column;
-}
-.rc-flex-cc {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.rc-tc {
-	text-align: center;
-}
-.rc-c-dark {
-	color: $gray_1;
-}
-.rc-c-gray {
-	color: $gray_3;
-}
-.rc-bg-white {
-	background-color: $white;
-}
-.rc-pointer {
-	cursor: pointer;
+	._flex-col {
+		flex: 1;
+	}
+	._flex-ac {
+		display: flex;
+		align-items: center;
+	}
+	._fd-c {
+		flex-direction: column;
+	}
+	._flex-cc {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	._tc {
+		text-align: center;
+	}
+	._dark {
+		color: $gray_1;
+	}
+	._gray {
+		color: $gray_3;
+	}
+	._bg-white {
+		background-color: $white;
+	}
+	._pointer {
+		cursor: pointer;
+	}
 }

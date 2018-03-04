@@ -155,7 +155,7 @@ class Calendar extends Component {
 		let rowData = calendarData.slice((rowNum - 1) * 7, rowNum * 7);
 
 		return (
-			<div className="rc-flex-ac rc-white" style={{ width: '100%' }}>
+			<div className="_flex-ac _bg-white" style={{ width: '100%' }}>
 				{
 					rowData.map((item, index) => {
 						return React.createElement(renderDayItem, {
@@ -175,7 +175,7 @@ class Calendar extends Component {
 		}
 
 		return (
-			<div className="rc-flex-ac rc-bg-white rc-fd-c">
+			<div className="_flex-ac _bg-white _fd-c">
 				{table}
 			</div>
 		);
@@ -184,10 +184,10 @@ class Calendar extends Component {
 	render () {
 		const { className, weekClassName } = this.props;
 		const classes = "c-calendar " + className;
-		const  weekClasses = "rc-col rc-tc " + weekClassName;
+		const  weekClasses = "_flex-col _tc " + weekClassName;
 		return (
 			<div className={classes}>
-				<div className="_header rc-flex-ac">
+				<div className="_header _flex-ac">
 					<span className={weekClasses}>日</span>
 					<span className={weekClasses}>一</span>
 					<span className={weekClasses}>二</span>

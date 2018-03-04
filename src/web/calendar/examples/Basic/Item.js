@@ -22,12 +22,12 @@ class Item extends Component {
 	};
 
 	renderItem = () => {
-		const { itemData, tipInfo } = this.props;
+		const { itemData } = this.props;
 
-		const classes = classnames('rc-flex-cc rc-fd-c', {
-			'rc-c-dark': itemData.type.selectedDate === 'current',
+		const classes = classnames('_flex-cc _fd-c', {
+			'_dark': itemData.type.selectedType === 'current',
 			'__circle': itemData.dateName === this.getCurrentDay(),
-			'rc-pointer': itemData.dateName === this.getCurrentDay(),
+			'_pointer': itemData.dateName === this.getCurrentDay(),
 		});
 
 		return (
@@ -41,7 +41,7 @@ class Item extends Component {
 	render() {
 
 		return (
-			<div className="g-col g-tc g-c-gray g-flex-cc _item"
+			<div className="_flex-col _tc _gray _flex-cc _item"
 				 onClick={this.handleClick}
 			>
 				{this.renderItem()}
