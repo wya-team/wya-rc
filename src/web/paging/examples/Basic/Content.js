@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { Button, Pagination } from 'antd';
 import { Paging } from '../../../../main.js';
 import List from './List';
+import Item from './Item';
 import Btn from './Btn';
 
 const title = [
-	'选择',
 	'编号',
 	'标题',
 	'封面图',
@@ -29,7 +29,7 @@ let _id = 0;
 class Content extends Component {
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			...initState,
 			selectArr: []
@@ -87,7 +87,10 @@ class Content extends Component {
 		this.setState({
 			selectArr: selectArr
 		});
-	}
+	};
+	handleSelectAll = () => {
+		this.paging && this.paging.handleCheckAll();
+	};
 	render() {
 		const {
 			isEnd,
@@ -98,26 +101,38 @@ class Content extends Component {
 			selectArr,
 			resetPage
 		} = this.state;
+		const rowSelection = {
+			getCheckboxProps: (record) => ({
+				disabled: record.id === 1,
+				checked: record.id === 1,
+			}),
+			onChange: (selectedRowKeys, selectedRows) => { console.log(selectedRowKeys, selectedRows); }
+		};
 		return (
-			<Paging 
+			<Paging
+				ref={paging => this.paging = paging}
 				title={title}
 				isEnd={isEnd}
+				dataSource={{ itemArr, itemObj }}
 				curPage={currentPage}
 				totalPage={totalPage}
 				loadDataForPaging={this.loadDataForPaging}
-
 				resetPrvScrollTop={currentPage}
 				resetPage = {resetPage}
+				rowSelection={rowSelection}
+				renderRow={Item}
 			>
-				<List 
-					itemArr={itemArr[currentPage] || []}
-					itemObj={itemObj}
-					selectArr={selectArr}
-					actions={this.actions}
-				/>
+				{/* <List*/}
+				{/* itemArr={itemArr[currentPage] || []}*/}
+				{/* itemObj={itemObj}*/}
+				{/* selectArr={selectArr}*/}
+				{/* actions={this.actions}*/}
+				{/* rowSelection={rowSelection}*/}
+				{/* />*/}
 				<Btn
 					selectArr={selectArr}
 					actions={this.actions}
+					onSelectAll={this.handleSelectAll}
 				/>
 			</Paging>
 		);

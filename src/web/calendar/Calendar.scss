@@ -1,0 +1,49 @@
+@import '../style/index.scss';
+.c-calendar {
+	._header {
+		color: $gray_3;
+		padding: 15px 0;
+	}
+	._item {
+		padding: 15px 0;
+		.__circle {
+			width: 40px;
+			height: 40px;
+			border-radius: 20px;
+			background-color: #2f75ef;
+			color: $white;
+			box-shadow: 1px 2px 10px #2f8aef;
+		}
+	}
+}
+
+.rc-col {
+	flex: 1;
+}
+.rc-flex-ac {
+	display: flex;
+	align-items: center;
+}
+.rc-fd-c {
+	flex-direction: column;
+}
+.rc-flex-cc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.rc-tc {
+	text-align: center;
+}
+.rc-c-dark {
+	color: $gray_1;
+}
+.rc-c-gray {
+	color: $gray_3;
+}
+.rc-bg-white {
+	background-color: $white;
+}
+.rc-pointer {
+	cursor: pointer;
+}

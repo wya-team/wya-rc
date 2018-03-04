@@ -7,19 +7,21 @@ const List = (props) => {
 		itemArr,
 		itemObj,
 		selectArr,
-		keyword
+		keyword,
+		rowSelection
 	} = props;
-	return ( 
+	return (
 		<tbody>
 			{
 				itemArr.map((item, index) => {
-					return ( 
-						<Item 
+					return (
+						<Item
 							key={`${item}_${index}`}
 							itemData={itemObj[item]}
 							selectArr={selectArr}
 							actions={actions}
 							keyword={keyword}
+							rowSelection={rowSelection}
 						/>
 					);
 				})
