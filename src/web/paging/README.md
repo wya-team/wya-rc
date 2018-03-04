@@ -22,25 +22,35 @@ loadDataForPaging | `数据请求` | `func` | -
 resetPrvScrollTop | `窗体置顶，如果页码不一样或其他值判断` | `number` | -
 resetPage | `如果前后值不一样，重置分页到第一页` | `string` | -
 tHide | `隐藏title` | `bool` | false
+dataSource | `table`数据(传入itemArr和itemObj) | `obj` | -
+rowSelection | `Checkbox`配置项 | `obj` | -
+renderRow | 列表Item | `func` | -
+
 ## 基础用法
 
 ```jsx
+const rowSelection = {
+	getCheckboxProps: (record) => ({
+		disabled: record.id === 1,
+		checked: record.id === 1,
+	}),
+	onChange: (selectedRowKeys, selectedRows) => { console.log(selectedRowKeys, selectedRows); }
+};
 <Paging 
 	title={title}
 	isEnd={isEnd}
+	dataSource={{ itemArr, itemObj }}
 	curPage={currentPage}
 	totalPage={totalPage}
 	loadDataForPaging={this.loadDataForPaging}
-
+	
 	resetPrvScrollTop={currentPage}
 	resetPage = {resetPage}
+	
+	rowSelection={rowSelection}
+    renderRow={Item}
 >
-	<List 
-		itemArr={itemArr[currentPage] || []}
-		itemObj={itemObj}
-		selectArr={selectArr}
-		actions={this.actions}
-	/>
+	
 	{/*全选之类按钮*/}
 	<Btn
 		selectArr={selectArr}

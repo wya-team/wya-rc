@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Paging.scss';
-import { Button, Pagination, Spin } from 'antd';
+import { Button, Pagination, Spin, Checkbox } from 'antd';
+import SelectionCheckboxAll from './SelectionCheckboxAll';
+
 class Paging extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12,12 +14,12 @@ class Paging extends Component {
 		this.wrapper = props.wrapper;
 		this.bindScroll = ::this.bindScroll;
 		this.handleChange = ::this.handleChange;
-		this.firstReq = ::this.firstReq;
+		this.loadDataFirst = ::this.loadDataFirst;
 		this.changeableRows = [];
 	}
 	componentDidMount() {
 		if (this.props.isEnd === 0) { // 禁用，加载完成或者加载中无视
-			this.firstReq(this.props);
+			this.loadDataFirst(this.props);
 		}
 		this.bindScroll();
 	}
@@ -27,7 +29,7 @@ class Paging extends Component {
 			this.scrollContainer.scrollTop = 0; // 置顶
 		}
 		if (nextProps.isEnd === 0) { // 禁用，加载完成或者加载中无视
-			this.firstReq(nextProps);
+			this.loadDataFirst(nextProps);
 		}
 	}
 	componentDidCatch(error, info){
@@ -39,7 +41,7 @@ class Paging extends Component {
 	bindScroll() {
 		this.scrollContainer = (this.wrapper) ? document.querySelector(this.wrapper) : document.body;
 	}
-	firstReq(curProps = {}) { // 第一次请求
+	loadDataFirst(curProps = {}) { // 第一次请求
 		const {
 			isEnd,
 			curPage,
@@ -54,7 +56,8 @@ class Paging extends Component {
 		}
 	}
 	handleCheckAll = () => {
-		const { rowSelection, curPage, itemData = {} } = this.props;
+		const { rowSelection, curPage, dataSource } = this.props;
+		const { itemObj = {} } = dataSource;
 		const { onChange } = rowSelection;
 		let selectedRowKeys = [], selectedRows = [];
 		let curPageCheck = this.state.checkArr[curPage] || {};
@@ -64,7 +67,7 @@ class Paging extends Component {
 				for (let key in checkedRows) {
 					if (checkedRows[key]) {
 						selectedRowKeys.push(key);
-						selectedRows.push(itemData[key]);
+						selectedRows.push(itemObj[key]);
 					}
 				}
 				onChange && onChange(selectedRowKeys, selectedRows);
@@ -91,7 +94,8 @@ class Paging extends Component {
 		return checkArr;
 	};
 	handleSelectChange = (event, item) => {
-		const { rowSelection, curPage, itemData = {} } = this.props;
+		const { rowSelection, curPage, dataSource } = this.props;
+		const { itemObj = {} } = dataSource;
 		const { onChange } = rowSelection;
 		let selectedRowKeys = [], selectedRows = [];
 		this.setState({
@@ -106,18 +110,19 @@ class Paging extends Component {
 			for (let key in this.state.checkArr[curPage]) {
 				if (this.state.checkArr[curPage][key]) {
 					selectedRowKeys.push(key);
-					selectedRows.push(itemData[key]);
+					selectedRows.push(itemObj[key]);
 				}
 			}
 			onChange && onChange(selectedRowKeys, selectedRows);
 		});
 	};
 	renderTBody = () => {
-		const { rowSelection, curPage, rowData = {}, itemData = {}, renderItem } = this.props;
-		let curRowData = rowData[curPage] || [];
+		const { rowSelection, curPage, dataSource, renderRow } = this.props;
+		const { itemArr = {}, itemObj = {} } = dataSource;
+		let curRowData = itemArr[curPage] || [];
 		this.changeableRows = [curRowData];
 		if (rowSelection) {
-			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemData[item]).disabled);
+			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemObj[item]).disabled);
 		}
 
 		return (
@@ -125,31 +130,50 @@ class Paging extends Component {
 				{curRowData.map((item, index) => {
 					if (rowSelection) {
 						let checked;
-						if (this.state.checkArr[curPage] && !rowSelection.getCheckboxProps(itemData[item]).disabled) {
+						if (this.state.checkArr[curPage] && !rowSelection.getCheckboxProps(itemObj[item]).disabled) {
 							checked = this.state.checkArr[curPage][item];
 						} else {
-							checked = rowSelection.getCheckboxProps(itemData[item]).checked;
+							checked = rowSelection.getCheckboxProps(itemObj[item]).checked;
 						}
-						return renderItem(item, index, {
-							disabled: rowSelection.getCheckboxProps(itemData[item]).disabled,
-							checked: checked,
-							onChange: (e) => { this.handleSelectChange(e, item); },
+
+						return React.createElement(renderRow, {
+							rowSelection: {
+								disabled: rowSelection.getCheckboxProps(itemObj[item]).disabled,
+								checked: checked,
+								onChange: (e) => { this.handleSelectChange(e, item); },
+							},
+							itemData: itemObj[item],
+							key: index
 						});
 					}
-					return renderItem(item, index);
+					return React.createElement(renderRow, {
+						itemData: itemObj[item],
+						key: index
+					});
 				})}
 			</tbody>
 		);
 	};
 	renderTable = () => {
-		const { rowSelection, title, tHide, children } = this.props;
+		const { rowSelection, title, tHide, curPage, children, dataSource } = this.props;
+		const { itemArr = {}, itemObj = {} } = dataSource;
+		let curRowData = itemArr[curPage] || [];
 		if (rowSelection) {
+			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemObj[item]).disabled);
+			let columns = [...title];
+			columns.unshift(
+				<SelectionCheckboxAll
+					data={this.state.checkArr[curPage]}
+					onChange={this.handleCheckAll}
+					changeableRows={this.changeableRows}
+				/>
+			);
 			return (
 				<table className="__table" >
 					<thead>
 						<tr>
 							{
-								title.map((item, index) => {
+								columns.map((item, index) => {
 									return (
 										<th key={index}>{item}</th>
 									);
@@ -240,16 +264,14 @@ Paging.propTypes = {
 	resetPage: PropTypes.string,
 	tHide: PropTypes.bool,
 	rowSelection: PropTypes.object,
-	rowData: PropTypes.object,
-	itemData: PropTypes.object,
-	renderItem: PropTypes.func,
+	dataSource: PropTypes.object,
+	renderRow: PropTypes.func.isRequired,
 };
 Paging.defaultProps = {
 	title: [],
 	tHide: false,
 	className: '__defalut',
 	rowSelection: null,
-	rowData: {},
-	itemData: {},
+	dataSource: {},
 };
 export default Paging;

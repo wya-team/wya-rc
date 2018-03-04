@@ -7,7 +7,6 @@ import Item from './Item';
 import Btn from './Btn';
 
 const title = [
-	'选择',
 	'编号',
 	'标题',
 	'封面图',
@@ -114,21 +113,14 @@ class Content extends Component {
 				ref={paging => this.paging = paging}
 				title={title}
 				isEnd={isEnd}
-				rowData={itemArr}
-				itemData={itemObj}
+				dataSource={{ itemArr, itemObj }}
 				curPage={currentPage}
 				totalPage={totalPage}
 				loadDataForPaging={this.loadDataForPaging}
-				rowSelection={rowSelection}
 				resetPrvScrollTop={currentPage}
 				resetPage = {resetPage}
-				renderItem={(item, index, rowSelection) =>
-					<Item
-						key={index}
-						itemData={itemObj[item]}
-						rowSelection={rowSelection}
-					/>
-				}
+				rowSelection={rowSelection}
+				renderRow={Item}
 			>
 				{/* <List*/}
 				{/* itemArr={itemArr[currentPage] || []}*/}
