@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 
 import Calendar from '../index.js';
 
-describe('Copy.js', () => {
+describe('Calendar.js', () => {
 	test('default props', () => {
 		const $ = mount(
 			<Calendar />
