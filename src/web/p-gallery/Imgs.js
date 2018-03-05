@@ -31,6 +31,7 @@ class Imgs extends Component {
 			this.setState({
 				...initialState
 			});
+
 			findDOMNode(this.refs.search).getElementsByTagName('input')[0].value = '';
 		}
 	}
@@ -40,7 +41,6 @@ class Imgs extends Component {
 		const { URL_PGALLERY_IMGS_LIST_GET: _url } = PGallery || {};
 		const { URL_PGALLERY_IMGS_LIST_GET: url } = this.props.url || {};
 		const { request, pathSelect: { cat_id } } = this.props;
-
 		if (!cat_id) return;
 		if (this.state.itemArr[page]) {
 			this.setState({
@@ -128,7 +128,7 @@ class Imgs extends Component {
 	}
 	render() {
 
-		const { pathSelect, paths, onSet, request, url, onSure, max } = this.props;
+		const { pathSelect = {}, paths, onSet, request, url, onSure, max } = this.props;
 
 		const {
 			isEnd,
@@ -174,7 +174,7 @@ class Imgs extends Component {
 
 					loadDataForPaging={this.loadDataForPaging}
 					resetPrvScrollTop={curPage}
-					resetPage={resetPage}
+					resetPage={String(pathSelect.cat_id)}
 				>
 					<List 
 						itemArr={itemArr[curPage] || []}

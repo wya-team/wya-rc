@@ -3,8 +3,8 @@ import DebounceClick from '../../DebounceClick';
 import { Button } from 'antd';
 
 class Content extends Component {
-	handleClick = () => {
-		console.log('onClick');
+	handleClick = (e) => {
+		console.log('onClick', e);
 	};
 
 	render() {

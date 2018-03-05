@@ -1,4 +1,9 @@
 # 历史版本
+### 0.1.28 (2018-03-05)
+
+* [`DebounceClick: click防抖`](https://github.com/wya-team/wya-rc/tree/master/src/web/debounce-click/)
+* [`Calendar: 日历组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/calendar/)
+* 修改`PGallery`分页问题
 
 ### 0.1.27 (2018-02-27)
 

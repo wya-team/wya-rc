@@ -85,8 +85,9 @@ class UpLoad extends Component {
 		const { config: { PGallery } } = RcInstance;
 		const { URL_PGALLERY_IMGS_UPLOAD_POST: _url } = PGallery || {};
 		const { URL_PGALLERY_IMGS_UPLOAD_POST: url } = this.props.url || {};
-		const { request } = this.props;
+		const { request, pathSelect: { cat_id } } = this.props;
 		const { disabled } = this.state;
+		if (cat_id == 0) return null;
 		return (
 			<Upload
 				tag="span"
