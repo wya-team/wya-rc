@@ -40,10 +40,12 @@ import { CreatePrint, Copy } from 'wya-rc';
 ### 通用（移动优先）
 - [`AsyncComponent: 异步加载组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/)
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
+- [`Calendar: 日历组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/calendar/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
 - [`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
 - [`CreateLanguage: 语言包`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-language/)
 - [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
+- [`DebounceClick: click防抖`](https://github.com/wya-team/wya-rc/tree/master/src/web/debounce-click/)
 - [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
 - [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
 - [`Editor: 富文本`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/)
