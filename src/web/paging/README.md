@@ -27,6 +27,8 @@ tHide | `隐藏title` | `bool` | false
 dataSource | `table`数据(传入itemArr和itemObj) | `obj` | -
 rowSelection | `Checkbox`配置项 | `obj` | -
 renderRow | 列表Item | `func` | -
+actions | 传入Item的Action | `obj` | -
+rowProps | 传入Item的其他Props | `obj` | -
 
 ## 基础用法
 

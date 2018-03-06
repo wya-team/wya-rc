@@ -57,6 +57,10 @@ class Paging extends Component {
 	}
 	handleCheckAll = () => {
 		const { rowSelection, curPage, dataSource } = this.props;
+		if (!rowSelection) {
+			console.error('当前不属于可选择状态');
+			return;
+		}
 		const { itemObj = {} } = dataSource;
 		const { onChange } = rowSelection;
 		let selectedRowKeys = [], selectedRows = [];
@@ -117,7 +121,7 @@ class Paging extends Component {
 		});
 	};
 	renderTBody = () => {
-		const { rowSelection, curPage, dataSource, renderRow } = this.props;
+		const { rowSelection, curPage, dataSource, renderRow, actions, rowProps } = this.props;
 		const { itemArr = {}, itemObj = {} } = dataSource;
 		let curRowData = itemArr[curPage] || [];
 		this.changeableRows = [curRowData];
@@ -137,18 +141,22 @@ class Paging extends Component {
 						}
 
 						return React.createElement(renderRow, {
+							key: index,
 							rowSelection: {
 								disabled: rowSelection.getCheckboxProps(itemObj[item]).disabled,
 								checked: checked,
 								onChange: (e) => { this.handleSelectChange(e, item); },
 							},
 							itemData: itemObj[item],
-							key: index
+							actions,
+							rowProps
 						});
 					}
 					return React.createElement(renderRow, {
 						itemData: itemObj[item],
-						key: index
+						key: index,
+						rowProps,
+						actions,
 					});
 				})}
 			</tbody>
@@ -158,9 +166,9 @@ class Paging extends Component {
 		const { rowSelection, title, tHide, curPage, children, dataSource } = this.props;
 		const { itemArr = {}, itemObj = {} } = dataSource;
 		let curRowData = itemArr[curPage] || [];
+		let columns = [...title];
 		if (rowSelection) {
 			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemObj[item]).disabled);
-			let columns = [...title];
 			columns.unshift(
 				<SelectionCheckboxAll
 					data={this.state.checkArr[curPage]}
@@ -168,6 +176,10 @@ class Paging extends Component {
 					changeableRows={this.changeableRows}
 				/>
 			);
+		}
+		if (tHide) {
+			return this.renderTBody();
+		} else {
 			return (
 				<table className="__table" >
 					<thead>
@@ -184,36 +196,6 @@ class Paging extends Component {
 					{this.renderTBody()}
 				</table>
 			);
-		} else {
-			if (tHide) {
-				return  children[0] || children;
-			} else {
-				return (
-					<table className="__table" >
-						<thead>
-							<tr>
-								{
-									title.map((item, index) => {
-										return (
-											<th key={index}>{item}</th>
-										);
-									})
-								}
-							</tr>
-						</thead>
-						{children[0] || children}
-					</table>
-				);
-			}
-		}
-
-	};
-	renderOpt = () => {
-		const { rowSelection, children } = this.props;
-		if (rowSelection) {
-			return (children[0] || children) || '';
-		} else {
-			return children[1] || '';
 		}
 	};
 
@@ -238,7 +220,7 @@ class Paging extends Component {
 				{isEnd === 3 && <div className="__error">加载失败...</div>}
 				<div className="__footer">
 					<div className="__left">
-						{this.renderOpt()}
+						{children}
 					</div>
 					<Pagination
 						{...pagination}
@@ -266,6 +248,8 @@ Paging.propTypes = {
 	rowSelection: PropTypes.object,
 	dataSource: PropTypes.object,
 	renderRow: PropTypes.func.isRequired,
+	rowProps: PropTypes.object,
+	actions: PropTypes.object
 };
 Paging.defaultProps = {
 	title: [],
