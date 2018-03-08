@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -43,7 +43,7 @@
     "Often use: echarts, antd, antd-mobile, react, react-dom, classnames, lrz, wya-fetch;Load by yourself,`npm install -S **`"
   ],
   "dependencies": {
-    "braft-editor": "^1.4.3",
+    "braft-editor": "^1.6.1",
     "element-resize-event": "^2.0.9"
   },
   "devDependencies": {

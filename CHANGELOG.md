@@ -1,4 +1,8 @@
 # 历史版本
+### 0.1.29 (2018-03-08)
+
+* 添加`Upload` showTips控制上传进度弹窗，size控制文件大小（size）
+
 ### 0.1.28 (2018-03-05)
 
 * [`DebounceClick: click防抖`](https://github.com/wya-team/wya-rc/tree/master/src/web/debounce-click/)

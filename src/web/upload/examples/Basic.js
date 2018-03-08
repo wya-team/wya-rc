@@ -25,7 +25,7 @@ class Basic extends Component {
 		console.log(res);
 	}
 	handleBegin = (files) => {
-		
+		console.log(files);
 	}
 	handleComplete = (info = {}) => {
 		console.log(`Error: ${info.error}, Success: ${info.success}, 总数：${info.total}`);
@@ -37,7 +37,7 @@ class Basic extends Component {
 				tag="span"
 				// type="images" // 文件类型 images | files
 				// accept="" // input: 文件类型限制
-				// multiple // multiple: 单图 or 多图
+				multiple // multiple: 单图 or 多图
 				// url={} // ajax: 如果已经注册就不用传递
 				// filename // ajax: formDate.append(filename, ....)
 				// headers // ajax: headers 
@@ -50,6 +50,8 @@ class Basic extends Component {
 				onFileError={this.handleError}
 				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
+				showTips={true}
+				size={2.1}
 			>
 				<div>上传</div>
 			</Upload>

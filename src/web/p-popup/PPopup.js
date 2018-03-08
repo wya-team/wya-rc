@@ -6,7 +6,7 @@ import './PPopup.scss';
 
 import createLanguage from '../create-language/index.js';
 @createLanguage()
-class PSelect extends Component {
+class PPopup extends Component {
 	constructor(props, context) {
 		super(props, context);
 	}
@@ -37,11 +37,11 @@ class PSelect extends Component {
 		}, 201);
 	}
 	render() {
-		const { children, title, className } = this.props;
+		const { children, title, className, style = {} } = this.props;
 		let content = children[0] || children;
 		let footer = children[1] || '';
 		return (
-			<div className={`wp-popup${className ? ` ${className}` : ''}`} ref={this.setEl}>
+			<div className={`wp-popup${className ? ` ${className}` : ''}`} style={{ ...style }} ref={this.setEl}>
 				<div className="__mask" onClick={this.handleClose}/>
 				<div className="__container">
 					<div className="__header">
@@ -66,4 +66,4 @@ class PSelect extends Component {
 	}
 }
 
-export default PSelect;
+export default PPopup;

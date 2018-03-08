@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { ajax } from 'wya-fetch';
-import { getUid, attrAccept } from '../utils/utils';
+import { getUid, attrAccept, initItem } from '../utils/utils';
 import RcInstance from '../rc-instance/index';
+import Tips from './Tips';
 class Upload extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -16,12 +17,21 @@ class Upload extends Component {
 		this.setDefaultCycle();
 	}
 
-	componentDidMount() {
+	componentDidMount(){
 		this._isMounted = true;
+		if (!this.props.showTips) return;
+		Tips.popup({})
+			.then((comp) => {
+				this.tips = comp;
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	componentWillUnmount() {
 		this._isMounted = false;
+		this.tips && this.tips.close();
 		this.cancel();
 	}
 
@@ -69,13 +79,17 @@ class Upload extends Component {
 		this.setDefaultCycle();
 		const { onBegin } = this.props;
 		onBegin && onBegin(postFiles);
-
+	
 		postFiles.forEach((file, index) => {
 			file.uid = getUid();
 			file.current =  index + 1;
 			file.total = length;
+			file.percent = 0;
 			this.upload(file, postFiles);
 		});
+
+		// tips
+		this.tips && this.tips.show(initItem(postFiles, 'uid'));
 	}
 
 	upload(file, fileList, index) {
@@ -112,7 +126,14 @@ class Upload extends Component {
 		const { URL_UPLOAD_FILE_POST, URL_UPLOAD_IMG_POST } = RcInstance.config.Upload || {};
 		const _url = type === 'images' ? URL_UPLOAD_IMG_POST : URL_UPLOAD_FILE_POST;
 		const { uid } = file;
-		const { request = ajax } = this.props;
+		const { request = ajax, size } = this.props;
+		let localData;
+		if (size && file.size > size * 1024 * 1024) {
+			localData = {
+				status: 0,
+				msg: `上传失败，大小限制为${size}MB`
+			};
+		}
 		this.reqs[uid] = request({
 			url: url || _url,
 			type: "FORM",
@@ -122,7 +143,13 @@ class Upload extends Component {
 				data,
 			},
 			headers,
-			onProgress: onFileProgress ? e => { onFileProgress(e, file); } : null,
+			localData,
+			onProgress: onFileProgress 
+				? e => { 
+					onFileProgress(e, file); 
+					this.tips && this.tips.setValue(uid, 'percent', e.percent ); 
+				}
+				: e => this.tips && this.tips.setValue(uid, 'percent', e.percent ),
 		}).then((res) => {
 			delete this.reqs[uid];
 			this.cycle.success++;
@@ -130,21 +157,35 @@ class Upload extends Component {
 			this.cycle.imgs = [...this.cycle.imgs, res];
 
 			onFileSuccess && onFileSuccess(res, file, { ...this.cycle });
+
+			// tips
+			this.tips && this.tips.setValue(uid, 'success'); 
+
 			// console.log(`success: ${this.cycle.success}, total: ${this.cycle.total}`);
 			if (this.cycle.total === file.total) {
 				onComplete && onComplete({ ...this.cycle } || {});
 				this.setDefaultCycle();
+
+				// tips
+				this.tips && this.tips.setTipsStatus(true);
 			}
 		}).catch((res) => {
 			delete this.reqs[uid];
 			this.cycle.error++;
 			this.cycle.total++;
-			// console.log(`error: ${this.cycle.error}, total: ${this.cycle.total}`);
+
 			onFileError && onFileError(res, file, { ...this.cycle });
 
+			// tips
+			this.tips && this.tips.setValue(uid, 'error', res.msg); 
+
+			// console.log(`error: ${this.cycle.error}, total: ${this.cycle.total}`);
 			if (this.cycle.total === file.total) {
 				onComplete && onComplete({ ...this.cycle } || {});
 				this.setDefaultCycle();
+
+				// tips
+				this.tips && this.tips.setTipsStatus(true);
 			}
 		});
 		onFileStart && onFileStart(file);
@@ -235,6 +276,7 @@ Upload.propTypes = {
 	multiple: PropTypes.bool,
 	disabled: PropTypes.bool,
 	accept: PropTypes.string,
+	size: PropTypes.number,
 	// ajax
 	request: PropTypes.func, 
 	data: PropTypes.object,
@@ -249,15 +291,18 @@ Upload.propTypes = {
 	// 上传类型 images | file 影响调用接口
 	type: PropTypes.string,
 	// 元素
-	children: PropTypes.any
-
+	children: PropTypes.any,
+	// 提示框
+	showTips: PropTypes.bool,
 };
 Upload.defaultProps = {
 	tag: 'span',
 	prefixCls: 'c-upload',
+	showTips: false,
 	data: {},
 	headers: {},
 	filename: 'Filedata',
+	size: 0,
 	onFileStart: null,
 	onFileProgress: null,
 	onFileSuccess: null,
