@@ -17,6 +17,7 @@ npm install antd --save
 ---|---|---|---
 title | 列名 | `array` | -
 className | 样式 | `string` | -
+listClassName | 列表样式 | `string` | -
 isEnd | 加载完毕0(需要判断是否有数据), 1为加载中, 3数据异常 （PullScroll有2状态）| `number` | 0
 curPage | 当前页 | `number` | -
 totalPage | 总页数 | `number` | -

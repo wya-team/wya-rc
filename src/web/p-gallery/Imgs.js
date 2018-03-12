@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { Pagination } from 'antd';
 import UpLoad from './UpLoad';
 import PathsEdit from './PathsEdit';
-import List from './List';
+import Item from './Item';
 import ImgsEdit from './ImgsEdit';
 import Search from './Search';
 import { Button, message } from 'antd';
@@ -164,31 +164,38 @@ class Imgs extends Component {
 				</div>
 				<Paging 
 					className="__no-pd"
+					listClassName="__list"
 					style={{ height: '100%' }}
 					title={[]}
 					tHide={true}
+
 					isEnd={isEnd}
 					curPage={curPage}
 					totalPage={totalPage}
-					showTotal={() => totalCount ? `共 ${totalCount} 条` : null}
+					dataSource={{
+						itemArr,
+						itemObj
+					}}
+					renderRow={Item}
+					rowProps={
+						{
+							selectArr,
+							request,
+							url,
+							paths,
+							pathSelect,
+							onSet,
+							onSelect: this.handleSelect,
+							onSetItem: this.handleSetItem,
+							onInit: this.handleInit,
+						}
+					}
 
+					showTotal={() => totalCount ? `共 ${totalCount} 条` : null}
 					loadDataForPaging={this.loadDataForPaging}
 					resetPrvScrollTop={curPage}
 					resetPage={String(pathSelect.cat_id)}
 				>
-					<List 
-						itemArr={itemArr[curPage] || []}
-						itemObj={itemObj}
-						selectArr={selectArr}
-						onSelect={this.handleSelect}
-						onSetItem={this.handleSetItem}
-						onSet={onSet}
-						onInit={this.handleInit}
-						request={request}
-						url={url}
-						paths={paths}
-						pathSelect={pathSelect}
-					/>
 					<ImgsEdit
 						onSure={onSure}
 						selectArr={selectArr}
