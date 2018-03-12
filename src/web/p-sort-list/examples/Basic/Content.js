@@ -1,5 +1,5 @@
 import React, { Component, createElement } from 'react';
-import { PSortList } from '../../../../main.js';
+import PSortList from '../../PSortList.js';
 import Item from './Item';
 
 class Content extends Component {

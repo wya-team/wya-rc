@@ -13,7 +13,7 @@
 | onChange   | 改变后的回调    | `func`    |      |
 | style      | 容器样式      | `object`  |      |
 
-##示例
+## 示例
 
 Item.js
 
@@ -36,10 +36,9 @@ export default class Item extends Component {
 
 Content.js
 
-```jsx
-import { getUid } from '../utils/utils';
-import PropTypes from 'prop-types';
-import './PSortList.scss';
+```js
+import { PSortList } from 'wya-rc';
+
 class Content extends Component {
 	constructor(props, context) {
 		super(props, context);
