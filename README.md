@@ -70,6 +70,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`PTabs: PC端tabs`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-tabs/)
 - [`PPopup: 弹出层`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-popup/)
 - [`PGallery: 图片库`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-gallery/)
+- [`PSortList: 拖拽`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-sort-list/)
 
 
 <!--  以下内容无视  -->
