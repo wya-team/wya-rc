@@ -44,7 +44,8 @@
   ],
   "dependencies": {
     "braft-editor": "^1.6.1",
-    "element-resize-event": "^2.0.9"
+    "element-resize-event": "^2.0.9",
+    "photoswipe": "^4.1.2"
   },
   "devDependencies": {
     "antd": "^3.1.4",

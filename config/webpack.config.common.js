@@ -89,7 +89,7 @@ const webpackConfig = {
 				use: ['style-loader', 'css-loader', postcssLoader, 'less-loader'],
 			},
 			{
-				test: /\.(png|jpg|gif|eot|ttf|woff|woff2)$/,
+				test: /\.(png|jpg|gif|eot|ttf|woff|woff2|svg)$/,
 				loader: 'url-loader',
 				options: {
 					limit: 10000
@@ -103,14 +103,14 @@ const webpackConfig = {
 				test: /\.html$/i,
 				use: 'html-loader'
 			},
-			{
-				test: /\.svg$/,
-				use: 'svg-sprite-loader',
-				include: [
-					// antd-mobile 内置svg，后续可以等它支持2.x做修改
-					path.resolve(APP_ROOT, ''),  // 业务代码本地私有 svg 存放目录
-				],
-			}
+			// {
+			// 	test: /\.svg$/,
+			// 	use: 'svg-sprite-loader',
+			// 	include: [
+			// 		// antd-mobile 内置svg，后续可以等它支持2.x做修改
+			// 		path.resolve(APP_ROOT, ''),  // 业务代码本地私有 svg 存放目录
+			// 	],
+			// }
 		]
 	},
 	plugins: [
