@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -16,7 +16,7 @@
     "dist": "npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
     "build": "npm run dist -- -p",
     "build:dev": "npm run dist",
-    "publish": "rm -rf ./lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/** && npm publish",
+    "lib": "rm -rf ./lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/** && npm publish",
     "remove:dist": "rm -rf ./dist",
     "lint": "esw ./config/*.config.* ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",

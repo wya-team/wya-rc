@@ -12,9 +12,7 @@ class Paging extends Component {
 			checkArr: {}
 		};
 		this.wrapper = props.wrapper;
-		this.bindScroll = ::this.bindScroll;
-		this.handleChange = ::this.handleChange;
-		this.loadDataFirst = ::this.loadDataFirst;
+		this.scrollContainer = null;
 		this.changeableRows = [];
 	}
 	componentDidMount() {
@@ -35,13 +33,15 @@ class Paging extends Component {
 	componentDidCatch(error, info){
 		console.log(error, info);
 	}
-	handleChange(pages) {
+	handleChange = (pages) =>  {
 		this.props.loadDataForPaging && this.props.loadDataForPaging(pages);
 	}
-	bindScroll() {
-		this.scrollContainer = (this.wrapper) ? document.querySelector(this.wrapper) : document.body;
+	bindScroll = () => {
+		if (this.wrapper) {
+			this.scrollContainer = document.querySelector(`${this.wrapper}`);
+		}
 	}
-	loadDataFirst(curProps = {}) { // 第一次请求
+	loadDataFirst = (curProps = {}) => { // 第一次请求
 		const {
 			isEnd,
 			curPage,
@@ -133,7 +133,7 @@ class Paging extends Component {
 			Tag = 'div';
 		}
 		return (
-			<Tag className={listClassName || ""}>
+			<Tag className={listClassName || ""} ref={node => this.scrollContainer = node}>
 				{curRowData.map((item, index) => {
 					if (rowSelection) {
 						let checked;
