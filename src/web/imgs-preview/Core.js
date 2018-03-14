@@ -129,10 +129,12 @@ class Core extends React.Component {
 								className="pswp__button pswp__button--close"
 								title="Close (Esc)"
 							/>
-							<button
-								className="pswp__button pswp__button--share"
-								title="Share"
-							/>
+							{
+								// <button
+								// 	className="pswp__button pswp__button--share"
+								// 	title="Share"
+								// />
+							}
 							<button
 								className="pswp__button pswp__button--fs"
 								title="Toggle fullscreen"

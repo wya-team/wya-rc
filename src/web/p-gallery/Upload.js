@@ -23,7 +23,6 @@ class UpLoad extends Component {
 	}
 	handleComplete = (info = {}) => {
 		message.destroy();
-		this.props.onInit && this.props.onInit();
 		this.setState({
 			disabled: false
 		});
@@ -62,6 +61,7 @@ class UpLoad extends Component {
 		const { pathSelect, paths } = this.props;
 		const { cat_id } = pathSelect;
 		if (this.success === this._request){
+			this.props.onInit && this.props.onInit();
 			this.props.onSet({
 				paths: paths.map((item) => {
 					if (item.cat_id == cat_id) {
@@ -104,6 +104,7 @@ class UpLoad extends Component {
 				onFileError={this.handleError}
 				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
+				showTips
 			>
 				<Button type={disabled ? "disabled" : "primary"} disabled={disabled}>
 					上传

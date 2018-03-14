@@ -1,4 +1,16 @@
 # 历史版本
+
+
+### 0.2.2 (2018-03-14)
+
+* 修复bug（`PGallery选择器 -> onInit调用有误`）
+
+
+### 0.2.1 (2018-03-13)
+
+* 增加[`PSortList: 排序`](https://github.com/wya-team/wya-rc/tree/master/src/web/p-sort-list/)
+* 增加[`ImgsPreview: 预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)
+
 ### 0.2.0 (2018-03-12)
 
 * 删除组件`PSelectGoods`(业务变化太频繁)
