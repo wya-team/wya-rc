@@ -36,9 +36,11 @@ class PSortList extends Component {
 	 * 点击遮罩上的按钮
 	 */
 	handleClick = (current) => {
+		const list = this.getSortList(current);
 		this.setState({
-			list: this.getSortList(current)
+			list,
 		});
+		this.props.onChange && this.props.onChange(list.map(item => item.itemData));
 	}
 
 	/**
@@ -62,7 +64,7 @@ class PSortList extends Component {
 			default: // 删除
 				break;
 		}
-		this.props.onChange && this.props.onChange(arr.map(item => item.itemData));
+		// this.props.onChange && this.props.onChange(arr.map(item => item.itemData));
 		return arr;
 	}
 
@@ -110,6 +112,10 @@ class PSortList extends Component {
 	 */
 	handleDragEnd = (e) => {
 		e.dataTransfer.clearData("text");
+		const { id } = this.eleDrag;
+		const { list } = this.state;
+		this.props.onChange && this.props.onChange(list.map(item => item.itemData));
+
 		this.eleDrag = null;
 		this.setState({
 			list: this.state.list.map(item => {
