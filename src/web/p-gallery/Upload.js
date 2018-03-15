@@ -104,7 +104,7 @@ class UpLoad extends Component {
 				onFileError={this.handleError}
 				onBegin={this.handleBegin}
 				onComplete={this.handleComplete}
-				showTips
+				// showTips
 			>
 				<Button type={disabled ? "disabled" : "primary"} disabled={disabled}>
 					上传
