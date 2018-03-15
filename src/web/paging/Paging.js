@@ -14,6 +14,7 @@ class Paging extends Component {
 		this.wrapper = props.wrapper;
 		this.scrollContainer = null;
 		this.changeableRows = [];
+		this.initCheckedData = Object.create(null);
 	}
 	componentDidMount() {
 		if (this.props.isEnd === 0) { // 禁用，加载完成或者加载中无视
@@ -28,6 +29,28 @@ class Paging extends Component {
 		}
 		if (nextProps.isEnd === 0) { // 禁用，加载完成或者加载中无视
 			this.loadDataFirst(nextProps);
+		}
+		if (this.props.curPage !== nextProps.curPage) {
+			const { rowSelection, curPage, dataSource } = nextProps;
+			const { itemArr = {}, itemObj = {} } = dataSource;
+			let curRowData = itemArr[curPage] || [];
+			if (rowSelection) {
+				// 获取下一页面可勾选的行
+				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
+				let checkArr = {};
+				// 将下一页的初始数据设置到state中
+				if (!this.state.checkArr[nextProps.curPage]) {
+					for (let i = 0; i < this.changeableRows.length; i++) {
+						checkArr[this.changeableRows[i]] = this.getCheckboxProps(itemObj[this.changeableRows[i]]).checked;
+					}
+					this.setState({
+						checkArr: {
+							...this.state.checkArr,
+							[nextProps.curPage]: { ...checkArr }
+						}
+					});
+				}
+			}
 		}
 	}
 	componentDidCatch(error, info){
@@ -62,9 +85,9 @@ class Paging extends Component {
 			return;
 		}
 		const { itemObj = {} } = dataSource;
-		const { onChange } = rowSelection;
+		const { onChange, onSelectAll } = rowSelection;
 		let selectedRowKeys = [], selectedRows = [];
-		let curPageCheck = this.state.checkArr[curPage] || {};
+		let curPageCheck = this.state.checkArr[curPage] || this.initCheckedData || {};
 		for (let i = 0; i < this.changeableRows.length; i++) {
 			if (!curPageCheck[this.changeableRows[i]]) { // 未选中
 				let checkedRows = this.handleSetSelect('check');
@@ -74,27 +97,39 @@ class Paging extends Component {
 						selectedRows.push(itemObj[key]);
 					}
 				}
+				onSelectAll && onSelectAll(selectedRowKeys, selectedRows);
 				onChange && onChange(selectedRowKeys, selectedRows);
 				return;
 			}
 		}
 		this.handleSetSelect('uncheck');
+		onSelectAll && onSelectAll([], []);
 		onChange && onChange([], []);
 		return;
 	};
 	handleSetSelect = (type) => {
 		const { curPage } = this.props;
 		let checkArr = {};
-		for (let i = 0; i < this.changeableRows.length; i++) {
-			checkArr[this.changeableRows[i]] = type === 'check';
+
+		if (this.changeableRows.length === 0) { // 如果当前页全部不可选，则title中的勾选框不勾选
+			this.setState({
+				checkArr: {
+					...this.state.checkArr,
+					[curPage]: Object.create(null)
+				}
+			});
+		} else {
+			for (let i = 0; i < this.changeableRows.length; i++) {
+				checkArr[this.changeableRows[i]] = type === 'check';
+			}
+			this.setState({
+				checkArr: {
+					...this.state.checkArr,
+					[curPage]: { ...checkArr }
+				}
+			});
 		}
 
-		this.setState({
-			checkArr: {
-				...this.state.checkArr,
-				[curPage]: { ...checkArr }
-			}
-		});
 		return checkArr;
 	};
 	handleSelectChange = (event, item) => {
@@ -120,13 +155,17 @@ class Paging extends Component {
 			onChange && onChange(selectedRowKeys, selectedRows);
 		});
 	};
+	getCheckboxProps = (itemData) => {
+		const { rowSelection } = this.props;
+		return rowSelection.getCheckboxProps && rowSelection.getCheckboxProps(itemData) || {};
+	};
 	renderTBody = () => {
 		const { rowSelection, curPage, dataSource, renderRow, actions, rowProps, tHide, listClassName } = this.props;
 		const { itemArr = {}, itemObj = {} } = dataSource;
 		let curRowData = itemArr[curPage] || [];
-		this.changeableRows = [curRowData];
+		this.changeableRows = [...curRowData];
 		if (rowSelection) {
-			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemObj[item]).disabled);
+			this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
 		}
 		let Tag = 'tbody';
 		if (tHide) {
@@ -137,16 +176,16 @@ class Paging extends Component {
 				{curRowData.map((item, index) => {
 					if (rowSelection) {
 						let checked;
-						if (this.state.checkArr[curPage] && !rowSelection.getCheckboxProps(itemObj[item]).disabled) {
+						if (this.state.checkArr[curPage] && !this.getCheckboxProps(itemObj[item]).disabled) {
 							checked = this.state.checkArr[curPage][item];
 						} else {
-							checked = rowSelection.getCheckboxProps(itemObj[item]).checked;
+							checked = this.getCheckboxProps(itemObj[item]).checked;
 						}
 
 						return React.createElement(renderRow, {
 							key: index,
 							rowSelection: {
-								disabled: rowSelection.getCheckboxProps(itemObj[item]).disabled,
+								disabled: this.getCheckboxProps(itemObj[item]).disabled,
 								checked: checked,
 								onChange: (e) => { this.handleSelectChange(e, item); },
 							},
@@ -166,12 +205,9 @@ class Paging extends Component {
 		);
 	};
 	renderTable = () => {
-		const { rowSelection, title, tHide, curPage, children, dataSource } = this.props;
-		const { itemArr = {}, itemObj = {} } = dataSource;
-		let curRowData = itemArr[curPage] || [];
+		const { rowSelection, title, tHide, curPage } = this.props;
 		let columns = [...title];
 		if (rowSelection) {
-			this.changeableRows = curRowData.filter((item, i) => !rowSelection.getCheckboxProps(itemObj[item]).disabled);
 			columns.unshift(
 				<SelectionCheckboxAll
 					data={this.state.checkArr[curPage]}

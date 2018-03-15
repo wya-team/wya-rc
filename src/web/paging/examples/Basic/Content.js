@@ -76,7 +76,7 @@ class Content extends Component {
 		this.setState({
 			...initState
 		});
-	}
+	};
 	handleSelectItem = (id) => {
 		let { selectArr } = this.state;
 		if (selectArr.includes(id)){

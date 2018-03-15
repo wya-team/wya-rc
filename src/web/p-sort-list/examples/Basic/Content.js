@@ -36,8 +36,7 @@ class Content extends Component {
 				onChange={this.handleChange}
 				renderRow={Item}
 				style={{ width: 1000 }}
-			>
-			</PSortList>
+			 />
 		);
 	}
 }

@@ -13,7 +13,7 @@ class SelectionCheckboxAll extends Component {
 
 	getCheckedState = () => {
 		const { data, changeableRows } = this.props;
-		if (data) {
+		if (data && JSON.stringify(data) !== '{}') {
 			for (let i = 0; i < changeableRows.length; i++) {
 				if (!data[changeableRows[i]]) {
 					return false;
@@ -26,7 +26,8 @@ class SelectionCheckboxAll extends Component {
 
 	getIndeterminateState = () => {
 		const { data, changeableRows } = this.props;
-		if (data) {
+
+		if (data && JSON.stringify(data) !== '{}') {
 			let arr = [];
 			for (let i = 0; i < changeableRows.length; i++) {
 				if (data[changeableRows[i]]) {
