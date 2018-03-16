@@ -64,7 +64,7 @@ class UpLoad extends Component {
 			this.props.onInit && this.props.onInit();
 			this.props.onSet({
 				paths: paths.map((item) => {
-					if (item.cat_id == cat_id) {
+					if (item.cat_id == cat_id || item.cat_id == 0) {
 						return {
 							...item,
 							count: Number(item.count) + this._success
