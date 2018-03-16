@@ -31,6 +31,14 @@ renderRow | 列表Item | `func` | -
 actions | 传入Item的Action | `obj` | -
 rowProps | 传入Item的其他Props | `obj` | -
 
+## rowSelection API
+属性 | 说明 | 类型 | 默认值
+---|---|---|---
+getCheckboxProps | 传递给checkbox的属性 | `func` | -
+onChange | checkbox改变之后的回调 | `func` | -
+onSelectAll | 全部选中后的回调 | `func` | -
+onCancelAll | 勾选状态全部取消后的回调 | `func` | -
+
 ## 基础用法
 
 ```jsx

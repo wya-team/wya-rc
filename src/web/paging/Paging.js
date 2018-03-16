@@ -85,7 +85,7 @@ class Paging extends Component {
 			return;
 		}
 		const { itemObj = {} } = dataSource;
-		const { onChange, onSelectAll } = rowSelection;
+		const { onChange, onSelectAll, onCancelAll } = rowSelection;
 		let selectedRowKeys = [], selectedRows = [];
 		let curPageCheck = this.state.checkArr[curPage] || this.initCheckedData || {};
 		for (let i = 0; i < this.changeableRows.length; i++) {
@@ -103,7 +103,7 @@ class Paging extends Component {
 			}
 		}
 		this.handleSetSelect('uncheck');
-		onSelectAll && onSelectAll([], []);
+		onCancelAll && onCancelAll([], []);
 		onChange && onChange([], []);
 		return;
 	};
