@@ -145,7 +145,7 @@ class Tips extends Component {
 							const { name, size, percent, msg } = itemObj[item] || {};
 							return (
 								<li key={item}>
-									<div className="__bar" style={{ width: `${msg ? 100 : percent}%` }}></div>
+									<div className="__bar" style={{ width: `${msg ? 100 : percent}%` }} />
 									<div className="__content">
 										<div>{name}</div>
 										<div>{(size / 1024 / 1024).toFixed(2)}MB</div>
