@@ -51,6 +51,30 @@ class Paging extends Component {
 					});
 				}
 			}
+		} else if (this.props.curPage === nextProps.curPage) {
+			const { rowSelection, curPage, dataSource } = nextProps;
+			const { itemArr = {}, itemObj = {} } = dataSource;
+			let curRowData = itemArr[curPage] || [];
+			if (rowSelection) {
+				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
+				let unChangeableRows = curRowData.filter((item, i) => this.getCheckboxProps(itemObj[item]).disabled);
+				let unCheckArr = {};
+				// 将disabled的Row的check状态改为false设置到state中
+				if (this.state.checkArr[nextProps.curPage]) {
+					for (let i = 0; i < unChangeableRows.length; i++) {
+						unCheckArr[unChangeableRows[i]] = false;
+					}
+					this.setState({
+						checkArr: {
+							...this.state.checkArr,
+							[nextProps.curPage]: {
+								...this.state.checkArr[nextProps.curPage],
+								...unCheckArr
+							}
+						}
+					});
+				}
+			}
 		}
 	}
 	componentDidCatch(error, info){
@@ -58,12 +82,12 @@ class Paging extends Component {
 	}
 	handleChange = (pages) =>  {
 		this.props.loadDataForPaging && this.props.loadDataForPaging(pages);
-	}
+	};
 	bindScroll = () => {
 		if (this.wrapper) {
 			this.scrollContainer = document.querySelector(`${this.wrapper}`);
 		}
-	}
+	};
 	loadDataFirst = (curProps = {}) => { // 第一次请求
 		const {
 			isEnd,
@@ -77,7 +101,7 @@ class Paging extends Component {
 				: 1;
 			loadDataForPaging && loadDataForPaging(nextPage);
 		}
-	}
+	};
 	handleCheckAll = () => {
 		const { rowSelection, curPage, dataSource } = this.props;
 		if (!rowSelection) {
@@ -176,8 +200,15 @@ class Paging extends Component {
 				{curRowData.map((item, index) => {
 					if (rowSelection) {
 						let checked;
-						if (this.state.checkArr[curPage] && !this.getCheckboxProps(itemObj[item]).disabled) {
-							checked = this.state.checkArr[curPage][item];
+						if (this.state.checkArr[curPage]) {
+							if (!this.getCheckboxProps(itemObj[item]).disabled || (
+								this.state.checkArr[curPage][item] !== undefined &&
+								this.getCheckboxProps(itemObj[item]).disabled
+							)) {
+								checked = this.state.checkArr[curPage][item];
+							} else {
+								checked = this.getCheckboxProps(itemObj[item]).checked;
+							}
 						} else {
 							checked = this.getCheckboxProps(itemObj[item]).checked;
 						}

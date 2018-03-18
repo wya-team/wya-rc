@@ -13,7 +13,7 @@ class SelectionCheckboxAll extends Component {
 
 	getCheckedState = () => {
 		const { data, changeableRows } = this.props;
-		if (data && JSON.stringify(data) !== '{}') {
+		if (data && JSON.stringify(data) !== '{}' && changeableRows.length > 0) {
 			for (let i = 0; i < changeableRows.length; i++) {
 				if (!data[changeableRows[i]]) {
 					return false;
