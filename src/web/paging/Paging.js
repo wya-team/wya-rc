@@ -35,43 +35,29 @@ class Paging extends Component {
 			const { itemArr = {}, itemObj = {} } = dataSource;
 			let curRowData = itemArr[curPage] || [];
 			if (rowSelection) {
+				const { onChange } = rowSelection;
 				// 获取下一页面可勾选的行
 				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
-				let checkArr = {};
+				let checkArr = {}, selectedRowKeys = [], selectedRows = [];
 				// 将下一页的初始数据设置到state中
 				if (!this.state.checkArr[nextProps.curPage]) {
 					for (let i = 0; i < this.changeableRows.length; i++) {
 						checkArr[this.changeableRows[i]] = this.getCheckboxProps(itemObj[this.changeableRows[i]]).checked;
 					}
+					console.log(checkArr);
 					this.setState({
 						checkArr: {
 							...this.state.checkArr,
-							[nextProps.curPage]: { ...checkArr }
+							[curPage]: { ...checkArr }
 						}
-					});
-				}
-			}
-		} else if (this.props.curPage === nextProps.curPage) {
-			const { rowSelection, curPage, dataSource } = nextProps;
-			const { itemArr = {}, itemObj = {} } = dataSource;
-			let curRowData = itemArr[curPage] || [];
-			if (rowSelection) {
-				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
-				let unChangeableRows = curRowData.filter((item, i) => this.getCheckboxProps(itemObj[item]).disabled);
-				let unCheckArr = {};
-				// 将disabled的Row的check状态改为false设置到state中
-				if (this.state.checkArr[nextProps.curPage]) {
-					for (let i = 0; i < unChangeableRows.length; i++) {
-						unCheckArr[unChangeableRows[i]] = false;
-					}
-					this.setState({
-						checkArr: {
-							...this.state.checkArr,
-							[nextProps.curPage]: {
-								...this.state.checkArr[nextProps.curPage],
-								...unCheckArr
+					}, () => {
+						for (let key in this.state.checkArr[curPage]) {
+							if (this.state.checkArr[curPage][key]) {
+								selectedRowKeys.push(key);
+								selectedRows.push(itemObj[key]);
 							}
 						}
+						onChange && onChange(selectedRowKeys, selectedRows);
 					});
 				}
 			}
@@ -136,10 +122,16 @@ class Paging extends Component {
 		let checkArr = {};
 
 		if (this.changeableRows.length === 0) { // 如果当前页全部不可选，则title中的勾选框不勾选
+			let checkArr = {}, curPageData = this.state.checkArr[curPage];
+			for (let key in curPageData) {
+				checkArr[key] = false;
+			}
 			this.setState({
 				checkArr: {
 					...this.state.checkArr,
-					[curPage]: Object.create(null)
+					[curPage]: {
+						...checkArr
+					}
 				}
 			});
 		} else {
@@ -179,6 +171,22 @@ class Paging extends Component {
 			onChange && onChange(selectedRowKeys, selectedRows);
 		});
 	};
+	handleResetCheckState = (data = []) => {
+		const { curPage } = this.props;
+		let checkArr = {};
+		for (let i = 0; i < data.length; i++) {
+			checkArr[data[i]] = false;
+		}
+		this.setState({
+			checkArr: {
+				...this.state.checkArr,
+				[curPage]: {
+					...this.state.checkArr[curPage],
+					...checkArr
+				}
+			}
+		});
+	};
 	getCheckboxProps = (itemData) => {
 		const { rowSelection } = this.props;
 		return rowSelection.getCheckboxProps && rowSelection.getCheckboxProps(itemData) || {};
@@ -201,6 +209,7 @@ class Paging extends Component {
 					if (rowSelection) {
 						let checked;
 						if (this.state.checkArr[curPage]) {
+							console.log(this.state.checkArr[curPage][item], this.getCheckboxProps(itemObj[item]).disabled);
 							if (!this.getCheckboxProps(itemObj[item]).disabled || (
 								this.state.checkArr[curPage][item] !== undefined &&
 								this.getCheckboxProps(itemObj[item]).disabled
@@ -236,9 +245,14 @@ class Paging extends Component {
 		);
 	};
 	renderTable = () => {
-		const { rowSelection, title, tHide, curPage } = this.props;
+		const { dataSource, rowSelection, title, tHide, curPage } = this.props;
 		let columns = [...title];
+		const { itemArr = {}, itemObj = {} } = dataSource;
+		let curRowData = itemArr[curPage] || [];
 		if (rowSelection) {
+			if (rowSelection) {
+				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
+			}
 			columns.unshift(
 				<SelectionCheckboxAll
 					data={this.state.checkArr[curPage]}
