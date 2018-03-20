@@ -35,29 +35,19 @@ class Paging extends Component {
 			const { itemArr = {}, itemObj = {} } = dataSource;
 			let curRowData = itemArr[curPage] || [];
 			if (rowSelection) {
-				const { onChange } = rowSelection;
 				// 获取下一页面可勾选的行
 				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
-				let checkArr = {}, selectedRowKeys = [], selectedRows = [];
+				let checkArr = {};
 				// 将下一页的初始数据设置到state中
 				if (!this.state.checkArr[nextProps.curPage]) {
 					for (let i = 0; i < this.changeableRows.length; i++) {
 						checkArr[this.changeableRows[i]] = this.getCheckboxProps(itemObj[this.changeableRows[i]]).checked;
 					}
-					console.log(checkArr);
 					this.setState({
 						checkArr: {
 							...this.state.checkArr,
 							[curPage]: { ...checkArr }
 						}
-					}, () => {
-						for (let key in this.state.checkArr[curPage]) {
-							if (this.state.checkArr[curPage][key]) {
-								selectedRowKeys.push(key);
-								selectedRows.push(itemObj[key]);
-							}
-						}
-						onChange && onChange(selectedRowKeys, selectedRows);
 					});
 				}
 			}
@@ -171,19 +161,11 @@ class Paging extends Component {
 			onChange && onChange(selectedRowKeys, selectedRows);
 		});
 	};
-	handleResetCheckState = (data = []) => {
-		const { curPage } = this.props;
-		let checkArr = {};
-		for (let i = 0; i < data.length; i++) {
-			checkArr[data[i]] = false;
-		}
+	resetCheckState = (curPage) => {
 		this.setState({
 			checkArr: {
 				...this.state.checkArr,
-				[curPage]: {
-					...this.state.checkArr[curPage],
-					...checkArr
-				}
+				[curPage]: null
 			}
 		});
 	};
@@ -245,14 +227,10 @@ class Paging extends Component {
 		);
 	};
 	renderTable = () => {
-		const { dataSource, rowSelection, title, tHide, curPage } = this.props;
+		const { rowSelection, title, tHide, curPage } = this.props;
 		let columns = [...title];
-		const { itemArr = {}, itemObj = {} } = dataSource;
-		let curRowData = itemArr[curPage] || [];
 		if (rowSelection) {
-			if (rowSelection) {
-				this.changeableRows = curRowData.filter((item, i) => !this.getCheckboxProps(itemObj[item]).disabled);
-			}
+
 			columns.unshift(
 				<SelectionCheckboxAll
 					data={this.state.checkArr[curPage]}
