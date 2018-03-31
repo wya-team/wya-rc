@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Mtouch from '../Mtouch';
+import MTouch from '../MTouch';
 class Basic extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -95,7 +95,7 @@ class Basic extends Component {
 	}	
 	render() {
 		return (
-			<Mtouch
+			<MTouch
 				onTap={this.handleTap}
 				onDoubleTap={this.handleDoubleTap}
 				onLongTap={this.handleLongTap}
@@ -111,7 +111,7 @@ class Basic extends Component {
 				<div style={{ background: 'red', width: "100%", height: window.innerHeight, textAlign: "center" }}>
 					{this.state.eventType}
 				</div>
-			</Mtouch>
+			</MTouch>
 		);
 	}
 }

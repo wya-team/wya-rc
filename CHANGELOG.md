@@ -1,5 +1,11 @@
 # 历史版本
 
+### 0.2.10 (2018-03-31)
+
+* 增加[`MToasts: 轻提示`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-toasts/)
+* 增加[`MModals: 模态框`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-modals/)
+* 增加[`MTouch: 手势`](https://github.com/wya-team/wya-rc/tree/master/src/web/m-touch/)
+* 增加[`ImgsCrop: 图片裁剪`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-crop/)
 
 ### 0.2.2 (2018-03-14)
 

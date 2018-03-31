@@ -5,15 +5,15 @@ class Basic extends Component {
 		super(props, context);
 	}
 	handleClick = () => {
-		MModals.alert("提示", "注意！您还没有缴纳保证金", [
+		MModals.alert("提示", "aaaa", [
 			{
-				text: "再看看",
+				text: "取消",
 				onPress: () => {
 					
 				}
 			},
 			{
-				text: "去缴纳",
+				text: "确定",
 				onPress: () => {
 				}
 			}
