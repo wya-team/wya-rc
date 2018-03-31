@@ -1,0 +1,58 @@
+@mixin formatResize($scale) {
+	.rc-pull-scroll {
+		position: relative;
+		-webkit-overflow-scrolling: touch;
+		overflow-scrolling: touch;
+		overflow: auto;
+		._dropload {
+			&._pull {
+				position: absolute;
+				top: -150px / $scale;
+				left: 0;
+				right: 0;
+				padding-top: 90px / $scale;
+				height: 150px / $scale;
+				line-height: 60px / $scale;
+				width: 100%;
+				font-size: 24px / $scale;
+				text-align: center;
+				transform: translateZ(0);
+			}
+			&._scroll {
+				overflow: hidden;
+				font-size: 24px / $scale;
+				transform: translateZ(0);
+				text-align: center;
+			}
+			._status {
+				text-align: center;
+			}
+			._status ._loading {
+				display: inline-block;
+				height: 30px / $scale;
+				width: 30px / $scale;
+				border-radius: 100%;
+				margin: 12px / $scale;
+				border: 4px / $scale solid #666;
+				border-bottom-color: transparent;
+				vertical-align: middle;
+				animation: rotate 0.75s linear infinite;
+			}
+		}
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@include formatResize(2);
+

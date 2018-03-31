@@ -1,4 +1,11 @@
 # 历史版本
+### 0.2.11 (2018-03-31)
+
+* 增加[`Swiper: 走马灯`](https://github.com/wya-team/wya-rc/tree/master/src/web/swiper/)
+* 增加[`BetterScroll: 滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
+* 增加[`PullScroll: 下拉刷新，上滑加载`](https://github.com/wya-team/wya-rc/tree/master/src/web/pull-scroll/)
+* 增加[`CreateAccordion: 手风琴`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-accordion/)
+
 
 ### 0.2.10 (2018-03-31)
 

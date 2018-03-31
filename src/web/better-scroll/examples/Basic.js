@@ -1,12 +1,59 @@
 import React, { Component } from 'react';
-class Basic extends Component {
+import BetterScroll  from '../BetterScroll';
+class Test extends Component {
 	constructor(props, context) {
 		super(props, context);
 	}
+	componentDidMount(){
+		
+	}
 	render() {
 		return (
-			<div>tpl</div>
+			<BetterScroll className="wrapper" style={{ fontSize: 30, maxHeight: 600, overflow: 'hidden', background: "rgba(240,240,240,1)" }}>
+				<ul className="content">
+					<li>1</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>...</li>
+					<li>2</li>
+				</ul>
+			</BetterScroll>
 		);
 	}
 }
-export default Basic;
+Test.propTypes = {
+};
+export default Test;

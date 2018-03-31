@@ -1,14 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import CreateAccordion from '../index.js';
+import createAccordion from '../index.js';
 
-describe('CreateAccordion.js', () => {
+describe('createAccordion.js', () => {
 	test('default props', () => {
-		const $ = mount(
-			<CreateAccordion />
-		);
-
+		const $ = createAccordion();
+		expect(typeof $ === 'function').toBe(true);
 		// expect($.exists()).toBe(true);
 
 		// expect($.find('div').length).toBe(1);
@@ -22,4 +20,3 @@ describe('CreateAccordion.js', () => {
 
 	});
 });
-
