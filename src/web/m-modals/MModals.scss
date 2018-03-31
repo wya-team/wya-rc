@@ -1,0 +1,184 @@
+.rcm-modal {
+	position: fixed;
+	z-index: 3000;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	.__bg {
+		position: fixed;
+		background: rgba(0, 0, 0, 0.4);
+		z-index: 2999;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		bottom: 0;
+		animation: MModalFadeEnter 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+		&.__bg-leave {
+			opacity: 0;
+			animation: MModalFadeLeave 0.2s cubic-bezier(0.55, 0, 0.55, 0.2);
+		}
+	}
+
+	.__fixed {
+		// position: fixed;
+		position: relative;
+		z-index: 3001;
+		background: white; // left: 50%;
+		// top: 50%;
+		width: 550px;
+		height: auto;
+		border-radius: 8px; // transform: translate(-50%,-50%) scale(1, 1);
+		animation: MModalZoomEnter 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+		animation-fill-mode: both; // 以动画最终值展示
+		&.__leave {
+			opacity: 0; // transform: translate(-50%,-50%) scale(0, 0);
+			animation: MModalZoomLeave 0.2s cubic-bezier(0.55, 0, 0.55, 0.2);
+		}
+	}
+	div.__close {
+		position: relative;
+		line-height: 72px;
+		font-size: 30px;
+		text-align: center;
+		i {
+			position: absolute;
+			top: 0;
+			right: 20px;
+		}
+	}
+	.__title {
+		text-align: center;
+		line-height: 80px;
+		font-size: 30px;
+	}
+	.__message {
+		padding: 30px 15px;
+		text-align: center;
+		word-wrap: break-word;
+		color: #666;
+	}
+	.__input {
+		margin-top: 10px;
+		padding: 0 50px 10px 50px;
+		&.__mt {
+			margin-top: 30px;
+		}
+	}
+	.__btn {
+		height: 66px;
+		line-height: 66px;
+		border-radius: 33px;
+		text-align: center;
+		width: 180px;
+		background: #ebebeb;
+		color: #9c9c9c;
+		&.__orange {
+			color: white;
+			background: #fe9053;
+		}
+	}
+	.__select {
+		padding: 0 20px;
+		max-height: 400px;
+		overflow-scrolling: touch;
+		-webkit-overflow-scrolling: touch;
+		overflow-y: scroll;
+	}
+	.__select_active {
+		color: #fe9053;
+	}
+	.__select_pd {
+		padding: 20px 40px;
+	}
+	.__btn1 {
+		color: #4199eb;
+		text-align: center;
+		line-height: 88px;
+	}
+	.__bb {
+		border-bottom: 1px solid #efeff4;
+	}
+	.__flex {
+		display: flex;
+		box-sizing: border-size;
+	}
+	.__jc-c {
+		justify-content: center;
+	}
+	.__jc-sb {
+		justify-content: space-between;
+	}
+	.__jd-c {
+		flex-direction: column;
+	}
+	.__pd {
+		padding: 20px;
+	}
+	.__1of2 {
+		flex: 0 0 50%;
+	}
+	.__col {
+		flex: 1;
+	}
+	input {
+		border-radius: 30px;
+		border: 1px solid #fe9053;
+		text-align: left;
+		height: 60px;
+		padding: 0 30px; // margin: 5px auto
+		-webkit-appearance: none;
+		outline: none;
+	}
+}
+
+@keyframes MModalFadeEnter {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		// 最终形态
+		opacity: 1;
+	}
+}
+
+@keyframes MModalZoomEnter {
+	0% {
+		opacity: 0;
+		transform-origin: 50% 50%;
+		transform: scale(0, 0);
+	}
+	100% {
+		// 最终形态 
+		opacity: 1;
+		transform-origin: 50% 50%;
+		transform: scale(1, 1);
+	}
+}
+
+@keyframes MModalZoomLeave {
+	0% {
+		opacity: 1;
+		transform: scale(1.05, 1.05);
+	}
+	100% {
+		// 最终形态
+		opacity: 0;
+		transform: scale(0, 0);
+	}
+}
+
+@keyframes MModalFadeLeave {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		// 最终形态
+		opacity: 0;
+	}
+}

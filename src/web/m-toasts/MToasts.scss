@@ -1,0 +1,55 @@
+.rcm-toast {
+	.__bg {
+		position: fixed;
+		background: rgba(0, 0, 0, 0.4);
+		z-index: 3999;
+		height: 100%;
+		width: 100%;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
+		bottom: 0;
+		opacity: 0;
+	}
+	.__fixed {
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 4001;
+		max-width: 50%;
+		height: auto;
+		background: rgba(58, 58, 58, 0.9);
+		padding: 9px 15px;
+		border-radius: 3px;
+		line-height: 1.5;
+		color: #fff;
+		text-align: center;
+		animation: MToastFadeEnter 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+		animation-fill-mode: both; // 以动画最终值展示
+		&.__leave {
+			opacity: 0;
+			animation: MToastFadeLeave 0.2s cubic-bezier(0.55, 0, 0.55, 0.2);
+		}
+	}
+}
+
+@keyframes MToastFadeEnter {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		// 最终形态
+		opacity: 1;
+	}
+}
+
+@keyframes MToastFadeLeave {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		// 最终形态
+		opacity: 0;
+	}
+}

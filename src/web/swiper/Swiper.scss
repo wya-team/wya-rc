@@ -1,0 +1,59 @@
+.rc-swiper {
+	width: 100%;
+	margin: auto;
+	overflow: hidden;
+	position: relative;
+	top: 0;
+	left: 0;
+	.__content-child {
+		position: absolute;
+		top: 0;
+		height: 100%;
+		img {
+			width: 100%;
+			display: block;
+			height: 100%;
+		}
+	}
+	.__arrow {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 24px;
+		height: 24px;
+		margin: auto;
+		font: 16px/24px "";
+		background: rgba(0, 0, 0, 0.2);
+		text-align: center;
+		color: white;
+		border-radius: 4px;
+	}
+	.__arrow-left {
+		left: 10px;
+	}
+	.__arrow-right {
+		right: 10px;
+	}
+	.__dots {
+		position: absolute;
+		height: 10;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		bottom: 5px;
+		left: 0;
+		list-style: none;
+		li {
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			border: 1px solid rgba(255, 255, 255, 0.5);
+			display: block;
+			margin: 0 10px;
+			background: rgba(255, 255, 255, 0.5);
+		}
+	}
+	.__dots li.__dots-active {
+		background: rgba(255, 255, 255, 0.8);
+	}
+}

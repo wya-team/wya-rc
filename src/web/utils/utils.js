@@ -111,3 +111,110 @@ export const initPage = {
 	itemArr: {},
 	itemObj: {},
 };
+/**
+ * 图片
+ */
+export const getCroppedImg = (canvas, fileName = '____fileName', getFile = false) => {
+	// As base64
+	const base64Image = canvas.toDataURL("image/png");
+	// As a blob 移动端不兼容
+	return new Promise((resolve, reject) => {
+		// canvas.toBlob(file => {
+		// 	file.name = fileName;
+		// 	resolve({ file, base64Image });
+		// }, 'image/png');
+		let file;
+		if (getFile) {
+			let arr = base64Image.split(',');
+			let mime = arr[0].match(/:(.*?);/)[1];
+			let bstr = atob(arr[1]);
+			let n = bstr.length;
+			let u8arr = new Uint8Array(n);
+			while (n--){
+			    u8arr[n] = bstr.charCodeAt(n);
+			}
+			file = new Blob([u8arr], { type: mime });
+		}
+		resolve({ file, base64Image });
+	});
+};
+
+export const parseDOM = (str) => {
+	const parser = typeof DOMParser === 'undefined' ? null : new DOMParser();
+
+	if (!parser) {
+		return null;
+	}
+	return parser.parseFromString(str, 'text/html');
+};
+
+export const retrieveImageURL = (dataTransferItems, callback) => {
+	for (let i = 0; i < dataTransferItems.length; i++) {
+		let item = dataTransferItems[i];
+		if (item.type === 'text/html') {
+			item.getAsString(value => {
+				// value = <img src="" ... /> 即网页拖入的值
+				const doc = parseDOM(value); // 生成一个document 类似iframe（但有区别）
+				const img = doc.querySelector('img');
+				if (img && img.src) {
+					callback(img.src);
+				}
+			});
+			break;
+		}
+	}
+};
+
+export const isTouchDevice = !!(
+	typeof window !== 'undefined' &&
+	typeof navigator !== 'undefined' &&
+	('ontouchstart' in window || navigator.msMaxTouchPoints > 0)
+);
+
+export const isFileAPISupported = typeof File !== 'undefined';
+
+
+/**
+ * ios 11 fixed input bug
+ */
+// const isiOS11 = _global.device.ios && parseInt(_global.device.osVersion) == 11;
+// const iOS11Set = () => {
+// 	if (isiOS11 ) {
+// 		const $ = document.getElementById('pages');
+// 		$.style.overflow = 'hidden';
+// 		$.style.height = window.innerHeight + `px`;
+// 	};
+// };
+// const iOS11Remove = () => {
+// 	if (isiOS11 ) {
+// 		const $ = document.getElementById('pages');
+// 		$.style.removeProperty("overflow");
+// 		$.style.removeProperty("height");
+// 	};
+// };
+// const iOS11Absolute = isiOS11 ? { position: `absolute` } : {};
+// const iOS11Relative = isiOS11 ? { position: `relative` } : {};
+// const iOS11FlexEnd = isiOS11
+// 	? { // 暂时这里不先考虑兼容
+// 		display: `flex`, 
+// 		alignItems: `flex-end`, 
+// 		height: `100%`
+// 	}
+// 	: {};
+// const iOS11FlexCenter = isiOS11
+// 	? { // 暂时这里不先考虑兼容
+// 		display: `flex`, 
+// 		alignItems: `center`,
+// 		justifyContent: `center`,
+// 		height: `100%`
+// 	}
+// 	: {};
+// export const hackForiOS11 = {
+// 	ios11: isiOS11,
+// 	set: iOS11Set,
+// 	remove: iOS11Remove,
+// 	absolute: iOS11Absolute,
+// 	relative: iOS11Relative,
+// 	flexEnd: iOS11FlexEnd,
+// 	flexCenter: iOS11FlexCenter
+// };
