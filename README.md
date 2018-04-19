@@ -56,6 +56,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`PullScroll: 下拉刷新-上滑加载`](https://github.com/wya-team/wya-rc/tree/master/src/web/pull-scroll/)
 - [`SetTitle: 设置头部，记忆滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/set-title/)
 - [`Swiper: 走马灯`](https://github.com/wya-team/wya-rc/tree/master/src/web/swiper/)
+- [`ToImg: html转图片`](https://github.com/wya-team/wya-rc/tree/master/src/web/to-img/)
 - [`Upload: 上传`](https://github.com/wya-team/wya-rc/tree/master/src/web/upload/)
 
 ### Mobile - 移动端

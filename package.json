@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -16,7 +16,7 @@
     "dist": "npm run remove:dist && node --max_old_space_size=8192 ./node_modules/webpack/bin/webpack --config ./config/webpack.config.dist.js --color --progress",
     "build": "npm run dist -- -p",
     "build:dev": "npm run dist",
-    "lib": "rm -rf ./lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/** && npm publish",
+    "lib": "rm -rf ./lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore **.test.js,**.md,examples/**, && npm publish",
     "remove:dist": "rm -rf ./dist",
     "lint": "esw ./config/*.config.* ./src/**/*.js",
     "lint:fix": "npm run lint -- --fix",
@@ -45,6 +45,7 @@
   "dependencies": {
     "braft-editor": "^1.6.1",
     "element-resize-event": "^2.0.9",
+    "html2canvas": "^1.0.0-alpha.12",
     "photoswipe": "^4.1.2"
   },
   "devDependencies": {

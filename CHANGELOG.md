@@ -1,4 +1,8 @@
 # 历史版本
+### 0.2.12 (2018-04-19)
+
+* 增加[`ToImg: html转图片`](https://github.com/wya-team/wya-rc/tree/master/src/web/to-img/)
+
 ### 0.2.11 (2018-03-31)
 
 * 增加[`Swiper: 走马灯`](https://github.com/wya-team/wya-rc/tree/master/src/web/swiper/)
