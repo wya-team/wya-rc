@@ -1,4 +1,10 @@
 # 历史版本
+
+### 0.3.0 (2018-04-20)
+
+- 升级`webpack 4.6`
+- 升级`react 16.3.2`
+
 ### 0.2.12 (2018-04-19)
 
 * 增加[`ToImg: html转图片`](https://github.com/wya-team/wya-rc/tree/master/src/web/to-img/)

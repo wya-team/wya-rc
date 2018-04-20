@@ -12,14 +12,17 @@ const { APP_ROOT, commonConfig, localIp, localPort } = require('./webpack.config
 
 
 let webpackConfig = {
+	// webpack 4 新增
+	mode: 'production',
 	plugins: [
 		/**
 		 * 生产环境
+		 * webpack 4 弃用
 		 */
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('production'),
-			__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-		}),
+		// new webpack.DefinePlugin({
+		// 	'process.env.NODE_ENV': JSON.stringify('production'),
+		// 	__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+		// }),
 		/**
 		 * webpack3.x 模块串联
 		 */

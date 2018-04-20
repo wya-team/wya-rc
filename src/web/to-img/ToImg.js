@@ -8,7 +8,10 @@ class ToImg extends Component {
 	}
 	getImg = async (fileName = 'image', getFile = true) => {
 		try {
-			const html2canvas = await import('html2canvas');
+			let html2canvas = await import('html2canvas');
+			// 兼容webpack 3.0/4.0 写法	
+			html2canvas = html2canvas.hasOwnProperty('default') ? html2canvas.default : html2canvas;
+
 			const canvas = await html2canvas(this.refs.img);
 			const { file, base64Image } = await getCroppedImg(canvas, fileName, getFile);
 

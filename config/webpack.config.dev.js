@@ -21,14 +21,17 @@ if (component && Object.keys(openPage).length > 0 ) {
 	}
 }
 let webpackConfig = {
+	// webpack 4 新增
+	mode: 'development',
 	plugins: [
 		/**
-		 * 开发环境
+		 * 开发环境，
+		 * webpack 4 弃用
 		 */
-		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('development'),
-			__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-		}),
+		// new webpack.DefinePlugin({
+		// 	'process.env.NODE_ENV': JSON.stringify('development'),
+		// 	__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+		// }),
 		/**
 		 * 友好提示
 		openPage: 'web/preview.html?page=containers/tab-bar/index.js',
