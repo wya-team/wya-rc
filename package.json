@@ -1,6 +1,6 @@
 {
   "name": "wya-rc",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "wya for react components",
   "main": "lib/main.js",
   "files": [
@@ -56,9 +56,9 @@
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^22.0.4",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-loader": "^7.1.2", 
     "babel-plugin-import": "^1.6.3",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-webpack-loaders": "^0.9.0",
