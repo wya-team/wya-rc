@@ -54,7 +54,7 @@ const webpackConfig = {
 		/**
 		 * html引用路径,github展示用
 		 */
-		publicPath: ENV_IS_DEV ? '/' : '/wya-rc/dist'
+		publicPath: ENV_IS_DEV ? '/' : '/wya-rc/dist/'
 	},
 	module: {
 		exprContextCritical: false,
