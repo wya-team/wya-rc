@@ -106,7 +106,16 @@ class Upload extends Component {
 			before.then((processedFile) => {
 				const processedFileType = Object.prototype.toString.call(processedFile);
 				if (processedFileType === '[object File]' || processedFileType === '[object Blob]') {
-					this.post(processedFile);
+					try {
+						const { uid, current, total, percent } = file;
+						processedFile.uid = uid;
+						processedFile.current =  current;
+						processedFile.total = total;
+						processedFile.percent = percent;
+						this.post(processedFile);
+					} catch (e) {
+						this.post(processedFile);
+					}
 				} else {
 					this.post(file);
 				}
@@ -139,8 +148,7 @@ class Upload extends Component {
 			type: "FORM",
 			param: {
 				filename,
-				file,
-				data,
+				file
 			},
 			headers,
 			localData,

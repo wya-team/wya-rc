@@ -119,10 +119,6 @@ export const getCroppedImg = (canvas, fileName = '____fileName', getFile = false
 	const base64Image = canvas.toDataURL("image/png");
 	// As a blob 移动端不兼容
 	return new Promise((resolve, reject) => {
-		// canvas.toBlob(file => {
-		// 	file.name = fileName;
-		// 	resolve({ file, base64Image });
-		// }, 'image/png');
 		let file;
 		if (getFile) {
 			let arr = base64Image.split(',');
@@ -134,6 +130,8 @@ export const getCroppedImg = (canvas, fileName = '____fileName', getFile = false
 			    u8arr[n] = bstr.charCodeAt(n);
 			}
 			file = new Blob([u8arr], { type: mime });
+			// file = (typeof File && fileName) ? new File([file], fileName) : file;
+			file.name = fileName;
 		}
 		resolve({ file, base64Image });
 	});
