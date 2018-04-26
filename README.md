@@ -53,6 +53,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`ImgsPicker: 图片上传`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-picker/)
 - [`ImgsPreview: 图片预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)
 - [`Paging: 分页`](https://github.com/wya-team/wya-rc/tree/master/src/web/paging/)
+- [`Pipe: 管道`](https://github.com/wya-team/wya-rc/tree/master/src/web/pipe/)
 - [`PullScroll: 下拉刷新-上滑加载`](https://github.com/wya-team/wya-rc/tree/master/src/web/pull-scroll/)
 - [`SetTitle: 设置头部，记忆滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/set-title/)
 - [`Swiper: 走马灯`](https://github.com/wya-team/wya-rc/tree/master/src/web/swiper/)

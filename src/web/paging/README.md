@@ -30,6 +30,7 @@ rowSelection | `Checkbox`配置项 | `obj` | -
 renderRow | 列表Item | `func` | -
 actions | 传入Item的Action | `obj` | -
 rowProps | 传入Item的其他Props | `obj` | -
+history | 页面url随之改变 | `bool` | false
 
 ## rowSelection API
 属性 | 说明 | 类型 | 默认值

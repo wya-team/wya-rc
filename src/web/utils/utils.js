@@ -136,7 +136,60 @@ export const getCroppedImg = (canvas, fileName = '____fileName', getFile = false
 		resolve({ file, base64Image });
 	});
 };
+/**
+ * 重构url
+ * @param  {Object}
+ * @return {String}
+ */
+export const getConstructUrl = (route, opts = {}) => { // 创建新的url
+	const {
+		path,
+		query
+	} = route;
+	let result = path.join('/');
+	let queryArr = [];
+	if (query && typeof query === 'object') {
+		queryArr = Object.keys(query).sort()
+			.filter(key => query[key] !== null)
+			.map(key => `${key}=${query[key]}`);
+	}
 
+	if (queryArr.length > 0) {
+		result += `?${queryArr.join('&')}`;
+	}
+
+	return result;
+};
+/**
+ * 解析url
+ * @param  {String} url
+ * @return {Object}
+ */
+export const getParseUrl = (url = `${location.pathname}${location.search}`, opts = {}) => { // 解析url
+	let path = [];
+	const query = {};
+	// const urlArr = url.replace('/', '').split('?');
+	const urlArr = url.split('?');
+	path = urlArr[0].split('/');
+
+	if (urlArr.length > 1) {
+		urlArr[1].split('&').forEach(str => {
+			const arr = str.split('=');
+			const key = arr[0];
+			const value = arr[1];
+			if (isNaN(value)) {
+				query[key] = value;
+			} else {
+				query[key] = Number(value);
+			}
+		});
+	}
+
+	return {
+		path,
+		query
+	};
+};
 export const parseDOM = (str) => {
 	const parser = typeof DOMParser === 'undefined' ? null : new DOMParser();
 

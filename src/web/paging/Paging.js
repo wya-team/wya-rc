@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import './Paging.scss';
 import { Button, Pagination, Spin, Checkbox } from 'antd';
 import SelectionCheckboxAll from './SelectionCheckboxAll';
+import { getConstructUrl, getParseUrl } from '../utils/utils';
 
 class Paging extends Component {
 	constructor(props, context) {
@@ -56,8 +57,19 @@ class Paging extends Component {
 	componentDidCatch(error, info){
 		console.log(error, info);
 	}
-	handleChange = (pages) =>  {
-		this.props.loadDataForPaging && this.props.loadDataForPaging(pages);
+	handleChange = (page) =>  {
+		const { history, loadDataForPaging } = this.props;
+		if (history) {
+			let { path, query } = getParseUrl();
+			history && history.replaceState(null, null, getConstructUrl({
+				path,
+				query: { 
+					...query,
+					page: page || 1
+				}
+			}));
+		}
+		loadDataForPaging && loadDataForPaging(page);
 	};
 	bindScroll = () => {
 		if (this.wrapper) {
@@ -68,14 +80,13 @@ class Paging extends Component {
 		const {
 			isEnd,
 			curPage,
-			loadDataForPaging
 		} = curProps;
 		if (curPage == 0){
 			// 这里使用this.props.curPage
 			const nextPage = this.props.resetPage == curProps.resetPage
 				? this.props.curPage
 				: 1;
-			loadDataForPaging && loadDataForPaging(nextPage);
+			this.handleChange(nextPage);
 		}
 	};
 	handleCheckAll = () => {
@@ -191,7 +202,7 @@ class Paging extends Component {
 					if (rowSelection) {
 						let checked;
 						if (this.state.checkArr[curPage]) {
-							console.log(this.state.checkArr[curPage][item], this.getCheckboxProps(itemObj[item]).disabled);
+							// console.log(this.state.checkArr[curPage][item], this.getCheckboxProps(itemObj[item]).disabled);
 							if (!this.getCheckboxProps(itemObj[item]).disabled || (
 								this.state.checkArr[curPage][item] !== undefined &&
 								this.getCheckboxProps(itemObj[item]).disabled
@@ -308,7 +319,8 @@ Paging.propTypes = {
 	dataSource: PropTypes.object,
 	renderRow: PropTypes.func.isRequired,
 	rowProps: PropTypes.object,
-	actions: PropTypes.object
+	actions: PropTypes.object,
+	history: PropTypes.bool
 };
 Paging.defaultProps = {
 	title: [],
@@ -316,5 +328,6 @@ Paging.defaultProps = {
 	className: '__defalut',
 	rowSelection: null,
 	dataSource: {},
+	history: false
 };
 export default Paging;

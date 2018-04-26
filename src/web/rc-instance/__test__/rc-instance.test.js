@@ -5,7 +5,6 @@ import clean from '../index.js';
 
 describe('clean.js', () => {
 	test('default', () => {
-
 		expect(typeof clean).toBe('object');
 	});
 });
