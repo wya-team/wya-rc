@@ -7,9 +7,9 @@
 ```
 npm install antd --save
 ```
-## 待开发
+## 待完善
 
-- 集成checkbox；
+- 集成checkbox实现略繁琐；
 
 
 ## API
@@ -53,6 +53,8 @@ const rowSelection = {
 };
 <Paging 
 	title={title}
+	show={true}
+	history={true} // 在弹窗组件中不要使用
 	isEnd={isEnd}
 	dataSource={{ itemArr, itemObj }}
 	curPage={currentPage}
@@ -76,15 +78,17 @@ const rowSelection = {
 
 ## 用法注意事项（redux下的使用为主）
 
-#### `show: bool`, 在做tabs切换的时候可以控制是否允许出发`ajax`请求
+- `show: bool`, 在做tabs切换的时候可以控制是否允许出发`ajax`请求
 
-#### - `history: true`, 控制页面切换是否记录当前`url`状态信息, 包括`page`，其他参数可以是筛选条件，搜索条件，既这些状态由`url`管理, 数据由`redux`管理
+- `history: true`, 控制页面切换是否记录当前`url`状态信息, 包括`page`，其他参数可以是筛选条件，搜索条件，既这些状态由`url`管理, 数据由`redux`管理
 
-#### `resetPage` 使用方式(推荐使用第二种方式)
+- `resetPage` 使用方式(推荐使用第二种方式)
+
 	1. `resetPage` 由`url`管理, 即`query`值做为管理，不经过redux,`编辑Item`和`删除Item`只能完成当前页刷新，`搜索`可以充值到第一页刷新
 	2. `resetPage` 由`redux`管理, 设置成为当前页. 处理场景: `编辑Item` - 当前页刷新, `删除Item` - 重置到第一页刷新, `搜索`筛选 - 重置到第一页刷新
 
-- 第二种方式，`reducer`片段，集成tab，删除，编辑等操作
+> 第二种方式`reducer`片段，集成tab，删除，编辑等操作
+
 ```js
 import * as types from '@constants/actions/sales';
 import { ROUTER_CHANGE } from '@constants/actions/_common';
