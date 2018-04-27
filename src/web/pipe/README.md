@@ -15,12 +15,12 @@ aaaaaaaaa -> aaa...
 ## API
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
-tag | 标签 | `str | func` | span
-mode | 模式 `ellipsis | auto | none` | `str` | ellipsis
+tag | 标签 | `str / func` | span
+mode | 模式 `ellipsis / auto / none` | `str` | ellipsis
 start | 开始位置 | `num` | 0
 length | 截取的长度 | `num` | 5
 extra | 截取后跟随的文本 | `str` | ...
-onConvert | 自定义转化 | `str` | ...
+onConvert | 自定义转化 | `func` | -
 
 ## 基础用法
 

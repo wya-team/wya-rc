@@ -16,6 +16,8 @@ npm install antd --save
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
 title | 列名 | `array` | -
+history | 页面url随之改变 | `bool` | false
+show | 是否出发请求 | `bool` | true
 className | 样式 | `string` | -
 listClassName | 列表样式 | `string` | -
 isEnd | 加载完毕0(需要判断是否有数据), 1为加载中, 3数据异常 （PullScroll有2状态）| `number` | 0
@@ -30,7 +32,6 @@ rowSelection | `Checkbox`配置项 | `obj` | -
 renderRow | 列表Item | `func` | -
 actions | 传入Item的Action | `obj` | -
 rowProps | 传入Item的其他Props | `obj` | -
-history | 页面url随之改变 | `bool` | false
 
 ## rowSelection API
 属性 | 说明 | 类型 | 默认值
@@ -71,4 +72,115 @@ const rowSelection = {
 		actions={this.actions}
 	/>
 </Paging>
+```
+
+## 用法注意事项（redux下的使用为主）
+
+#### `show: bool`, 在做tabs切换的时候可以控制是否允许出发`ajax`请求
+
+#### - `history: true`, 控制页面切换是否记录当前`url`状态信息, 包括`page`，其他参数可以是筛选条件，搜索条件，既这些状态由`url`管理, 数据由`redux`管理
+
+#### `resetPage` 使用方式(推荐使用第二种方式)
+	1. `resetPage` 由`url`管理, 即`query`值做为管理，不经过redux,`编辑Item`和`删除Item`只能完成当前页刷新，`搜索`可以充值到第一页刷新
+	2. `resetPage` 由`redux`管理, 设置成为当前页. 处理场景: `编辑Item` - 当前页刷新, `删除Item` - 重置到第一页刷新, `搜索`筛选 - 重置到第一页刷新
+
+- 第二种方式，`reducer`片段，集成tab，删除，编辑等操作
+```js
+import * as types from '@constants/actions/sales';
+import { ROUTER_CHANGE } from '@constants/actions/_common';
+import { initPage, initItem } from '@utils/utils';
+
+const initialState = {
+	"0": {
+		...initPage,
+		resetPage: 1
+	},
+	"1": {
+		...initPage,
+		resetPage: 1
+	}
+};
+
+export const salesGroup = (state = initialState, action) => {
+	let curPage, totalPage, items, id, type, selectArr, totalCount;
+	switch (action.type) {
+		case types.SALES_GROUP_LIST_GET + '_ON':
+			type = action.param.type;
+			state = {
+				...state,
+				[type]: {
+					...state[type],
+					isEnd: 1
+				}
+			};
+			return state;
+		case types.SALES_GROUP_LIST_GET + '_SUCCESS':
+			type = action.param.type;
+			curPage = action.param.page; // 当前页
+			totalPage = action.data.totalPage; // 后端给的字段
+			totalCount =  action.data.totalCount || 0;
+			items = initItem(action.data.list, 'id');
+			state = {
+				...state,
+				[type]: {
+					...state[type],
+					curPage,
+					totalPage,
+					totalCount,
+					itemArr: { ...state[type].itemArr, [curPage]: [...items.itemArr] },
+					itemObj: { ...state[type].itemObj, ...items.itemObj },
+					isEnd: 0,
+					resetPage: curPage // 这里设置当前页
+				}
+			};
+			return state;
+		case types.SALES_GROUP_LIST_GET + '_SETPAGE':
+			type = action.param.type;
+			state = {
+				...state,
+				[type]: {
+					...state[type],
+					curPage: action.param.page
+				}
+			};
+			return state;
+		case types.SALES_GROUP_LIST_GET + '_ERROR':
+			type = action.param.type;
+			state = {
+				...state,
+				[type]: {
+					...state[type],
+					isEnd: 3
+				}
+			};
+			return state;
+		/**
+		 * 编辑 此时后端不返回数据，要在当前页刷新
+		 */
+		case types.SALES_GROUP_EDIT_POST + '_SUCCESS':
+			type = action.param.type;
+			state = {
+				...initialState,
+				[type] : {
+					...initialState[type],
+					resetPage: state[type].resetPage // 会触发当前页刷新，而非回到第一页
+				}
+			};
+			return state;
+		/**
+		 * 删除，搜索，路由切换都初始化，加载请求会回到第一页
+		 * 小技巧：可以使用 `this.props.actions.emit('ROUTER_CHANGE');` 直接初始化
+		 */
+		case types.SALES_GROUP_DEL_GET + '_SUCCESS':
+		case types.SALES_GROUP_SEARCH_INIT:
+		case ROUTER_CHANGE:
+			state = {
+				...initialState
+			};
+			return state;
+		default:
+			return state;
+	}
+};
+
 ```
