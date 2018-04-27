@@ -57,36 +57,40 @@ class Paging extends Component {
 	componentDidCatch(error, info){
 		console.log(error, info);
 	}
-	handleChange = (page) =>  {
-		const { history, loadDataForPaging } = this.props;
-		if (history) {
+	handleChange = (page, $props = this.props) =>  {
+		const { history: _history, loadDataForPaging, show } = $props;
+		if (!show) return;
+		if (_history) {
 			let { path, query } = getParseUrl();
-			history && history.replaceState(null, null, getConstructUrl({
+
+			page = page || query.page || 1; // 不要动，就是这样
+
+			_history && window.history.replaceState(null, null, getConstructUrl({
 				path,
 				query: { 
 					...query,
-					page: page || 1
+					page
 				}
 			}));
 		}
-		loadDataForPaging && loadDataForPaging(page);
+		loadDataForPaging && loadDataForPaging(page || 1);
 	};
 	bindScroll = () => {
 		if (this.wrapper) {
 			this.scrollContainer = document.querySelector(`${this.wrapper}`);
 		}
 	};
-	loadDataFirst = (curProps = {}) => { // 第一次请求
+	loadDataFirst = ($props = {}) => { // 第一次请求
 		const {
 			isEnd,
 			curPage,
-		} = curProps;
+		} = $props;
 		if (curPage == 0){
 			// 这里使用this.props.curPage
-			const nextPage = this.props.resetPage == curProps.resetPage
+			const nextPage = this.props.resetPage == $props.resetPage
 				? this.props.curPage
 				: 1;
-			this.handleChange(nextPage);
+			this.handleChange(nextPage, $props);
 		}
 	};
 	handleCheckAll = () => {
@@ -298,7 +302,7 @@ class Paging extends Component {
 						defaultPageSize={1}
 						current={curPage}
 						total={totalPage}
-						onChange={this.handleChange}
+						onChange={(page) => this.handleChange(page, this.props)}
 					/>
 				</div>
 			</div>
@@ -307,6 +311,7 @@ class Paging extends Component {
 }
 Paging.propTypes = {
 	title: PropTypes.array,
+	show: PropTypes.bool,
 	className: PropTypes.string,
 	isEnd: PropTypes.number.isRequired,
 	curPage: PropTypes.number.isRequired,
@@ -328,6 +333,7 @@ Paging.defaultProps = {
 	className: '__defalut',
 	rowSelection: null,
 	dataSource: {},
-	history: false
+	history: false,
+	show: true
 };
 export default Paging;
