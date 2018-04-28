@@ -187,6 +187,11 @@ export const salesGroup = (state = initialState, action) => {
 	}
 };
 ```
+## 其他
+
+- `dom diff` ->  `父 -> 子`
+- `will, unmount` ->  `父 -> 子`
+- `did` -> `子 -> 父` 
 
 ## 其他说明(redux)：
 
