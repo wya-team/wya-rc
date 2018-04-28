@@ -318,7 +318,10 @@ Paging.propTypes = {
 	totalPage: PropTypes.number.isRequired,
 	loadDataForPaging: PropTypes.func.isRequired,
 	resetPrvScrollTop: PropTypes.number,
-	resetPage: PropTypes.string,
+	resetPage: PropTypes.oneOfType([
+		PropTypes.string,
+		PropTypes.number
+	]),
 	tHide: PropTypes.bool,
 	rowSelection: PropTypes.object,
 	dataSource: PropTypes.object,

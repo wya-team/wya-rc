@@ -17,6 +17,7 @@ const title = [
 const initState = {
 	currentPage: 0, // 当前页数
 	totalPage: 10, // 总页数
+	resetPage: 1,
 	pageSize: 10, // 条数
 	isEnd: 0, // 加载完毕0(需要判断是否有数据), 1为加载中, 3数据异常
 	itemArr: {},
@@ -46,7 +47,8 @@ class Content extends Component {
 		// SETPAGE
 		if (itemArr[page]) {
 			this.setState({
-				currentPage: page
+				currentPage: page,
+				resetPage: page
 			});
 			return;
 		}
@@ -66,6 +68,7 @@ class Content extends Component {
 			this.setState({
 				isEnd: 0,
 				currentPage: page,
+				resetPage: page,
 				totalPage: 10,
 				itemArr: { ...this.state.itemArr, [page]: Array.from({ length: 10 }, () => id++) },
 				itemObj: { ...this.state.itemObj, ...itemObj }
@@ -75,6 +78,12 @@ class Content extends Component {
 	handleDel = () => {
 		this.setState({
 			...initState
+		});
+	};
+	handleUpdate = () => {
+		this.setState({
+			...initState,
+			resetPage: this.state.resetPage
 		});
 	};
 	handleSelectItem = (id) => {
@@ -110,6 +119,8 @@ class Content extends Component {
 		};
 		return (
 			<Paging
+				show
+				history
 				ref={paging => this.paging = paging}
 				title={title}
 				isEnd={isEnd}
@@ -118,17 +129,11 @@ class Content extends Component {
 				totalPage={totalPage}
 				loadDataForPaging={this.loadDataForPaging}
 				resetPrvScrollTop={currentPage}
-				resetPage = {resetPage}
+				resetPage={resetPage}
 				rowSelection={rowSelection}
-				renderRow={Item}
+				// renderRow={Item}
+				renderRow={(...rest) => <Item {...rest} onDel={this.handleDel} onUpdate={this.handleUpdate} />}
 			>
-				{/* <List*/}
-				{/* itemArr={itemArr[currentPage] || []}*/}
-				{/* itemObj={itemObj}*/}
-				{/* selectArr={selectArr}*/}
-				{/* actions={this.actions}*/}
-				{/* rowSelection={rowSelection}*/}
-				{/* />*/}
 				<Btn
 					selectArr={selectArr}
 					actions={this.actions}

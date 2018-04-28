@@ -52,20 +52,19 @@ const rowSelection = {
 	onChange: (selectedRowKeys, selectedRows) => { console.log(selectedRowKeys, selectedRows); }
 };
 <Paging 
+	show
+	history
+	ref={paging => this.paging = paging}
 	title={title}
-	show={true}
-	history={true} // 在弹窗组件中不要使用
 	isEnd={isEnd}
 	dataSource={{ itemArr, itemObj }}
 	curPage={currentPage}
 	totalPage={totalPage}
 	loadDataForPaging={this.loadDataForPaging}
-	
 	resetPrvScrollTop={currentPage}
 	resetPage = {resetPage}
-	
 	rowSelection={rowSelection}
-    renderRow={Item}
+	renderRow={Item}
 >
 	
 	{/*全选之类按钮*/}
@@ -144,7 +143,8 @@ export const salesGroup = (state = initialState, action) => {
 				...state,
 				[type]: {
 					...state[type],
-					curPage: action.param.page
+					curPage: action.param.page,
+					resetPage: curPage // 这里设置当前页
 				}
 			};
 			return state;

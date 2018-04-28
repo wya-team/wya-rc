@@ -22,11 +22,11 @@ class Item extends Component {
 
 	handleDel(){
 		Modal.confirm({
-			title: '你确定要删除这些内容么?',
+			title: '你确定要删除这些内容么?(第一页刷新)',
 			content: '',
 			iconType: "",
 			onOk: () => {
-				this.props.actions.onDel && this.props.actions.onDel();
+				this.props.onDel && this.props.onDel();
 			},
 			onCancel: () => {
 				// console.log('Cancel');
@@ -35,11 +35,11 @@ class Item extends Component {
 	}
 	handleEdit(){
 		Modal.confirm({
-			title: '你确定要编辑这些内容么?',
+			title: '你确定要编辑这些内容么?(当前页刷新)',
 			content: '',
 			iconType: "",
 			onOk: () => {
-				this.props.actions.onDel && this.props.actions.onDel();
+				this.props.onUpdate && this.props.onUpdate();
 			},
 			onCancel: () => {
 				// console.log('Cancel');
@@ -48,11 +48,11 @@ class Item extends Component {
 	}
 	handlePut(){
 		Modal.confirm({
-			title: '你确定要更新这些内容么?',
+			title: '你确定要更新这些内容么?(当前页刷新)',
 			content: '',
 			iconType: "",
 			onOk: () => {
-				this.props.actions.onDel && this.props.actions.onDel();
+				this.props.onUpdate && this.props.onUpdate();
 			},
 			onCancel: () => {
 				// console.log('Cancel');
@@ -88,15 +88,15 @@ class Item extends Component {
 					<Button
 						style={{ margin: 10 }}
 						onClick={this.handleEdit}
-					>编辑</Button>
+					>编辑(当前页刷新测试)</Button>
 					<Button
 						style={{ margin: 10 }}
 						onClick={this.handlePut}
-					>更新</Button>
+					>更新(当前页刷新测试)</Button>
 					<Button
 						style={{ margin: 10 }}
 						onClick={this.handleDel}
-					>删除</Button>
+					>删除(第一页刷新测试)</Button>
 				</td>
 			</tr>
 		);
