@@ -86,7 +86,7 @@ const rowSelection = {
 	1. `resetPage` 由`url`管理, 即`query`值做为管理，不经过redux,`编辑Item`和`删除Item`只能完成当前页刷新，`搜索`可以充值到第一页刷新
 	2. `resetPage` 由`redux`管理, 设置成为当前页. 处理场景: `编辑Item` - 当前页刷新, `删除Item` - 重置到第一页刷新, `搜索`筛选 - 重置到第一页刷新
 
-> 第二种方式`reducer`片段，集成tab，删除，编辑等操作
+> 第二种方式`reducer`片段，集成tab，删除，编辑等操作, `resetPage`要在`redux`控制的原因主要考虑刷新当前页的操作
 
 ```js
 import * as types from '@constants/actions/sales';
@@ -96,11 +96,11 @@ import { initPage, initItem } from '@utils/utils';
 const initialState = {
 	"0": {
 		...initPage,
-		resetPage: 1
+		resetPage: 0
 	},
 	"1": {
 		...initPage,
-		resetPage: 1
+		resetPage: 0
 	}
 };
 
@@ -186,5 +186,18 @@ export const salesGroup = (state = initialState, action) => {
 			return state;
 	}
 };
-
 ```
+
+## 其他说明(redux)：
+
+- 场景一： `/order?page=3` -> `/order/detail/2` -> `goBack()` -> `/order?page=3`
+	1. 要在 `/order?page=3` 的 `componentUnmount` 里触发 `ROUTER_CHANGE` 的操作(init)
+
+- 场景二： `/order?page=3` -> `/order/detail/2` -> `goBack()` -> `/order?page=1`（）
+	1. 不在 `/order?page=3` 的 `componentUnmount` 里做操作
+	2. 在 `/order/detail/2` 的 `componentUnmount` 里 触发 `ROUTER_CHANGE` 的操作(init)
+
+#### 场景二分析原因：声明周期执行顺序
+	- `goBack()` -> `/order?page=3 componentWillMount` -> `/order/detail/2 componentUnmount` - `init`操作改变了`props`, 即`nextProps` -> `/order?page=3 componentDidMount` 此时内部调用仍然还是this.props, CurPage = 3` -> `/order?page=3 componentWillReceview` -> `/order?page=1`
+
+总结：在当前的 `componentUnmount` 做触发 `ROUTER_CHANGE` 的操作(init)，即场景一
