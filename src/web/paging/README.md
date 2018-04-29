@@ -138,12 +138,13 @@ export const salesGroup = (state = initialState, action) => {
 			};
 			return state;
 		case types.SALES_GROUP_LIST_GET + '_SETPAGE':
+			curPage = action.param.page; // 当前页
 			type = action.param.type;
 			state = {
 				...state,
 				[type]: {
 					...state[type],
-					curPage: action.param.page,
+					curPage,
 					resetPage: curPage // 这里设置当前页
 				}
 			};
