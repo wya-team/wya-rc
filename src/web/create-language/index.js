@@ -5,7 +5,7 @@ import zh_CN from 'antd/lib/locale-provider/zh_CN';
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component';
 // decorator
 export default (opts = {}) => WrappedComponent => {
-	return class CreateLanguageDecorated extends Component {
+	return class extends Component {
 		constructor() {
 			super();
 			this.displayName = `CreateLanguage${getDisplayName(WrappedComponent)}`;

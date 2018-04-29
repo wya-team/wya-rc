@@ -3,8 +3,8 @@ import CreateAccordion from './CreateAccordion';
 
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component';
 // decorator
-export default (options = {}) => function createAccordion(WrappedComponent) {
-	class CreateEchartsDecorated extends Component {
+export default (options = {}) => (WrappedComponent) => {
+	class CreateDecorated extends Component {
 		constructor() {
 			super();
 			this.displayName = `CreateAccordion${getDisplayName(WrappedComponent)}`;
@@ -21,9 +21,9 @@ export default (options = {}) => function createAccordion(WrappedComponent) {
 	const { staticObj } = options;
 	if (staticObj) {
 		for (let key in staticObj) {
-			CreateEchartsDecorated[key] = staticObj[key];
+			CreateDecorated[key] = staticObj[key];
 		}
 	}
-	return CreateEchartsDecorated;
+	return CreateDecorated;
 };
 

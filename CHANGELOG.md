@@ -1,5 +1,10 @@
 # 历史版本
 
+### 0.3.6 (2018-04-20)
+
+* 增加`Paging`中 `history` 和 `show` 扩展；
+* 增加[`Pipe: 管道`](https://github.com/wya-team/wya-rc/tree/master/src/web/pipe/)
+
 ### 0.3.0 (2018-04-20)
 
 - 升级`webpack 4.6`

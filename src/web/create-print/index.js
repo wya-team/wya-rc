@@ -5,7 +5,7 @@ import CreatePrint from './CreatePrint';
 const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component';
 // decorator
 export default (options = {}) => WrappedComponent => {
-	return class CreateEchartsDecorated extends Component {
+	return class extends Component {
 		constructor() {
 			super();
 			this.displayName = `CreateEcharts${getDisplayName(WrappedComponent)}`;
