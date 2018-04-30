@@ -7,8 +7,10 @@ class Basic extends Component {
 		super(props, context);
 	}
 	handleClick = (e) => {
+		// e.persist();
 		Modal.popup({
 			// parent: this,
+			// getInstance: (instance, onSure, onClose) => console.log(instance),
 			type: 'test'
 		}).then(() => {
 			console.log('你点击了确定');

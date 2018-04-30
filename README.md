@@ -39,6 +39,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`RcInstance: 上下文传递`](https://github.com/wya-team/wya-rc/tree/master/src/web/rc-instance/)
 ### 通用（移动优先）
 - [`AsyncComponent: 异步加载组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/async-component/)
+- [`Authorized: 权限判断`](https://github.com/wya-team/wya-rc/tree/master/src/web/authorized/)
 - [`BetterScroll: 取代原生滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/better-scroll/)
 - [`Calendar: 日历组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/calendar/)
 - [`Copy: 复制`](https://github.com/wya-team/wya-rc/tree/master/src/web/copy/)
@@ -55,6 +56,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`ImgsPreview: 图片预览`](https://github.com/wya-team/wya-rc/tree/master/src/web/imgs-preview/)
 - [`Paging: 分页`](https://github.com/wya-team/wya-rc/tree/master/src/web/paging/)
 - [`Pipe: 管道`](https://github.com/wya-team/wya-rc/tree/master/src/web/pipe/)
+- [`Portal: 传送门组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/portal/)
 - [`PullScroll: 下拉刷新-上滑加载`](https://github.com/wya-team/wya-rc/tree/master/src/web/pull-scroll/)
 - [`SetTitle: 设置头部，记忆滚动`](https://github.com/wya-team/wya-rc/tree/master/src/web/set-title/)
 - [`Swiper: 走马灯`](https://github.com/wya-team/wya-rc/tree/master/src/web/swiper/)

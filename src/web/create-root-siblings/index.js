@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import RcInstance from '../rc-instance/index';
 
-const getDisplayName = WrappedComponent => WrappedComponent.displayName || WrappedComponent.name || 'Component';
 // decorator
 export default (options = {}) => WrappedComponent => {
-
+	let uuid = 0;
+	let isNeedWaiting = false;
 	let { cName, onBefore } = options;
 
 	if (!cName) {
@@ -17,11 +17,18 @@ export default (options = {}) => WrappedComponent => {
 
 		init(opts = {}){
 			return new Promise((resolve, reject) => {
-				const container = document.createElement('div');
-				RcInstance.APIS[cName] && Viewer.hide();
-				document.body.appendChild(container);
+				// create container
+				let container = document.createElement('div');
+				container.setAttribute('rc-root-uuid', uuid++);
+
+				// init opts
+				const { parent, getInstance, onBefore: _onBefore, cName: _cName, ...rest } = opts;
+				onBefore = _onBefore || onBefore;
+				cName = _cName || cName;
+
+				// constructor opts
 				opts = {
-					...opts,
+					...rest,
 					show: true,
 					onCloseSoon: () => {
 						ReactDOM.unmountComponentAtNode(container);
@@ -37,34 +44,51 @@ export default (options = {}) => WrappedComponent => {
 						reject(res);
 					},
 				};
-				const render = (res) => {
+				let render = (res = {}) => {
+					document.body.appendChild(container);
+
+					// destory
+					RcInstance.APIS[cName] && Viewer.destroy();
 					RcInstance.APIS[cName] = container;
 
-					let element = res 
-						? <Viewer {...opts} data={res.data} /> 
-						: <Viewer {...opts} ref={instance => this.comp = instance} />;
-					let callback = res 
-						? undefined 
-						: () => resolve(this.comp); 
+					let element = (
+						<Viewer 
+							{...opts} 
+							data={res.data} 
+							ref={instance => this.comp = instance} 
+						/>
+					);
+					let callback = () => { 
+						isNeedWaiting = false; 
+						getInstance && getInstance(this.comp, opts.onSure, opts.onClose); 
+					};
 
-					if (opts.parent) {
+					if (parent) {
 						// 可以接入redux
-						ReactDOM.unstable_renderSubtreeIntoContainer(opts.parent, element, container, callback);
+						ReactDOM.unstable_renderSubtreeIntoContainer(parent, element, container, callback);
 					} else {
 						ReactDOM.render(element, container, callback);
 					}
 					
 				};
 				if (onBefore) {
-					onBefore({ ...opts })
-						.then((res = {}) => {
-							render(res);
-						}).catch((res = {}) => {
-							console.log(res);
-							reject(res);
-						});
+					if (isNeedWaiting) {
+						container = null;
+						opts = null;
+						render = null;
+					} else {
+						isNeedWaiting = true;
+						onBefore({ ...opts })
+							.then((res = {}) => {
+								render(res);
+							}).catch((res = {}) => {
+								isNeedWaiting = true;
+								reject(res);
+							});
+					}
 					return;
 				}
+				isNeedWaiting = false;
 				render();
 			});
 		},
@@ -72,8 +96,10 @@ export default (options = {}) => WrappedComponent => {
 		/**
 		 * 弹出项目，验证数据结构是否合法
 		 * opts {
-		 * 	request,
-		 * 	max
+		 * 	parent
+		 * 	getInstance,
+		 * 	param: {
+		 * 	}
 		 * }
 		 */
 		popup(opts = {}){
@@ -88,7 +114,8 @@ export default (options = {}) => WrappedComponent => {
 
 	class Viewer extends Component {
 		static popup = Statics.popup;
-		static close = () => {
+		static destroy = (_cName) => {
+			cName = _cName || cName;
 			if (!!RcInstance.APIS[cName]) {
 				ReactDOM.unmountComponentAtNode(RcInstance.APIS[cName]);
 				delete RcInstance.APIS[cName];

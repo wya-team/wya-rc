@@ -1,4 +1,8 @@
 # 历史版本
+### 0.3.8 (2018-04-30)
+
+* 增加[`Authorized: 权限判断`](https://github.com/wya-team/wya-rc/tree/master/src/web/authorized/)
+* 增加[`CreateRootSiblings: 创建兄弟节点`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-root-siblings/)
 
 ### 0.3.6 (2018-04-20)
 

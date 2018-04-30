@@ -1,9 +1,12 @@
 ## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/create-root-silbings/Basic.html)
-## 功能(未开始)
-根节点兄弟组件
+## 功能
 
-- `16.x` 中 `Portal`组件概念 （Portal扩展 -> (待开发)）
-- 不使用声明式场景（render），而是如下（Sku弹窗为例）
+根节点兄弟组件 - 传送门组件
+
+#### 传送门组件一（推荐）：
+
+- `15.x` 中 `Portal`组件概念 
+- 不使用`render()`场景，而是如下（Sku弹窗为例）
 
 ```js
 
@@ -19,12 +22,24 @@ handleModal = (e) => {
 }
 
 ```
+#### 传送门组件二（不推荐）：
 
-## API
+- `16.x` 中 `Portal` 扩展 [移步](https://github.com/wya-team/wya-rc/tree/master/src/web/portal/)
+- 使用`render()`场景
+
+## API (`CreateRootSiblings`)
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
 cName | 组件名称：用于标识卸载 | `string` | -
 onBefore | 初始化组件前操作，可以是ajax | `(opts = {}) => Promise` | -
+
+## API (`[Viewer].popup`)
+属性 | 说明 | 类型 | 默认值
+---|---|---|---
+parent | 用于传递context, 接入redux | `obj` | -
+getInstance | 获取当前组件实例回调 | `(instance, onSure, onClose) => void` | -
+onBefore | 自定义ajax, 替代先前onBefore | `(opts = {}) => Promise` | -
+cName | 自定义cName, 替代先前cName | `string` | -
 
 ## 基础用法
 
