@@ -1,3 +1,5 @@
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/authorized/Basic.html)
+
 ## 功能
 权限管理(Authorized)
 
