@@ -7,7 +7,7 @@
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
 tag | 标签 | `str / func` | div
-auth | 权限，只有当全是`true`才显示 | `array[ bool, () -> Promise ]` | []
+auth | 权限，只有当全是`true`才显示; 暂时不支持传递函数 | `array[ bool ]` | []
 
 ## 基础用法
 
@@ -20,11 +20,7 @@ class Basic extends Component {
 		this.state = {
 			auth: [
 				true, 
-				() => {
-					return new Promise((e) => {
-						setTimeout(() => e(true), 3000);
-					});
-				},
+				true,
 				true
 			]
 		};

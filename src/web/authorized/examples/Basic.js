@@ -6,14 +6,21 @@ class Basic extends Component {
 		this.state = {
 			auth: [
 				true, 
-				() => {
-					return new Promise((e) => {
-						setTimeout(() => e(true), 3000);
-					});
-				},
+				true,
 				true
 			]
 		};
+	}
+	componentDidMount() {
+		setTimeout(() => {
+			this.setState({
+				auth: [
+					true, 
+					false,
+					true
+				]
+			});
+		}, 4000);
 	}
 	render() {
 		const { auth } = this.state;
