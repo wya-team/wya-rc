@@ -7,11 +7,10 @@ import events from './events';
 
 import "photoswipe/dist/photoswipe.css";
 import "photoswipe/dist/default-skin/default-skin.css";
-
-
 // import "photoswipe/src/css/main.scss";
 // import "photoswipe/src/css/default-skin/default-skin.scss";
-// 
+import CreatePortalComponent from '../create-portal-component/index';
+
 class Core extends React.Component {
 
 	constructor(...params) {
@@ -20,7 +19,7 @@ class Core extends React.Component {
 			show: this.props.show
 		};
 	}
-	
+
 
 	componentDidMount() {
 		const { show } = this.state;
@@ -185,4 +184,5 @@ Core.defaultProps = {
 	className: ''
 };
 
+Core.Portal = CreatePortalComponent({})(Core);
 export default Core;

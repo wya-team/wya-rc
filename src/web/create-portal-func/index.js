@@ -1,12 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import RcInstance from '../rc-instance/index';
-
+import { getUid } from '../utils/utils';
 // decorator
 export default (options = {}) => WrappedComponent => {
-	let uuid = 0;
 	let isNeedWaiting = false;
-	let { cName, onBefore } = options;
+	let { cName, onBefore, el, root: _root  } = options;
 
 	if (!cName) {
 		console.log('cName 必传');
@@ -18,8 +17,9 @@ export default (options = {}) => WrappedComponent => {
 		init(opts = {}){
 			return new Promise((resolve, reject) => {
 				// create container
-				let container = document.createElement('div');
-				container.setAttribute('rc-root-uuid', uuid++);
+				let container = document.createElement(el || 'div');
+				let target = document.querySelector(_root || 'body');
+				container.setAttribute('rc-root-uuid', getUid());
 
 				// init opts
 				const { parent, getInstance, onBefore: _onBefore, cName: _cName, ...rest } = opts;
@@ -32,7 +32,7 @@ export default (options = {}) => WrappedComponent => {
 					show: true,
 					onCloseSoon: () => {
 						ReactDOM.unmountComponentAtNode(container);
-						document.body.removeChild(container);
+						target.removeChild(container);
 						delete RcInstance.APIS[cName];
 					},
 					onSure: (res) => {
@@ -45,22 +45,22 @@ export default (options = {}) => WrappedComponent => {
 					},
 				};
 				let render = (res = {}) => {
-					document.body.appendChild(container);
+					target.appendChild(container);
 
 					// destory
 					RcInstance.APIS[cName] && Viewer.destroy();
 					RcInstance.APIS[cName] = container;
 
 					let element = (
-						<Viewer 
-							{...opts} 
-							data={res.data} 
-							ref={instance => this.comp = instance} 
+						<Viewer
+							{...opts}
+							data={res.data}
+							ref={instance => this.comp = instance}
 						/>
 					);
-					let callback = () => { 
-						isNeedWaiting = false; 
-						getInstance && getInstance(this.comp, opts.onSure, opts.onClose); 
+					let callback = () => {
+						isNeedWaiting = false;
+						getInstance && getInstance(this.comp, opts.onSure, opts.onClose);
 					};
 
 					if (parent) {
@@ -69,7 +69,7 @@ export default (options = {}) => WrappedComponent => {
 					} else {
 						ReactDOM.render(element, container, callback);
 					}
-					
+
 				};
 				if (onBefore) {
 					if (isNeedWaiting) {
@@ -108,7 +108,7 @@ export default (options = {}) => WrappedComponent => {
 			}
 			return Statics.init(opts);
 		}
-		
+
 	};
 
 
@@ -132,7 +132,7 @@ export default (options = {}) => WrappedComponent => {
 		}
 	};
 
-	// Viewer 编译后 变量提升 
+	// Viewer 编译后 变量提升
 	return Viewer;
 };
 

@@ -1,8 +1,13 @@
 # 历史版本
+### 0.3.10 (2018-05-01)
+
+* 增加[`CreatePortalComponent: 创建兄弟节点(组件调用) -> Component`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-component/)
+* 变更[`CreateRootSiblings: 创建兄弟节点`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-func/) -> [`CreatePortalFunc: 创建兄弟节点(方法调用) -> （）=> Promise`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-func/)
+
 ### 0.3.8 (2018-04-30)
 
 * 增加[`Authorized: 权限判断`](https://github.com/wya-team/wya-rc/tree/master/src/web/authorized/)
-* 增加[`CreateRootSiblings: 创建兄弟节点`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-root-siblings/)
+* 增加[`CreateRootSiblings: 创建兄弟节点`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-func/)
 
 ### 0.3.6 (2018-04-20)
 

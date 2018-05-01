@@ -9,6 +9,7 @@
 dataSource | 源数据 | `array` | `[{ src, msrc, w, h ....}]`
 renderRow | item展示 | `func` | -
 show | 开关，默认关闭 | `bool` | false
+portal | 启用传送门组件 | `bool` | false
 opts
 ## 基础用法
 

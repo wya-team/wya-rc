@@ -1,9 +1,9 @@
-## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/create-root-silbings/Basic.html)
-## 功能
+## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/create-portal-func/Basic.html)
+## 功能 - 传送门组件一
 
-根节点兄弟组件 - 传送门组件
+根节点兄弟组件 - `() => Promise` - 传送门组件
 
-#### 传送门组件一（推荐）：
+#### 传送门组件一：
 
 - `15.x` 中 `Portal`组件概念 
 - 不使用`render()`场景，而是如下（Sku弹窗为例）
@@ -22,16 +22,26 @@ handleModal = (e) => {
 }
 
 ```
-#### 传送门组件二（不推荐）：
+#### 传送门组件二 [移步](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-component/)：
 
-- `16.x` 中 `Portal` 扩展 [移步](https://github.com/wya-team/wya-rc/tree/master/src/web/portal/)
+- `16.x` 中 `Portal` 扩展
 - 使用`render()`场景
 
-## API (`CreateRootSiblings`)
+```jsx
+
+<Modal>
+	{/* ... */}
+</Modal>
+
+```
+## API (`CreatePortalFunc`)
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
+el | 创建的外层元素 | `string` | div
+root | 根节点 | `string` | body
 cName | 组件名称：用于标识卸载 | `string` | -
 onBefore | 初始化组件前操作，可以是ajax | `(opts = {}) => Promise` | -
+
 
 ## API (`[Viewer].popup`)
 属性 | 说明 | 类型 | 默认值
@@ -44,11 +54,11 @@ cName | 自定义cName, 替代先前cName | `string` | -
 ## 基础用法
 
 - 例子
-```
+```jsx
 import React, { Component } from 'react';
-import { CreateRootSiblings } from 'wya-rc';
+import { CreatePortalFunc } from 'wya-rc';
 import { Modal, message } from 'antd';
-@CreateRootSiblings({
+@CreatePortalFunc({
 	cName: 'root-modal-test',
 	onBefore: () => {
 		message.destroy();
@@ -86,4 +96,12 @@ class Basic extends Component {
 }
 export default Basic;
 
+// 调用
+Modal.popup({
+	type: 'test'
+}).then(() => {
+	console.log('你点击了确定');
+}).catch(() => {
+	console.log('你点击了取消');
+});
 ```

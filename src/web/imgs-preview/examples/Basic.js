@@ -42,7 +42,7 @@ class GalleryPage extends React.Component {
 					w: 1200,
 					h: 900
 				}
-				
+
 			],
 			opts: {
 				closeOnScroll: false
@@ -60,6 +60,7 @@ class GalleryPage extends React.Component {
 				opts={opts}
 				renderRow={this.renderRow}
 				dataSource={dataSource}
+				portal
 				// show={show}
 				// onClose={this.handleClose}
 			/>

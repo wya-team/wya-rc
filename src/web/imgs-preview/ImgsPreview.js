@@ -5,6 +5,7 @@ import { pick } from 'lodash';
 import Core from './Core.js';
 import events from './events';
 
+
 class ImgsPreview extends React.Component {
 	static PhotoSwipe = Core;
 	constructor(...params) {
@@ -71,15 +72,16 @@ class ImgsPreview extends React.Component {
 				};
 			}
 		});
-		
+
 	}
 	render() {
-		const { dataSource, renderRow, style, className, ...other } = this.props;
+		const { dataSource, renderRow, style, className, portal, ...other } = this.props;
 		const { show, opts } = this.state;
+		const Target = portal ? Core.Portal : Core;
 		return (
 			<Fragment>
-				<div 
-					className={classnames(['rc-imgs-preview', className]).trim()} 
+				<div
+					className={classnames(['rc-imgs-preview', className]).trim()}
 					style={{ display: `flex`, flexWrap: `wrap`, ...style }}
 				>
 					{dataSource.map((item, index) => (
@@ -92,7 +94,7 @@ class ImgsPreview extends React.Component {
 						</div>
 					))}
 				</div>
-				<Core
+				<Target
 					ref="core"
 					imageLoadComplete={this.setSize}
 					{...pick(other, events)}

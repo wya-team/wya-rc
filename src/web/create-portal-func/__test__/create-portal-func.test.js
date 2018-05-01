@@ -1,14 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Portal from '../index.js';
+import createPortalFunc from '../index.js';
 
-describe('Portal.js', () => {
+describe('createPortalFunc.js', () => {
 	test('default props', () => {
-		const $ = mount(
-			<Portal />
-		);
-
+		const $ = createPortalFunc();
+		expect(typeof $ === 'function').toBe(true);
 		// expect($.exists()).toBe(true);
 
 		// expect($.find('div').length).toBe(1);
@@ -16,7 +14,7 @@ describe('Portal.js', () => {
 		// // root tag
 		// expect($.getDOMNode().nodeName.toLowerCase()).toEqual('div');
 		// // // class name
-		// expect($.getDOMNode().className).toBe('Portal');
+		// expect($.getDOMNode().className).toBe('tpl');
 		// // default props
 		// expect($.props().style).toEqual({});
 

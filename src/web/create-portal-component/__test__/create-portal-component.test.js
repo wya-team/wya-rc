@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import createRootSilblings from '../index.js';
+import createPortalComponent from '../index.js';
 
-describe('createRootSilblings.js', () => {
+describe('createPortalComponent.js', () => {
 	test('default props', () => {
-		const $ = createRootSilblings();
+		const $ = createPortalComponent();
 		expect(typeof $ === 'function').toBe(true);
 		// expect($.exists()).toBe(true);
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CreateRootSiblings from '../../index';
+import CreatePortalFunc from '../../index';
 import { Modal, message } from 'antd';
-@CreateRootSiblings({
+@CreatePortalFunc({
 	cName: 'root-modal-test',
 	onBefore: () => {
 		message.destroy();
