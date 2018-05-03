@@ -25,13 +25,12 @@ let webpackConfig = {
 	mode: 'development',
 	plugins: [
 		/**
-		 * 开发环境，
-		 * webpack 4 弃用
+		 * 开发环境
+		 * webpack 4 默认支持: 'process.env.NODE_ENV': JSON.stringify('development')
 		 */
-		// new webpack.DefinePlugin({
-		// 	'process.env.NODE_ENV': JSON.stringify('development'),
-		// 	__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
-		// }),
+		new webpack.DefinePlugin({
+			__DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
+		}),
 		/**
 		 * 友好提示
 		openPage: 'web/preview.html?page=containers/tab-bar/index.js',

@@ -57,7 +57,6 @@ const webpackConfig = {
 		publicPath: ENV_IS_DEV ? '/' : '/wya-rc/dist/'
 	},
 	module: {
-		exprContextCritical: false,
 		rules: [
 			{
 				test: /\.jsx?$/,
@@ -107,28 +106,22 @@ const webpackConfig = {
 				}
 			},
 			{
-				test: /\.json$/i,
-				use: 'json-loader'
-			},
-			{
 				test: /\.html$/i,
 				use: 'html-loader'
-			},
-			// {
-			// 	test: /\.svg$/,
-			// 	use: 'svg-sprite-loader',
-			// 	include: [
-			// 		// antd-mobile 内置svg，后续可以等它支持2.x做修改
-			// 		path.resolve(APP_ROOT, ''),  // 业务代码本地私有 svg 存放目录
-			// 	],
-			// }
+			}
 		]
 	},
+	optimization: {
+		// 默认关闭压缩
+		minimize: ENV_IS_DEV ? false : JSON.parse(process.env.UGLIFY_JS),
+		// 原：NamedModulesPlugin()
+		namedModules: true,
+		// 原：NoEmitOnErrorsPlugin() - 异常继续执行
+		noEmitOnErrors: true,
+		// 原：ModuleConcatenationPlugin() - 模块串联 - dev模式下回影响antd（比如：Pagination, 和语言有关）
+		concatenateModules: !ENV_IS_DEV,
+	},
 	plugins: [
-		/**
-		 * 报错继续运行2.0弃用NoErrorsPlugin，改用NoEmitOnErrorsPlugin
-		 */
-		new webpack.NoEmitOnErrorsPlugin(),
 		...getHTMLConfig()
 	]
 };
