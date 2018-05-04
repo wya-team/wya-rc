@@ -56,6 +56,16 @@ const initRaw = {
 class Basic extends Component {
 	constructor(props, context) {
 		super(props, context);
+		this.editor = null;
+		this.trigger = [];
+	}
+	componentDidMount() {
+		let start = new Date;
+		this.trigger.push((instance) => {
+			console.log('====================================');
+			console.log(instance, `delay: ${new Date - start}`);
+			console.log('====================================');
+		});
 	}
 	handleRawChange = (raw) => {
 		console.log(`Raw: ${raw}`);
@@ -65,6 +75,14 @@ class Basic extends Component {
 	}
 	handleChange = (raw) => {
 		console.log(`Raw: ${raw}`);
+	}
+	handleLoaded = (instance) => {
+		// 假如一开始拿不到this.editor的值
+		if (!this.editor) {
+			this.trigger.forEach(fn => fn(instance));
+			this.trigger = [];
+		}
+		this.editor = instance;
 	}
 	render() {
 		return (
@@ -76,6 +94,7 @@ class Basic extends Component {
 				onRawChange={this.handleRawChange}
 				onHTMLChange={this.handleHTMLChange}
 				onChange={this.handleChange}
+				onLoaded={this.handleLoaded}
 			/>
 		);
 
