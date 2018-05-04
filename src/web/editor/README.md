@@ -13,7 +13,10 @@ initialContent | 编辑器的初始内容，根据contentFormat类型传入html�
 onChange | 指定编辑器内容发生变化时候的回调 | `(html | raw) => void` | -
 onRawChange | onRawChange | `(raw) => void` | -
 onHTMLChange | onHTMLChange | `(html) => void` | -
+onLoaded | 组件渲染完毕，实例方法 | `(instance) -> void` | -
 controls | 指定控制栏组件 | `arr` | -
+
+onLoaded
 - controls
 
 ```js

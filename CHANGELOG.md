@@ -1,4 +1,8 @@
 # 历史版本
+
+### 0.4.0 (2018-05-04)
+* 修改 [`Editor`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/) 富文本组件 获取实例的方式`onLoaded`（组件为使用`code spliting`）
+
 ### 0.3.10 (2018-05-01)
 
 * 增加[`CreatePortalComponent: 创建兄弟节点(组件调用) -> Component`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-component/)

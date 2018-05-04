@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 export default (fn, refName = "wrap", Loading, opts = {}) => {
 	class AsyncComponent extends Component {
-		constructor (props) {
-			super(props);
+		constructor (...params) {
+			super(...params);
 
 			this.state = {
 				WrapComponent: null,
@@ -11,9 +11,11 @@ export default (fn, refName = "wrap", Loading, opts = {}) => {
 		}
 
 		async componentDidMount () {
-			const { onBefore, onAfter } = opts;
-			const { onLoaded } = this.props;
 			try {
+				let { onBefore, onAfter } = opts;
+				onBefore = onBefore || this.props.onBefore;
+				onAfter = onAfter || this.props.onAfter;
+
 				// before
 				onBefore && onBefore();
 
@@ -23,23 +25,21 @@ export default (fn, refName = "wrap", Loading, opts = {}) => {
 				// after
 				onAfter && onAfter();
 
-				// loaded
-				onLoaded && onLoaded();
-
 				this.setState({
 					WrapComponent
 				});
 			} catch (e) {
 				console.log(e);
 			}
-			
+
 		}
 
 		render () {
 			const { WrapComponent }  = this.state;
+			const { onBefore, onAfter, onLoaded, ...rest }  = this.props;
 			return WrapComponent
-				? <WrapComponent {...this.props} ref={refName}/>
-				: Loading 
+				? <WrapComponent { ...rest } ref={onLoaded ? instance => onLoaded(instance) : refName}/>
+				: Loading
 					? <Loading />
 					: null;
 		}

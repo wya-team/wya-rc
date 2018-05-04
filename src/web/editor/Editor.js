@@ -12,9 +12,14 @@ class Editor extends Component {
 		this.state = {
 			htmlContent: ''
 		};
+		this.editor = null;
 	}
-	setEditor = (editor) => {
-		this.editor = editor;
+	setEditor = (instance) => {
+		if (!this.editor) {
+			this.editor = instance;
+			this.props.onLoaded && this.props.onLoaded(instance);
+		}
+		return instance;
 	}
 	setOpts() {
 		const editorProps = {
@@ -79,14 +84,14 @@ class Editor extends Component {
 		// 		url: 'http://path/to/image-2.mp3'
 		// 	}
 		// ]
-		this.editor.refs['wrap'].insertMedias([...params]);
+		this.editor.insertMedias([...params]);
 	}
 	render() {
 		const opts = this.setOpts();
-		const { className, style = {} } = this.props; 
+		const { className, style = {} } = this.props;
 		return (
-			<div className={className} style={{ background: 'white', ...style }}> 
-				<BraftEditor {...opts} ref={this.setEditor}/>
+			<div className={className} style={{ background: 'white', ...style }}>
+				<BraftEditor {...opts} onLoaded={this.setEditor} ref="editor" />
 			</div>
 		);
 
