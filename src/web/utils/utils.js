@@ -177,7 +177,7 @@ export const getParseUrl = (url = `${location.pathname}${location.search}`, opts
 			const arr = str.split('=');
 			const key = arr[0];
 			const value = arr[1];
-			if (isNaN(value)) {
+			if (isNaN(value) || a[0] === '0') {
 				query[key] = value;
 			} else {
 				query[key] = Number(value);
@@ -247,14 +247,14 @@ export const isFileAPISupported = typeof File !== 'undefined';
 // const iOS11Relative = isiOS11 ? { position: `relative` } : {};
 // const iOS11FlexEnd = isiOS11
 // 	? { // 暂时这里不先考虑兼容
-// 		display: `flex`, 
-// 		alignItems: `flex-end`, 
+// 		display: `flex`,
+// 		alignItems: `flex-end`,
 // 		height: `100%`
 // 	}
 // 	: {};
 // const iOS11FlexCenter = isiOS11
 // 	? { // 暂时这里不先考虑兼容
-// 		display: `flex`, 
+// 		display: `flex`,
 // 		alignItems: `center`,
 // 		justifyContent: `center`,
 // 		height: `100%`

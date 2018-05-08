@@ -1,5 +1,9 @@
 # 历史版本
 
+### 0.4.1 (2018-05-08)
+
+* 修改 [`getParseUrl`]中`0001 -> 1` 的情况
+
 ### 0.4.0 (2018-05-04)
 * 修改 [`Editor`](https://github.com/wya-team/wya-rc/tree/master/src/web/editor/) 富文本组件 获取实例的方式`onLoaded`（组件为使用`code spliting`）
 
