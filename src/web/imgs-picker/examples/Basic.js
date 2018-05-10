@@ -32,24 +32,6 @@ class Basic extends Component {
 			<Form onSubmit={this.handleSubmit}>
 				<Form.Item
 					{...formItemLayout}
-					label="员工姓名："
-				>
-					{
-						getFieldDecorator('staff_name', {
-							initialValue: '',
-							rules: [
-								{
-									required: true,
-									message: '请填写员工姓名!',
-								}
-							],
-						})(
-							<Input disabled={true} />
-						)
-					}
-				</Form.Item>
-				<Form.Item
-					{...formItemLayout}
 					label="图片上传"
 				>
 					{
