@@ -23,7 +23,7 @@ class Echarts extends Component {
 		} catch (e) {
 			console.error(e);
 		}
-		
+
 	}
 	componentDidUpdate = async () => {
 		try {
@@ -33,14 +33,18 @@ class Echarts extends Component {
 		} catch (e) {
 			console.error(e);
 		}
-		
+
 	}
 	componentWillUnmount() {
-		if (this.echartsElement) {
-			if (typeof elementResizeEvent.unbind === 'function') {
-				elementResizeEvent.unbind(this.echartsElement);
-		 	}
-			this.echartsInstance.dispose(this.echartsElement);
+		try {
+			if (this.echartsElement) {
+				if (typeof elementResizeEvent.unbind === 'function') {
+					elementResizeEvent.unbind(this.echartsElement);
+				}
+				this.echartsInstance.dispose(this.echartsElement);
+			}
+		} catch (e) {
+			console.error(e);
 		}
 	}
 	getEchartsInstance(){
