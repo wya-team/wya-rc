@@ -22,6 +22,7 @@ class Editor extends Component {
 		return instance;
 	}
 	setOpts() {
+		const { max } = this.props;
 		const editorProps = {
 			placeholder: '请输入需要编辑的信息',
 			// controls: [
@@ -49,15 +50,17 @@ class Editor extends Component {
 					text: <Icon type="upload"/>,
 					onClick: () => {
 						PGallery.popup({
-							max: 1,
+							max: max || 1,
 						}).then((res) => {
-							this.insertMedias([
-								{
-									type: 'IMAGE',
-									name: 'New Photo',
-									url: res[0].file_url.replace(/!4-4/g, '')
-								}
-							]);
+							res.forEach(item => {
+								this.insertMedias([
+									{
+										type: 'IMAGE',
+										name: 'New Photo',
+										url: item.file_url.replace(/!4-4/g, '')
+									}
+								]);
+							});
 						}).catch((res) => {
 							console.log(res);
 						});
