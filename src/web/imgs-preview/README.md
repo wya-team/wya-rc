@@ -11,6 +11,7 @@ renderRow | item展示 | `func` | -
 show | 开关，默认关闭 | `bool` | false
 portal | 启用传送门组件 | `bool` | false
 opts
+
 ## 基础用法
 
 ```jsx
@@ -85,4 +86,25 @@ class GalleryPage extends React.Component {
 
 export default GalleryPage;
 
+```
+## 扩展调用(无法自适应宽高，待处理)
+```jsx
+e.persist();
+ImgsPreview.Func.popup({
+	show: true,
+	dataSource: this.state.dataSource,
+	opts: {
+		index: 2,
+		getThumbBoundsFn: (index) => {
+			// 动画  // 你点击的那个元素
+			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+			const rect = e.target.getBoundingClientRect();
+			return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+		}
+	}
+}).then(() => {
+
+}).catch(() => {
+
+});
 ```

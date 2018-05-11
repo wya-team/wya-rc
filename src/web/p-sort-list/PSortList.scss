@@ -1,8 +1,6 @@
+@import '../style/index.scss';
 .rcp-sort-list {
-	display: flex;
-	justify-content: space-around;
-	align-content: space-around;
-	flex-wrap: wrap;
+	@include commonFlex();
 	& > div {
 		margin: 10px;
 		text-align: center;

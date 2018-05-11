@@ -48,6 +48,17 @@ class GalleryPage extends React.Component {
 				closeOnScroll: false
 			}
 		};
+		// ImgsPreview.Func.popup({
+		// 	show: true,
+		// 	dataSource: this.state.dataSource,
+		// 	opts: {
+		// 		index: 2
+		// 	}
+		// }).then(() => {
+
+		// }).catch(() => {
+
+		// });
 	}
 	renderRow = item => (
 		<img src={item.thumbnail} width={100} height={100} alt=""/>

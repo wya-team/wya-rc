@@ -8,6 +8,8 @@ import events from './events';
 
 class ImgsPreview extends React.Component {
 	static PhotoSwipe = Core;
+	static Component = Core.Component;
+	static Func = Core.Func;
 	constructor(...params) {
 		super(...params);
 		this.state = {
@@ -77,7 +79,7 @@ class ImgsPreview extends React.Component {
 	render() {
 		const { dataSource, renderRow, style, className, portal, ...other } = this.props;
 		const { show, opts } = this.state;
-		const Target = portal ? Core.Portal : Core;
+		const Target = portal ? Core.Component : Core;
 		return (
 			<Fragment>
 				<div

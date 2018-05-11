@@ -1,11 +1,20 @@
 ## [Demo Basic](https://wya-team.github.io/wya-rc/dist/web/imgs-picker/Basic.html)
 ## 功能
-tpl
+上传图片功能
+
+## 待开发
+- 进度条
+- 预览
 
 ## API
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
-- | - | `any` | -
+tag | - | `any` | -
+max | - | `any` | -
+style | - | `any` | -
+value | - | `any` | -
+onChange | - | `any` | -
+onError | - | `any` | -
 
 ## 基础用法
 
@@ -13,6 +22,15 @@ tpl
 import React, { Component } from 'react';
 import { Modal, Input, Form, Button, message } from 'antd';
 import { ImgsPicker } from 'wya-rc';
+
+// 只需要注册一次
+import { RcInstance } from 'wya-rc';
+RcInstance.init({
+	Upload: {
+		URL_UPLOAD_IMG_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
+		URL_UPLOAD_FILE_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
+	}
+});
 const formItemLayout = {
 	labelCol: {
 		xs: { span: 7 },
@@ -56,11 +74,7 @@ class Basic extends Component {
 								}
 							],
 						})(
-							<ImgsPicker
-								upload={{
-									url: "https://managexcx.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx"
-								}}
-							/>
+							<ImgsPicker/>
 						)
 					}
 				</Form.Item>

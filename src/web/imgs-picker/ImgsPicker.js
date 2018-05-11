@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './ImgsPicker.scss';
 import Upload from '../upload/index';
+import ImgsPreview from '../imgs-preview/index';
 import { getParseUrl } from '../utils/utils';
 class ImgsPicker extends Component {
 	constructor(props, context) {
@@ -19,7 +20,14 @@ class ImgsPicker extends Component {
 		}
 	}
 	handleDel = (item) => {
-		let { value, getParse, onChange } = this.props;
+		let { value, max, getParse, onChange } = this.props;
+		if (max !== 0 && value.length >= max) {
+			this.props.onError && this.props.onError({
+				status: 0,
+				msg: '超出上传限制'
+			});
+			return;
+		}
 		if (onChange) {
 			onChange(value.filter(_item => _item != item));
 		} else {
@@ -29,7 +37,7 @@ class ImgsPicker extends Component {
 		}
 	}
 	handleFileSuccess = (res) => {
-		let { value, getParse, onChange } = this.props;
+		let { max, value, getParse, onChange } = this.props;
 		if (onChange) {
 			onChange([...value, getParse ? getParse(res) : res.data.url]);
 		} else {
@@ -42,12 +50,17 @@ class ImgsPicker extends Component {
 		console.log(res);
 		this.props.onError && this.props.onError(res);
 	}
+	handlePreview = (e, i) => {
+		e.persist();
+		let { value, onChange } = this.props;
+		value = onChange ? value : this.state.value;
+	}
 	render() {
 		let {
 			tag: Tag,
 			style,
 			className,
-			value, limit, upload = {},
+			value, max, upload = {},
 			onChange
 		} = this.props;
 		value = onChange ? value : this.state.value;
@@ -62,6 +75,9 @@ class ImgsPicker extends Component {
 									style={{ backgroundImage: `url("${item}")` }}
 								>
 									<div className="__mask">
+										{
+											// <span onClick={e => this.handlePreview(e, index)}>👓</span>
+										}
 										<span onClick={e => this.handleDel(item)}>&#10006;</span>
 									</div>
 								</div>
@@ -70,7 +86,7 @@ class ImgsPicker extends Component {
 					})
 				}
 				{
-					value.length < limit &&
+					(value.length < max || max === 0)  &&
 						<Upload
 							className="__upload __normal"
 							tag="div"
@@ -86,14 +102,15 @@ class ImgsPicker extends Component {
 }
 ImgsPicker.propTypes = {
 	tag: PropTypes.string,
-	limit: PropTypes.number,
+	max: PropTypes.number,
 	style: PropTypes.object,
 	value: PropTypes.array,
 	onChange: PropTypes.func,
+	onError: PropTypes.func,
 };
 ImgsPicker.defaultProps = {
 	style: {},
 	tag: 'div',
-	limit: 3,
+	max: 3,
 };
 export default ImgsPicker;

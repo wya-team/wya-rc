@@ -10,6 +10,7 @@ import "photoswipe/dist/default-skin/default-skin.css";
 // import "photoswipe/src/css/main.scss";
 // import "photoswipe/src/css/default-skin/default-skin.scss";
 import CreatePortalComponent from '../create-portal-component/index';
+import CreatePortalFunc from '../create-portal-func/index';
 
 class Core extends React.Component {
 
@@ -184,5 +185,8 @@ Core.defaultProps = {
 	className: ''
 };
 
-Core.Portal = CreatePortalComponent({})(Core);
+Core.Component = CreatePortalComponent({})(Core);
+Core.Func = CreatePortalFunc({
+	cName: 'rc-imgs-preview'
+})(Core);
 export default Core;

@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { Modal, Input, Form, Button, message } from 'antd';
 import ImgsPicker from '../ImgsPicker';
+import { RcInstance } from '../../../main';
+// 只需要注册一次
+RcInstance.init({
+	Upload: {
+		URL_UPLOAD_IMG_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx',
+		URL_UPLOAD_FILE_POST: 'https://wyaoa.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx'
+	}
+});
+
 const formItemLayout = {
 	labelCol: {
 		xs: { span: 7 },
@@ -44,11 +53,7 @@ class Basic extends Component {
 								}
 							],
 						})(
-							<ImgsPicker
-								upload={{
-									url: "https://managexcx.ruishan666.com/uploadfile/upimg.json?action=uploadimage&encode=utf-8&code=xcx"
-								}}
-							/>
+							<ImgsPicker max={0}/>
 						)
 					}
 				</Form.Item>
