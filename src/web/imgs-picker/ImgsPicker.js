@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './ImgsPicker.scss';
-import Upload from '../Upload';
+import Upload from '../upload/index';
 import { getParseUrl } from '../utils/utils';
 class ImgsPicker extends Component {
 	constructor(props, context) {
