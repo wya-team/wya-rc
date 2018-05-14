@@ -67,7 +67,7 @@ class Paging extends Component {
 
 			_history && window.history.replaceState(null, null, getConstructUrl({
 				path,
-				query: { 
+				query: {
 					...query,
 					page
 				}
@@ -220,7 +220,7 @@ class Paging extends Component {
 						}
 
 						return React.createElement(renderRow, {
-							key: index,
+							key: item, // index -> item
 							rowSelection: {
 								disabled: this.getCheckboxProps(itemObj[item]).disabled,
 								checked: checked,
@@ -232,8 +232,8 @@ class Paging extends Component {
 						});
 					}
 					return React.createElement(renderRow, {
+						key: item, // index -> item
 						itemData: itemObj[item],
-						key: index,
 						actions,
 						...rowProps
 					});
