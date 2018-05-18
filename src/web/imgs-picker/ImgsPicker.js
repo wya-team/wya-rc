@@ -61,7 +61,8 @@ class ImgsPicker extends Component {
 			style,
 			className,
 			value, max, upload = {},
-			onChange
+			onChange,
+			disabled
 		} = this.props;
 		value = onChange ? value : this.state.value;
 		return (
@@ -74,7 +75,7 @@ class ImgsPicker extends Component {
 									className="__img"
 									style={{ backgroundImage: `url("${item}")` }}
 								>
-									<div className="__mask">
+									<div className="__mask" style={ disabled ? { display: 'none' } : {} }>
 										{
 											// <span onClick={e => this.handlePreview(e, index)}>👓</span>
 										}
@@ -86,7 +87,7 @@ class ImgsPicker extends Component {
 					})
 				}
 				{
-					(value.length < max || max === 0)  &&
+					(!disabled && (value.length < max || max === 0)) &&
 						<Upload
 							className="__upload __normal"
 							tag="div"
@@ -107,10 +108,12 @@ ImgsPicker.propTypes = {
 	value: PropTypes.array,
 	onChange: PropTypes.func,
 	onError: PropTypes.func,
+	disabled: PropTypes.bool,
 };
 ImgsPicker.defaultProps = {
 	style: {},
 	tag: 'div',
 	max: 3,
+	disabled: false,
 };
 export default ImgsPicker;

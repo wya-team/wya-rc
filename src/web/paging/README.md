@@ -29,7 +29,8 @@ resetPage | `如果前后值不一样，重置分页到第一页` | `string` | -
 tHide | `隐藏title` | `bool` | false
 dataSource | `table`数据(传入itemArr和itemObj) | `obj` | -
 rowSelection | `Checkbox`配置项 | `obj` | -
-renderRow | 列表Item | `func` | -
+renderRow | 列表Item | `({ rowSelection, itemData, actions, ...others }) => node` | -
+renderPagination | 自定义分页 | `({ onChange }) => node`| -
 actions | 传入Item的Action | `obj` | -
 rowProps | 传入Item的其他Props | `obj` | -
 

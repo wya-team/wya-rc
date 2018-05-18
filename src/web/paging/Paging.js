@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './Paging.scss';
@@ -201,7 +201,7 @@ class Paging extends Component {
 			Tag = 'div';
 		}
 		return (
-			<Tag className={listClassName || ""} ref={node => this.scrollContainer = node}>
+			<Tag className={listClassName || ""} ref={node => this.scrollContainer = this.scrollContainer || node}>
 				{curRowData.map((item, index) => {
 					if (rowSelection) {
 						let checked;
@@ -219,7 +219,7 @@ class Paging extends Component {
 							checked = this.getCheckboxProps(itemObj[item]).checked;
 						}
 
-						return React.createElement(renderRow, {
+						return createElement(renderRow, {
 							key: item, // index -> item
 							rowSelection: {
 								disabled: this.getCheckboxProps(itemObj[item]).disabled,
@@ -231,7 +231,7 @@ class Paging extends Component {
 							...rowProps
 						});
 					}
-					return React.createElement(renderRow, {
+					return createElement(renderRow, {
 						key: item, // index -> item
 						itemData: itemObj[item],
 						actions,
@@ -283,6 +283,7 @@ class Paging extends Component {
 			totalPage,
 			children,
 			tHide,
+			renderPagination,
 			...pagination
 		} = this.props;
 		return (
@@ -296,14 +297,23 @@ class Paging extends Component {
 					<div className="__left">
 						{children}
 					</div>
-					<Pagination
-						{...pagination}
-						showQuickJumper
-						defaultPageSize={1}
-						current={curPage}
-						total={totalPage}
-						onChange={(page) => this.handleChange(page, this.props)}
-					/>
+					{
+						typeof renderPagination === 'function'
+							? createElement(renderPagination, {
+								onChange: this.handleChange,
+							})
+							: (
+								<Pagination
+									{...pagination}
+									showQuickJumper
+									defaultPageSize={1}
+									current={curPage}
+									total={totalPage}
+									onChange={(page) => this.handleChange(page, this.props)}
+								/>
+							)
+					}
+
 				</div>
 			</div>
 		);
@@ -326,6 +336,7 @@ Paging.propTypes = {
 	rowSelection: PropTypes.object,
 	dataSource: PropTypes.object,
 	renderRow: PropTypes.func.isRequired,
+	renderPagination: PropTypes.func,
 	rowProps: PropTypes.object,
 	actions: PropTypes.object,
 	history: PropTypes.bool
