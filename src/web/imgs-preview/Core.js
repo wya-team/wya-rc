@@ -11,7 +11,10 @@ import "photoswipe/dist/default-skin/default-skin.css";
 // import "photoswipe/src/css/default-skin/default-skin.scss";
 import CreatePortalComponent from '../create-portal-component/index';
 import CreatePortalFunc from '../create-portal-func/index';
-
+let realViewportWidth,
+	useLargeImages = false,
+	firstResize = true,
+	imageSrcWillChange;
 class Core extends React.Component {
 
 	constructor(...params) {
@@ -19,13 +22,19 @@ class Core extends React.Component {
 		this.state = {
 			show: this.props.show
 		};
+
+		this.imgs = [];
+
+		this.defaultEvent = {
+			gettingData: this.gettingData
+		};
 	}
 
 
 	componentDidMount() {
 		const { show } = this.state;
 		if (show) {
-			this.openPhotoSwipe(this.props);
+			this.initPhotoSwipe(this.props);
 		}
 	};
 
@@ -33,35 +42,61 @@ class Core extends React.Component {
 		const { show } = this.state;
 		if (nextProps.show) {
 			if (!show) {
-				this.openPhotoSwipe(nextProps);
+				this.initPhotoSwipe(nextProps);
 			} else {
-				this.updateItems(nextProps.dataSource);
+				let { dataSource } = nextProps;
+				dataSource = this.setDataSource(dataSource);
+				this.updatePhotoSwipe(dataSource);
 			}
 		} else if (show) {
-			this.closePhotoSwipe();
+			this.destroyPhotoSwipe();
 		}
 	};
 
 	componentWillUnmount() {
-		this.closePhotoSwipe();
-	};
+		this.destroyPhotoSwipe();
+	}
+	setDataSource (images) {
+		return images.map((item, index) => {
+			if (typeof item === 'object') {
+				return item;
+			} else {
+				return {
+					src: item,
+					thumbnail: item,
+					title: `IMG_${index + 1}`,
+					w: 1200,
+					h: 900
+				};
+			}
+		});
+	}
+	/**
+	 * 实例
+	 */
+	initPhotoSwipe = (props) => {
+		let { dataSource, opts, setInstance } = props;
+		// 初始化参数
+		dataSource = this.setDataSource(dataSource);
 
-	openPhotoSwipe = (props) => {
-		const { dataSource, opts, setInstance } = props;
-		const pswpElement = this.pswpElement;
+		// 插入的节点
+		let pswpElement = this.pswpElement;
+
+		// 实例
 		this.photoSwipe = new Photoswipe(pswpElement, PhotoswipeUIDefault, dataSource, opts);
 		setInstance && setInstance(this.photoSwipe);
+
+		// 绑定事件
 		events.forEach((event) => {
-			const callback = props[event];
+			const callback = props[event] || this.defaultEvent[event];
 			if (callback || event === 'destroy') {
-				const self = this;
-				this.photoSwipe.listen(event, function (...args) {
+				this.photoSwipe.listen(event, (...args) => {
 					if (callback) {
 						args.unshift(this);
 						callback(...args);
 					}
 					if (event === 'destroy') {
-						self.handleClose();
+						this.handleClose();
 					}
 				});
 			}
@@ -72,8 +107,10 @@ class Core extends React.Component {
 			this.photoSwipe.init();
 		});
 	};
-
-	updateItems = (items = []) => {
+	/**
+	 * 更新元素
+	 */
+	updatePhotoSwipe = (items = []) => {
 		this.photoSwipe.items.length = 0;
 		items.forEach((item) => {
 			this.photoSwipe.items.push(item);
@@ -81,14 +118,18 @@ class Core extends React.Component {
 		this.photoSwipe.invalidateCurrItems();
 		this.photoSwipe.updateSize(true);
 	};
-
-	closePhotoSwipe = () => {
+	/**
+	 * 销毁实例
+	 */
+	destroyPhotoSwipe = () => {
 		if (!this.photoSwipe) {
 			return;
 		}
 		this.photoSwipe.close();
-	};
-
+	}
+	/**
+	 * 不显示
+	 */
 	handleClose = () => {
 		const { onClose } = this.props;
 		this.setState({
@@ -99,7 +140,23 @@ class Core extends React.Component {
 			}
 		});
 	};
+	// MARK: 事件处理
+	// 自动适配 - http://photoswipe.com/documentation/responsive-images.html
+	gettingData = (instance, index) => {
+		let { items } = this.photoSwipe;
+		let item = items[index];
+		if (item.src && !this.imgs.includes(item.src)) {
+			let img = new Image();
+			img.src = item.src;
+			img.onload = () => {
+				this.imgs.push(img);
+				item.w = img.naturalWidth;
+				item.h = img.naturalHeight;
+				this.photoSwipe.updateSize(true);
+			};
+		}
 
+	}
 	render() {
 		const { id } = this.props;
 		let { className } = this.props;
@@ -112,7 +169,7 @@ class Core extends React.Component {
 				role="dialog"
 				aria-hidden="true"
 				ref={(node) => {
-					this.pswpElement = node;
+					this.pswpElement = this.pswpElement || node;
 				}}
 			>
 				<div className="pswp__bg"/>

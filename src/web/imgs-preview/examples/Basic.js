@@ -48,17 +48,19 @@ class GalleryPage extends React.Component {
 				closeOnScroll: false
 			}
 		};
-		// ImgsPreview.Func.popup({
-		// 	show: true,
-		// 	dataSource: this.state.dataSource,
-		// 	opts: {
-		// 		index: 2
-		// 	}
-		// }).then(() => {
+		// setTimeout(() => {
+		// 	ImgsPreview.Func.popup({
+		// 		show: true,
+		// 		dataSource: this.state.dataSource,
+		// 		opts: {
+		// 			index: 2,
+		// 		}
+		// 	}).then(() => {
 
-		// }).catch(() => {
+		// 	}).catch(() => {
 
-		// });
+		// 	});
+		// }, 5000);
 	}
 	renderRow = item => (
 		<img src={item.thumbnail} width={100} height={100} alt=""/>

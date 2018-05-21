@@ -3,6 +3,7 @@ export default [
 	'afterChange',
 	'imageLoadComplete',
 	'resize',
+	'beforeResize',
 	'gettingData',
 	'mouseUsed',
 	'initialZoomIn',

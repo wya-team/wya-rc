@@ -35,14 +35,15 @@ class ImgsPreview extends React.Component {
 		this.thumbnails[index] = node;
 	}
 	handleShow = (e, index) => {
+		e.persist();
 		e.preventDefault();
-		const getThumbBoundsFn = ((index) => {
-			const thumbnail = this.thumbnails[index];
-			const img = thumbnail.getElementsByTagName('img')[0];
+		const getThumbBoundsFn = (index) => {
+			const thumbnail = this.thumbnails[index] || e.target;
+			const target = thumbnail.getElementsByTagName('img')[0] || e.target;
 			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-			const rect = img.getBoundingClientRect();
+			const rect = target.getBoundingClientRect();
 			return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-		});
+		};
 		const { opts } = this.state;
 		opts.index = index;
 		opts.getThumbBoundsFn = opts.getThumbBoundsFn || getThumbBoundsFn;
@@ -59,25 +60,9 @@ class ImgsPreview extends React.Component {
 		this.props.onClose();
 	}
 
-	setSize = () => {
-		// 懒加载未开发，自动适配尺寸
-		let { items } = this.instance;
-		items.forEach((item) => {
-			if (item.src && !this.imgs.includes(item.src)) {
-				let img = new Image();
-				img.src = item.src;
-				img.onload = () => {
-					this.imgs.push(img);
-					item.w = img.naturalWidth;
-					item.h = img.naturalHeight;
-					this.instance.updateSize(true);
-				};
-			}
-		});
 
-	}
 	render() {
-		const { dataSource, renderRow, style, className, portal, ...other } = this.props;
+		const { dataSource, renderRow, style, className, portal, id, ...other } = this.props;
 		const { show, opts } = this.state;
 		const Target = portal ? Core.Component : Core;
 		return (
@@ -98,7 +83,7 @@ class ImgsPreview extends React.Component {
 				</div>
 				<Target
 					ref="core"
-					imageLoadComplete={this.setSize}
+					id={id}
 					{...pick(other, events)}
 					setInstance={(instance => this.instance = instance)}
 					show={show}
@@ -115,6 +100,7 @@ ImgsPreview.propTypes = {
 	dataSource: PropTypes.array.isRequired,
 	opts: PropTypes.object,
 	renderRow: PropTypes.func,
+	id: PropTypes.string,
 	className: PropTypes.string,
 	show: PropTypes.bool,
 	onClose: PropTypes.func
@@ -122,9 +108,19 @@ ImgsPreview.propTypes = {
 
 ImgsPreview.defaultProps = {
 	opts: {},
-	renderRow: item => (
-		<img src={item.thumbnail || item.msrc || item.src} width="100" height="100" alt=""/>
-	),
+	renderRow: item => {
+		let image = typeof item === 'object'
+			? (item.thumbnail || item.msrc || item.src)
+			: image;
+		return (
+			<img
+				src={image}
+				width="100"
+				height="100"
+				alt=""
+			/>
+		);
+	},
 	className: '',
 	show: false,
 	onClose: () => {
