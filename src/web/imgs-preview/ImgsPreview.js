@@ -38,8 +38,8 @@ class ImgsPreview extends React.Component {
 		e.persist();
 		e.preventDefault();
 		const getThumbBoundsFn = (index) => {
-			const thumbnail = this.thumbnails[index] || e.target;
-			const target = thumbnail.getElementsByTagName('img')[0] || e.target;
+			const thumbnail = this.thumbnails[index] || e.currentTarget;
+			const target = thumbnail.getElementsByTagName('img')[0] || e.currentTarget;
 			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
 			const rect = target.getBoundingClientRect();
 			return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };

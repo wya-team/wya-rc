@@ -21,7 +21,7 @@ class ImgsPicker extends Component {
 	}
 	handleDel = (item) => {
 		let { value, max, getParse, onChange } = this.props;
-		if (max !== 0 && value.length >= max) {
+		if (max !== 0 && value.length > max) {
 			this.props.onError && this.props.onError({
 				status: 0,
 				msg: '超出上传限制'
