@@ -82,7 +82,7 @@ export default (options = {}) => WrappedComponent => {
 							.then((res = {}) => {
 								render(res);
 							}).catch((res = {}) => {
-								isNeedWaiting = true;
+								isNeedWaiting = false;
 								reject(res);
 							});
 					}
