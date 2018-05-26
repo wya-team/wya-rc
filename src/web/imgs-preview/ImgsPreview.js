@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, createElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { pick } from 'lodash';
 import Core from './Core.js';
 import events from './events';
-
-
+// 当遇到Modal里的预览，第二次节点会查找失败，这里不使用this.thumbnails;
+let thumbnails = thumbnails || [];
 class ImgsPreview extends React.Component {
 	static PhotoSwipe = Core;
 	static Component = Core.Component;
@@ -18,6 +18,8 @@ class ImgsPreview extends React.Component {
 		};
 
 		this.imgs = [];
+
+		thumbnails = [];
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -31,15 +33,13 @@ class ImgsPreview extends React.Component {
 		}
 	}
 	setRef = (node, index) => {
-		this.thumbnails = this.thumbnails || [];
-		this.thumbnails[index] = node;
+		thumbnails[index] = thumbnails[index] || node;
 	}
 	handleShow = (e, index) => {
 		e.persist();
-		e.preventDefault();
+		// e.preventDefault();
 		const getThumbBoundsFn = (index) => {
-			const thumbnail = this.thumbnails[index] || e.currentTarget;
-			const target = thumbnail.getElementsByTagName('img')[0] || e.currentTarget;
+			const target = thumbnails[index] || e.target;
 			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
 			const rect = target.getBoundingClientRect();
 			return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
@@ -76,6 +76,7 @@ class ImgsPreview extends React.Component {
 							key={index}
 							ref={(node) => this.setRef(node, index)}
 							onClick={(e) => this.handleShow(e, index)}
+
 						>
 							{renderRow(item)}
 						</div>
@@ -117,7 +118,6 @@ ImgsPreview.defaultProps = {
 				src={image}
 				width="100"
 				height="100"
-				alt=""
 			/>
 		);
 	},
