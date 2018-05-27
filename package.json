@@ -1,6 +1,6 @@
 {
     "name": "wya-rc",
-    "version": "0.4.19",
+    "version": "0.4.26",
     "description": "wya for react components",
     "main": "lib/main.js",
     "files": [
@@ -116,8 +116,8 @@
     },
     "peerDependencies": {
         "wya-fetch": ">=0.1.10",
-        "react": ">=16.0.0",
-        "react-dom": ">=16.0.0",
+        "react": ">=16.3.2",
+        "react-dom": ">=16.3.2",
         "lrz": ">=4.9.40",
         "classnames": ">=2.2.5",
         "echarts": "^3.0.0 || ^4.0.0",
