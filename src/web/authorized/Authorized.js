@@ -57,8 +57,9 @@ class Authorized extends Component {
 		const { show } = this.state;
 		if (!show) return null;
 
-		const { auth, tag: Tag, ...rest } = this.props;
-		return createElement(Tag, { ...rest, show: typeof Tag === 'string' ? 'true' : true });
+		let { auth, tag: Tag, show: _show, ...rest } = this.props;
+		_show = typeof _show === 'boolean' ? _show : true;
+		return createElement(Tag, { ...rest, show: typeof Tag === 'string' ? 'true' : _show });
 	}
 }
 Authorized.propTypes = {

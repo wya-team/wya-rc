@@ -122,7 +122,7 @@ ImgsPreview.defaultProps = {
 	renderRow: item => {
 		let image = typeof item === 'object'
 			? (item.thumbnail || item.msrc || item.src)
-			: image;
+			: item;
 		return (
 			<img
 				src={image}
