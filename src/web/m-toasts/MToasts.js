@@ -2,6 +2,7 @@ import React, { Component, createElement, cloneElement } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import RcInstance from '../rc-instance/index';
+import { Toast } from 'antd-mobile';
 import './MToasts.scss';
 let Dom = document.body;
 let ToastsStatics = {};
@@ -14,7 +15,7 @@ ToastsStatics = {
 	 * opts：{className, style}
 	 */
 	info(message, duration = 3, onCallback, showClose = true, opts = {}) {
-		return new Promise((resolve, reject) => { 
+		return new Promise((resolve, reject) => {
 			const div = document.createElement('div');
 			RcInstance.APIS[cName] && Toasts.hide();
 			Dom.appendChild(div);
@@ -37,23 +38,27 @@ ToastsStatics = {
 			RcInstance.APIS[cName] = div;
 			ReactDOM.render(<Toasts {...opts} ref={instance => this.comp = instance}/>, div, () => resolve(this.comp));
 		});
-		
+
 	},
 	fail(message, duration, onCallback, showClose, opts = { type: "fail" }) {
-		console.error('还未开发');
-		return ToastsStatics.info(message, duration, onCallback, showClose, opts);
+		Toast.fail(message, duration, onCallback);
+		// console.error('还未开发');
+		// return ToastsStatics.info(message, duration, onCallback, showClose, opts);
 	},
 	success(message, duration, onCallback, showClose, opts = { type: "success" }) {
-		console.error('还未开发');
-		return ToastsStatics.info(message, duration, onCallback, showClose, opts);
+		Toast.success(message, duration, onCallback);
+		// console.error('还未开发');
+		// return ToastsStatics.info(message, duration, onCallback, showClose, opts);
 	},
 	loading(message, duration, onCallback, showClose, opts = { type: "loading" }) {
-		console.error('还未开发');
-		return ToastsStatics.info(message, duration, onCallback, showClose, opts);
+		Toast.loading(message, duration, onCallback);
+		// console.error('还未开发');
+		// return ToastsStatics.info(message, duration, onCallback, showClose, opts);
 	},
 	offline(message, duration, onCallback, showClose, opts = { type: "offline" }) {
-		console.error('还未开发');
-		return ToastsStatics.info(message, duration, onCallback, showClose, opts);
+		Toast.offline(message, duration, onCallback);
+		// console.error('还未开发');
+		// return ToastsStatics.info(message, duration, onCallback, showClose, opts);
 	},
 };
 class Toasts extends Component {
@@ -70,6 +75,7 @@ class Toasts extends Component {
 			ReactDOM.unmountComponentAtNode(RcInstance.APIS[cName]);
 			delete RcInstance.APIS[cName];
 		}
+		Toast.hide();
 	};
 	constructor(props) {
 		super(props);
@@ -123,7 +129,7 @@ class Toasts extends Component {
 				</div>
 			</div>
 		);
-		
+
 	}
 }
 Toasts.propTypes = {

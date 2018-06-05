@@ -5,7 +5,7 @@ class Basic extends Component {
 		super(props, context);
 	}
 	handleClick = () => {
-		MToasts.info('test');
+		MToasts.loading('test');
 	}
 	render() {
 		return (
