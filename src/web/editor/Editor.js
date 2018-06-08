@@ -22,7 +22,7 @@ class Editor extends Component {
 		return instance;
 	}
 	setOpts() {
-		const { max } = this.props;
+		const { max, showGallery = true, ...others } = this.props;
 		const editorProps = {
 			placeholder: '请输入需要编辑的信息',
 			// controls: [
@@ -45,30 +45,33 @@ class Editor extends Component {
 				uploadFn: null // 指定上传函数，说明见下文
 			},
 			extendControls: [
-				{
-					type: 'button',
-					text: <Icon type="upload"/>,
-					onClick: () => {
-						PGallery.popup({
-							max: max || 1,
-						}).then((res) => {
-							res.forEach(item => {
-								this.insertMedias([
-									{
-										type: 'IMAGE',
-										name: 'New Photo',
-										url: item.file_url.replace(/!4-4/g, '')
-									}
-								]);
-							});
-						}).catch((res) => {
-							console.log(res);
-						});
-					}
-				}
+
 			],
-			...this.props
+			...others
 		};
+		if (showGallery) {
+			editorProps.extendControls.unshift({
+				type: 'button',
+				text: <Icon type="upload"/>,
+				onClick: () => {
+					PGallery.popup({
+						max: max || 1,
+					}).then((res) => {
+						res.forEach(item => {
+							this.insertMedias([
+								{
+									type: 'IMAGE',
+									name: 'New Photo',
+									url: item.file_url.replace(/!4-4/g, '')
+								}
+							]);
+						});
+					}).catch((res) => {
+						console.log(res);
+					});
+				}
+			});
+		}
 		return editorProps;
 	}
 	insertMedias(params){
