@@ -4,19 +4,19 @@ import { getCroppedImg } from '../utils/utils';
 
 class ToImg extends Component {
 	constructor(props, context) {
-		super(props, context);	
+		super(props, context);
 	}
 	getImg = async (fileName = 'image', getFile = true) => {
 		try {
 			let html2canvas = await import('html2canvas');
-			// 兼容webpack 3.0/4.0 写法	
+			// 兼容webpack 3.0/4.0 写法
 			html2canvas = html2canvas.hasOwnProperty('default') ? html2canvas.default : html2canvas;
 
-			const canvas = await html2canvas(this.refs.img);
+			const canvas = await html2canvas(this.refs.img, { allowTaint: false, useCORS: true });
 			const { file, base64Image } = await getCroppedImg(canvas, fileName, getFile);
 
 			return {
-				file, 
+				file,
 				base64Image
 			};
 		} catch (e) {
@@ -36,15 +36,15 @@ class ToImg extends Component {
 			$this.download = fileName;
 			$this.href = URL.createObjectURL(file);
 			$this.click();
-			return { 
-				file, 
-				base64Image 
+			return {
+				file,
+				base64Image
 			};
 		} catch (e) {
 			console.log(e);
 			return false;
 		}
-		
+
 	}
 	render() {
 		return (
