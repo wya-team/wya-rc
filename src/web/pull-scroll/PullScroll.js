@@ -59,7 +59,7 @@ class PullScroll extends Component {
 	}
 	render() {
 		const { pulledY, pullStatus } = this.state;
-		const { className, isEnd, style, wrapper, height, pull, scroll, currentPage, itemArr } = this.props;
+		const { className, isEnd, style, wrapper, height, pull, scroll, showDropLoad, currentPage, itemArr } = this.props;
 		return (
 			<div 
 				className={
@@ -71,7 +71,7 @@ class PullScroll extends Component {
 				} 
 				style={{ "minHeight": `${height}px`, height: (wrapper && height) ? `${height}px` : "auto" }}
 			>
-				<Dropload type={`pull`} status={pullStatus} pulledY={pulledY} show={pull}/>
+				<Dropload type={`pull`} status={pullStatus} pulledY={pulledY} show={pull && showDropLoad}/>
 				<MainView 
 					{...this.props}
 					onPullStatusChange={this.handlePullStatusChange}
@@ -84,7 +84,7 @@ class PullScroll extends Component {
 				/>
 				<Dropload 
 					status={isEnd} 
-					show={scroll} 
+					show={scroll && showDropLoad} 
 					pulledY={pulledY}
 					isEnd = {isEnd}
 					currentPage = {currentPage}
@@ -116,6 +116,14 @@ PullScroll.propTypes = {
 	 * 是否支持上滑，默认true
 	 */
 	scroll: PropTypes.bool,
+	/**
+	 * 是否显示DropLoad
+	 */
+	showDropLoad: PropTypes.bool,
+	/**
+	 * 是上拉加载还是下拉加载，如果是下拉加载pull设成false
+	 */
+	direction: PropTypes.oneOf(['UP', 'DOWN']),
 	// for pull
 	/**
 	 * 下拉结束即从状态2切换到状态3时的事件，准备去加载数据了
@@ -146,7 +154,16 @@ PullScroll.propTypes = {
 	 * 上“滑”加载标志
 	 * 有个一个状态，第一次进入自动加载，加载中，全部加载
 	 */
-	isEnd: PropTypes.number
+	isEnd: PropTypes.number,
+	/**
+	 * 上“滑”加载
+	 * 由redux管理，通过status的在redux存储来控制
+	 */
+	scrollText: PropTypes.array,
+	/**
+	 * 下“拉”加载
+	 */
+	pullText: PropTypes.array
 };
 PullScroll.defaultProps = {
 	height: window.innerHeight,
@@ -155,7 +172,9 @@ PullScroll.defaultProps = {
 	isEnd: 0,
 	show: true,
 	pull: true,
-	scroll: true
+	scroll: true,
+	direction: 'UP',
+	showDropLoad: true
 };
 export default PullScroll;
 

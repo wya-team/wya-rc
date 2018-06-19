@@ -247,7 +247,7 @@ class MainView extends Component {
 		this.shouldLoadForPull = true;
 	}
 	handleScroll(event) {
-		const { scroll } = this.props;
+		const { scroll, direction } = this.props;
 		if (!scroll) return;
 		let isWindow = (this.scrollContainer === window);
 		// 延迟计算
@@ -265,7 +265,7 @@ class MainView extends Component {
 				: scrollEle.scrollTop;
 
 			// 防止向上滚动也拉数据
-			if (this.prvScrollTop > scrollTop) {
+			if (direction == 'UP' && this.prvScrollTop > scrollTop) {
 				return;
 			}
 			this.prvScrollTop = scrollTop;
@@ -276,10 +276,15 @@ class MainView extends Component {
 			let scrollHeight = (isWindow) 
 				? scrollEle.body.clientHeight 
 				: scrollEle.scrollHeight;// 内容的总高度
-			if (scrollTop >= scrollHeight - containerHeight - 100) {
-				this.props.loadDataForScroll && this.props.loadDataForScroll();
+			if (direction == 'UP') {
+				if (scrollTop >= scrollHeight - containerHeight - 100) {
+					this.props.loadDataForScroll && this.props.loadDataForScroll();
+				}
+			} else if (direction == 'DOWN') {
+				if (scrollTop == 0) {
+					this.props.loadDataForScroll && this.props.loadDataForScroll();
+				}
 			}
-
 		}, 50); 
 	}
 	render() {
