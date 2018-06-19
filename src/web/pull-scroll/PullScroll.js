@@ -59,7 +59,7 @@ class PullScroll extends Component {
 	}
 	render() {
 		const { pulledY, pullStatus } = this.state;
-		const { className, isEnd, style, wrapper, height, pull, scroll, showDropLoad, currentPage, itemArr } = this.props;
+		const { className, isEnd, style, wrapper, height, pull, scroll, noLoading, currentPage, itemArr } = this.props;
 		return (
 			<div 
 				className={
@@ -71,24 +71,23 @@ class PullScroll extends Component {
 				} 
 				style={{ "minHeight": `${height}px`, height: (wrapper && height) ? `${height}px` : "auto" }}
 			>
-				<Dropload type={`pull`} status={pullStatus} pulledY={pulledY} show={pull && showDropLoad}/>
+				<Dropload type={`pull`} status={pullStatus} pulledY={pulledY} show={pull && noLoading}/>
 				<MainView 
 					{...this.props}
 					onPullStatusChange={this.handlePullStatusChange}
 					onPulling={this.handlePulling}
-					ref = "main"
-					isEnd = {isEnd}
-					currentPage = {currentPage}
-					itemArr = {itemArr}
-					
+					ref="main"
+					isEnd={isEnd}
+					currentPage={currentPage}
+					itemArr={itemArr}
 				/>
 				<Dropload 
 					status={isEnd} 
-					show={scroll && showDropLoad} 
+					show={scroll && noLoading} 
 					pulledY={pulledY}
-					isEnd = {isEnd}
-					currentPage = {currentPage}
-					itemArr = {itemArr}
+					isEnd={isEnd}
+					currentPage={currentPage}
+					itemArr={itemArr}
 				/>
 			</div>
 		);
@@ -119,7 +118,7 @@ PullScroll.propTypes = {
 	/**
 	 * 是否显示DropLoad
 	 */
-	showDropLoad: PropTypes.bool,
+	noLoading: PropTypes.bool,
 	/**
 	 * 是上拉加载还是下拉加载，如果是下拉加载pull设成false
 	 */
@@ -174,7 +173,7 @@ PullScroll.defaultProps = {
 	pull: true,
 	scroll: true,
 	direction: 'UP',
-	showDropLoad: true
+	noLoading: true
 };
 export default PullScroll;
 

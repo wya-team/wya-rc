@@ -62,10 +62,10 @@ class App extends Component {
 				itemArr={itemArr}
 				currentPage={currentPage}
 				show={true} // 总开关 // 默认true
-				pull={false} // 允许下拉刷新 默认true
+				pull={true} // 允许下拉刷新 默认true
 				srcoll={true} // 允许上划加载 默认true
-				direction={'DOWN'}
-				showDropLoad={false}
+				direction={'UP'}
+				noLoading={true}
 				// resetPrvScrollTop //切换过程中判断某个值的不同来置顶
 				ref = "pull"
 			>

@@ -312,7 +312,7 @@ MainView.propTypes = {
 	pull: PropTypes.bool,
 	/**
 	 * 是否支持上滑，默认true
-	 */
+	 */ 
 	scroll: PropTypes.bool,
 	// for pull 
 	/**
