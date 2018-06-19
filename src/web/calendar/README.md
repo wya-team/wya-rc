@@ -12,15 +12,18 @@
 ---|---|---|---
 className | 日历样式 | string | -
 weekClassName | 星期样式 | string | -
-selectedDate | 选中的日期(2018-01-01) | string | 
-renderDayItem | 日期Item | func | -
+selected | 选中的日期(2018-01-01) | string | 
+renderRow | 日期Item | func | -
 
 ## 基础用法
 
 ```jsx
 <Calendar
-	className="rc-col"
-	renderDayItem={Item}
-	selectedDate={`${year}-${month}`}
+	ref="calendar"
 />
+
+
+this.refs.calendar.prev()
+this.refs.calendar.next()
+this.refs.calendar.setDate(2018, 11)
 ```

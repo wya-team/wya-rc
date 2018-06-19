@@ -1,10 +1,10 @@
 @import '../style/index.scss';
 .c-calendar {
-	._header {
+	.__header {
 		color: $gray_3;
 		padding: 15px 0;
 	}
-	._item {
+	.__item {
 		padding: 15px 0;
 		.__circle {
 			width: 40px;
@@ -16,34 +16,41 @@
 		}
 	}
 
-	._flex-col {
+	.__flex-col {
 		flex: 1;
 	}
-	._flex-ac {
+	.__flex-ac {
 		display: flex;
 		align-items: center;
 	}
-	._fd-c {
+	.__fd-c {
 		flex-direction: column;
 	}
-	._flex-cc {
+	.__flex-cc {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
-	._tc {
+	.__tc {
 		text-align: center;
 	}
-	._dark {
+	.__dark {
 		color: $gray_1;
 	}
-	._gray {
+	.__gray {
 		color: $gray_3;
 	}
-	._bg-white {
+	.__bg-white {
 		background-color: $white;
 	}
-	._pointer {
+	.__pointer {
 		cursor: pointer;
+	}
+	.__dot {
+		width: 5px;
+		height: 5px;
+		border-radius: 50%;
+		display: block;
+		background-color: #2e76ef;
 	}
 }
