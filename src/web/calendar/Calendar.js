@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Calendar.scss';
+import Item from './Item';
 
 const rowNumber = 6;
 const colNumber = 7;
@@ -11,128 +12,104 @@ const colNumber = 7;
 class Calendar extends Component {
 	constructor(props) {
 		super(props);
+		let { date } = props;
+		const { year, month, data } =  this.getCurrentInfo(date.getFullYear(), parseInt(date.getMonth()) + 1);
 		this.state = {
-			calendarData: []
+			curYear: year,
+			curMonth: month,
+			curData: data
 		};
 	}
 
 	componentWillMount() {
-		this.getCalendarArray(this.props);
+
 	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props.selectedDate != nextProps.selectedDate) {
-			this.getCalendarArray(nextProps);
-		}
+	// -- start 外部调用
+	next = () => {
+		const { curYear, curMonth } = this.state;
+		return this.setDate(curYear, curMonth + 1);
 	}
+	prev = () => {
+		const { curYear, curMonth } = this.state;
+		return this.setDate(curYear, curMonth - 1);
+	}
+	setDate = (year, month) => {
+		const { year: _year, month: _month, data } =  this.getCurrentInfo(year, month);
+		this.setState({
+			curYear: _year,
+			curMonth: _month,
+			curData: data
+		});
 
-	getCalendarArray = ($props) => {
-		const { selectedDate } = $props;
-		let date,
-			year, lastYear, nextYear,
-			month, lastMonth, nextMonth,
-			lastMonthArray, currentMonthArray, nextMonthArray;
+		return {
+			year: _year,
+			month: _month
+		};
+	}
+	// -- end
+	getCurrentInfo = (year, month) => {
+		let	prevYear, nextYear, prevMonth, nextMonth, prevData, curData, nextData;
 
-		if (!selectedDate) {
-			date = new Date();
-			year = date.getFullYear();
-			month = parseInt(date.getMonth() + 1);// 0-11, 0为1月份
-		} else {
-			date = selectedDate.split('-');
-			year = parseInt(date[0]);
-			month = parseInt(date[1]);
+		// 处理下当前值
+		if (month === 0) {
+			year = year - 1;
+			month = 12;
+		} else if (month === 13) {
+			year = year + 1;
+			month = 1;
 		}
 
-		lastYear = year;
+		prevYear = year;
 		nextYear = year;
-		lastMonth = month - 1;
+		prevMonth = month - 1;
 		nextMonth = month + 1;
 
+		// 处理前后值
 		if (month === 1) {
-			lastYear = year - 1;
-			lastMonth = 12;
+			prevYear = year - 1;
+			prevMonth = 12;
 		} else if (month === 12) {
 			nextYear = year + 1;
 			nextMonth = 1;
 		}
 
-		lastMonthArray = this.createDaysArray(lastYear, lastMonth, this.getMonthDays(lastYear, lastMonth), this.getMonthType(lastYear, lastMonth, selectedDate));
-		currentMonthArray = this.createDaysArray(year, month, this.getMonthDays(year, month), this.getMonthType(year, month, selectedDate));
-		nextMonthArray = this.createDaysArray(nextYear, nextMonth, this.getMonthDays(nextYear, nextMonth), this.getMonthType(nextYear, nextMonth, selectedDate));
+		prevData = this.createDaysArray(prevYear, prevMonth, this.getMonthDays(prevYear, prevMonth), 'prev');
+		curData = this.createDaysArray(year, month, this.getMonthDays(year, month), 'current');
+		nextData = this.createDaysArray(nextYear, nextMonth, this.getMonthDays(nextYear, nextMonth), 'next');
 
 		// 生成日历数组
 		let firstWeek = this.getWeek(`${year}-${this.formatNum(month)}-1`); // 本月第一天是星期几
-		let dateArray = [
-			...lastMonthArray.slice(lastMonthArray.length - (firstWeek === 0 ? 7 : firstWeek), lastMonthArray.length),
-			...currentMonthArray,
-			...nextMonthArray.slice(0, 42 - firstWeek - currentMonthArray.length)
+		let data = [
+			...prevData.slice(prevData.length - (firstWeek === 0 ? 7 : firstWeek), prevData.length),
+			...curData,
+			...nextData.slice(0, 42 - firstWeek - curData.length)
 		];
 
-		this.setState({
-			calendarData: dateArray
-		});
-	};
+		return {
+			year,
+			month,
+			data
+		};
+	}
 
 	// 创建每个月天数的数组
 	createDaysArray = (year, month, days, type) => {
 		let array = [];
 		for (let i = 0; i < days; i++) {
 			let item = {};
-			item.dateName = `${year}-${this.formatNum(month)}-${this.formatNum(i + 1)}`;
+			item.date = `${year}-${this.formatNum(month)}-${this.formatNum(i + 1)}`;
 			item.day = i + 1;
 			item.type = type;
 			array.push(item);
 		}
 		return array;
-	};
+	}
 
 	// 获取某月的天数
 	getMonthDays = (year, month) => {
 		let day = new Date(year, month, 0);
 		return day.getDate();
-	};
-
-	// 是当前月份还是上一月
-	getMonthType = (year, month, selectedDate) => {
-		let curDate, date, curYear, curMonth, selectedYear, selectedMonth, dateType, selectedType;
-		if (!selectedDate) {
-			curDate = new Date();
-			curYear = curDate.getFullYear();
-			selectedYear = curYear;
-			curMonth = parseInt(curDate.getMonth() + 1);// 0-11, 0为1月份
-			selectedMonth = curMonth;
-		} else {
-			date = selectedDate.split('-');
-			curDate = new Date();
-			curYear = curDate.getFullYear();
-			selectedYear = parseInt(date[0]);
-			curMonth = parseInt(curDate.getMonth() + 1);// 0-11, 0为1月份
-			selectedMonth = parseInt(date[1]);
-		}
-		if (month < curMonth && year <= curYear) {
-			dateType = 'last';
-		} else if (year == curYear && month == curMonth) {
-			dateType = 'current';
-		} else if ((year == curYear && month > curMonth) || year > curYear) {
-			dateType = 'next';
-		}
-		if (month < selectedMonth && year <= selectedYear) {
-			selectedType = 'last';
-		} else if (year == selectedYear && month == selectedMonth) {
-			selectedType = 'current';
-		} else if ((year == selectedYear && month > selectedMonth) || year > selectedYear) {
-			selectedType = 'next';
-		}
-		return { dateType, selectedType };
-	};
-
-	// 小于10的数字前面加0
-	formatNum = (num) => {
-		if (num < 10) {
-			return '0' + num;
-		}
-		return num;
-	};
+	}
 
 	// 根据日期判断是星期几
 	getWeek = (dateString) => {
@@ -146,27 +123,15 @@ class Calendar extends Component {
 
 		// return "星期" + "日一二三四五六".charAt(date.getDay());
 		return date.getDay();
-	};
+	}
 
-	renderRow = (rowNum) => {
-		const { tipInfo, renderDayItem } = this.props;
-		const { calendarData } = this.state;
-
-		let rowData = calendarData.slice((rowNum - 1) * 7, rowNum * 7);
-
-		return (
-			<div className="_flex-ac _bg-white" style={{ width: '100%' }}>
-				{
-					rowData.map((item, index) => {
-						return React.createElement(renderDayItem, {
-							key: `${rowNum}-${index}`,
-							itemData: item
-						});
-					})
-				}
-			</div>
-		);
-	};
+	// 小于10的数字前面加0
+	formatNum = (num) => {
+		if (num < 10) {
+			return '0' + num;
+		}
+		return num;
+	}
 
 	renderCalendar = () => {
 		let table = [];
@@ -175,19 +140,38 @@ class Calendar extends Component {
 		}
 
 		return (
-			<div className="_flex-ac _bg-white _fd-c">
+			<div className="__flex-ac __bg-white __fd-c">
 				{table}
 			</div>
 		);
-	};
+	}
 
+	renderRow = (rowNum) => {
+		const { tipInfo, renderRow, onSelect, selected } = this.props;
+		const { curData } = this.state;
+		let rowData = curData.slice((rowNum - 1) * 7, rowNum * 7);
+		return (
+			<div className="__flex-ac __bg-white" style={{ width: '100%' }} key={rowData[0].date}>
+				{
+					rowData.map((item, index) => {
+						return React.createElement(renderRow, {
+							key: `${rowNum}-${index}`,
+							itemData: item,
+							onSelect: (param) => onSelect && onSelect(param || item),
+							select: selected.includes(item.date)
+						});
+					})
+				}
+			</div>
+		);
+	}
 	render () {
 		const { className, weekClassName } = this.props;
 		const classes = "c-calendar " + className;
-		const  weekClasses = "_flex-col _tc " + weekClassName;
+		const  weekClasses = "__flex-col __tc " + weekClassName;
 		return (
 			<div className={classes}>
-				<div className="_header _flex-ac">
+				<div className="__header __flex-ac">
 					<span className={weekClasses}>日</span>
 					<span className={weekClasses}>一</span>
 					<span className={weekClasses}>二</span>
@@ -203,13 +187,15 @@ class Calendar extends Component {
 }
 
 Calendar.propTypes = {
-	renderDayItem: PropTypes.func.isRequired,
-	selectedDate: PropTypes.string,
+	renderRow: PropTypes.func,
+	selected: PropTypes.array,
 	className: PropTypes.string,
 	weekClassName: PropTypes.string,
 };
 Calendar.defaultProps = {
-
+	renderRow: Item,
+	date: new Date,
+	selected: []
 };
 
 export default Calendar;

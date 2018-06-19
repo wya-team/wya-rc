@@ -3,7 +3,6 @@
  */
 import React, { Component } from 'react';
 import Calendar from '../../Calendar';
-import Item from './Item';
 import '../../Calendar.scss';
 
 class Content extends Component {
@@ -19,34 +18,14 @@ class Content extends Component {
 	}
 
 	handlePrev = () => {
-		const { year, month } = this.state;
-		let prevMonth, prevYear;
-		if (month - 1 <= 0) {
-			prevMonth = 12;
-			prevYear = year - 1;
-		} else {
-			prevMonth = month - 1;
-			prevYear = year;
-		}
 		this.setState({
-			year: prevYear,
-			month: prevMonth
+			...this.refs.calendar.prev()
 		});
 	};
 
 	handleNext = () => {
-		const { year, month } = this.state;
-		let nextMonth, nextYear;
-		if (month + 1 > 12) {
-			nextMonth = 1;
-			nextYear = year + 1;
-		} else {
-			nextMonth = month + 1;
-			nextYear = year;
-		}
 		this.setState({
-			year: nextYear,
-			month: nextMonth
+			...this.refs.calendar.next()
 		});
 	};
 
@@ -54,13 +33,14 @@ class Content extends Component {
 		const { year, month } = this.state;
 		return (
 			<div className="c-calendar">
-				<div className="_tc">{year}-{month}</div>
-				<div className="_flex-ac" style={{ width: '100%' }}>
+				<div className="__tc">{year}-{month}</div>
+				<div className="__flex-ac" style={{ width: '100%' }}>
 					<span onClick={this.handlePrev}>PREV</span>
 					<Calendar
-						className="_flex-col"
-						renderDayItem={Item}
-						selectedDate={`${year}-${month}`}
+						ref="calendar"
+						className="__flex-col"
+						selected={["2018-06-18", "2018-07-18"]}
+						onSelect={(val) => console.log(val)}
 					/>
 					<span onClick={this.handleNext}>NEXT</span>
 				</div>
