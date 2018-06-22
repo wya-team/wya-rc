@@ -41,7 +41,6 @@ class MainView extends Component {
 	}
 	componentWillMount() {
 		this.prvScrollTop = 0;// 这里可考虑设置全局的量来控制
-		this.loadFirst(this.props);
 	}
 	componentDidMount() {
 		this.pullContainer = (this.wrapper) 
@@ -59,6 +58,14 @@ class MainView extends Component {
 		this.pullContainer.addEventListener('mouseup', this.handleEnd);
 		// scroll
 		this.scrollContainer.addEventListener('scroll', this.handleScroll);
+
+		/**
+		 * 在didmount中调用而不是willMount，
+		 * 是为了防止切换页面再回来时 导致当前页面willMount和
+		 * 上一页面卸载触发的ROUTE_CHANGE都会去更新当前的reducer，
+		 * 导致请求了两次
+		 */
+		this.loadFirst(this.props);
 	}
 	componentWillReceiveProps(nextProps) {
 		if (this.props.resetPrvScrollTop 
