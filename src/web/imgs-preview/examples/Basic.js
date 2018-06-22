@@ -48,19 +48,20 @@ class GalleryPage extends React.Component {
 				closeOnScroll: false
 			}
 		};
-		// setTimeout(() => {
-		// 	ImgsPreview.Func.popup({
-		// 		show: true,
-		// 		dataSource: this.state.dataSource,
-		// 		opts: {
-		// 			index: 2,
-		// 		}
-		// 	}).then(() => {
+	}
+	handleClick = (e) => {
+		ImgsPreview.Func.popup({
+			show: true,
+			dataSource: this.state.dataSource,
+			opts: {
+				index: 2,
+				history: false
+			}
+		}).then(() => {
 
-		// 	}).catch(() => {
+		}).catch(() => {
 
-		// 	});
-		// }, 5000);
+		});
 	}
 	renderRow = item => (
 		<img src={item.thumbnail} width={100} height={100} alt=""/>
@@ -68,15 +69,20 @@ class GalleryPage extends React.Component {
 	render() {
 		const { dataSource, opts, show } = this.state;
 		return (
-			<ImgsPreview
-				ref="imgs"
-				opts={opts}
-				renderRow={this.renderRow}
-				dataSource={dataSource}
-				portal
-				// show={show}
-				// onClose={this.handleClose}
-			/>
+			<div>
+				<ImgsPreview
+					ref="imgs"
+					opts={opts}
+					renderRow={this.renderRow}
+					dataSource={dataSource}
+					portal
+					// show={show}
+					// onClose={this.handleClose}
+				/>
+				<div
+					onClick={this.handleClick}
+				>点击我自定义预览</div>
+			</div>
 		);
 	}
 }

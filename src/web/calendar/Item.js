@@ -11,7 +11,6 @@ class Item extends Component {
 
 	handleClick = () => {
 		this.props.onSelect && this.props.onSelect();
-		console.log('onSelect');
 	};
 
 	getCurrentDay = () => {

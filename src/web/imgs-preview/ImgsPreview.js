@@ -4,11 +4,7 @@ import classnames from 'classnames';
 import { pick } from 'lodash';
 import Core from './Core.js';
 import events from './events';
-/**
- * 当遇到Modal里的预览，第二次节点会查找失败，这里不使用this.thumbnails,
- * 原因不明，测试正常，项目异常, 简直莫名其妙, 也不能设置对象
- */
-let thumbnails = thumbnails || [];
+
 class ImgsPreview extends React.Component {
 	static PhotoSwipe = Core;
 	static Component = Core.Component;
@@ -21,8 +17,6 @@ class ImgsPreview extends React.Component {
 		};
 
 		this.imgs = [];
-
-		thumbnails = [];
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -35,26 +29,25 @@ class ImgsPreview extends React.Component {
 			this.setState({ show: false });
 		}
 	}
-	setRef = (node, index) => {
-		thumbnails[index] = thumbnails[index] || node;
-	}
+	setRef = (node, index) => { }
 	handleShow = (e, index) => {
-		e.persist();
-		// e.preventDefault();
-		const getThumbBoundsFn = (index) => {
-			try {
-				const target = thumbnails[index] || e.target;
-				const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-				const rect = target.getBoundingClientRect();
-				return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-			} catch (e) {
-				console.log(e);
-			};
+		let pos = {};
 
-		};
+		try {
+			const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计划，target已变化
+			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+			const rect = target.getBoundingClientRect();
+
+			pos = { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+		} catch (e) {
+			console.log(e);
+		}
+
+
 		const { opts } = this.state;
 		opts.index = index;
-		opts.getThumbBoundsFn = opts.getThumbBoundsFn || getThumbBoundsFn;
+		opts.getThumbBoundsFn = ((index) => pos);
+
 		this.setState({
 			show: true,
 			opts
@@ -65,7 +58,7 @@ class ImgsPreview extends React.Component {
 		this.setState({
 			show: false
 		});
-		this.props.onClose();
+		this.props.onClose && this.props.onClose();
 	}
 
 
@@ -84,10 +77,10 @@ class ImgsPreview extends React.Component {
 							<div
 								key={index}
 								ref={this.inputRef}
-								onClick={(e) => this.handleShow(e, index)}
+								onClick={(e) => (this.handleShow(e, index))}
 
 							>
-								{renderRow(item)}
+								{renderRow(item, index)}
 							</div>
 						);
 					})}
@@ -118,8 +111,10 @@ ImgsPreview.propTypes = {
 };
 
 ImgsPreview.defaultProps = {
-	opts: {},
-	renderRow: item => {
+	opts: {
+		history: false // 关闭url
+	},
+	renderRow: (item, index) => {
 		let image = typeof item === 'object'
 			? (item.thumbnail || item.msrc || item.src)
 			: item;
@@ -128,6 +123,7 @@ ImgsPreview.defaultProps = {
 				src={image}
 				width="100"
 				height="100"
+				data-index={index}
 			/>
 		);
 	},

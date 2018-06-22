@@ -12,7 +12,7 @@
 ---|---|---|---
 className | 日历样式 | string | -
 weekClassName | 星期样式 | string | -
-selected | 选中的日期(2018-01-01) | string | 
+selected | 选中的日期(2018-01-01) | array | [] 
 renderRow | 日期Item | func | -
 
 ## 基础用法

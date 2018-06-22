@@ -217,7 +217,7 @@ class Core extends React.Component {
 							title="Next (arrow right)"
 						/>
 						<div className="pswp__caption">
-							<div className="pswp__caption__center"/>
+							<div className="pswp__caption__center" style={{ textAlign: "center" }}/>
 						</div>
 					</div>
 				</div>
