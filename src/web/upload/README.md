@@ -21,7 +21,7 @@ accept | 文件格式 | `str` | -
 type | 文件归类（images / file）,提前定位文件类型（内置图片压缩） | `str` | images
 request | 请求函数 | `() -> Promise` | -
 url | ajax:url -> 默认通过`RcInstance.init`注册 | `str` | -
-filename | 上传给后端获取的key | `str` | `Filedata`(业务历史原因...)
+name | 上传给后端获取的key | `str` | `Filedata`(业务历史原因...)
 size | 限制上传文件大小, 默认不限制（单位：mb） | `float` | `0`
 showTips | 展示显示进度弹窗 | `bool` | `false`
 data | ajax需要传递的参数 | `obj` | {}
@@ -80,7 +80,7 @@ class Basic extends Component {
 				// accept="" // input: 文件类型限制
 				// multiple // multiple: 单图 or 多图
 				// url={} // ajax: 如果已经注册就不用传递
-				// filename // ajax: formDate.append(filename, ....)
+				// name // ajax: formDate.append(name, ....)
 				// headers // ajax: headers 
 				// data // ajax: data 
 				// lrz={{}} // 图片压缩
