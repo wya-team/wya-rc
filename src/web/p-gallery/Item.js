@@ -204,9 +204,12 @@ class Item extends Component {
 		const { EXT_PGALLERY_IMG_SRC_SUF } = PGallery || {};
 		return (
 			<div className="__item">
-				<img src={`${file_url}${EXT_PGALLERY_IMG_SRC_SUF || ''}`} alt="" onClick={e => this.props.onSelect(itemData)}/>
+				<div 
+					className="__img" 
+					style={{ backgroundImage: `url('${file_url}')` }}
+					onClick={e => this.props.onSelect(itemData)}
+				></div>
 				{selectArr.includes(file_id) && <Icon className="__select" type="check-circle" onClick={e => this.props.onSelect(itemData)} />}
-
 				<div className="__line">
 					{/** <input type="checkbox"/>*/}
 					<span>{file_name}</span>

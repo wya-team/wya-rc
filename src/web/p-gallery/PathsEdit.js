@@ -131,7 +131,6 @@ class PathsEdit extends Component {
 	}
 	render() {
 		const { pathSelect: { cat_id } } = this.props;
-		if (cat_id == 0) return null;
 		return (
 			<Fragment>
 				<Button

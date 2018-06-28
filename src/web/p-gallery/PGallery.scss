@@ -55,10 +55,12 @@ $index-container: 998;
 		width: 180px;
 		margin: 5px;
 		position: relative;
-		img {
+		.__img {
 			height: 180px;
 			width: 180px;
-			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
 		}
 		.__edits {
 			@include commonFlex();
