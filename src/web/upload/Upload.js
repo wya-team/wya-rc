@@ -248,7 +248,7 @@ class Upload extends Component {
 		});
 		const events = disabled ? {} : {
 			onClick: this.handleClick,
-			onKeyDown: this.handleKeyDown,
+			// onKeyDown: this.handleKeyDown,
 			onDrop: this.handleFileDrop,
 			onDragOver: this.handleFileDrop
 		};
