@@ -49,17 +49,17 @@ class Basic extends Component {
 				<Slider defaultValue={1} onChange={this.handleScale} min={0.3} max={3} step={0.01} />
 				<Slider defaultValue={0} onChange={this.handleRotate} min={0} max={360} step={1} />
 				<Button onClick={this.handleClick}>保存</Button>
-				<img 
+				<img
 					src={this.state._src || src}
 					width="200"
 				/>
 			</Fragment>
-			
+
 		);
 	}
 }
 Basic.defaultProps = {
-	src: 'http://wx.qlogo.cn/mmopen/1MLz0YkS76H38jmh2IyPHHcgPccbkGrej7iaQ2YbDr1faauBg49H2hBRJPHGdAGkFX5V21xliaMZactkyWVqNl2g/'
+	src: 'http://wyatest.oss-cn-hangzhou.aliyuncs.com/image/ylb/180614/944989863711/TB2KEqNw3mTBuNjy1XbXXaMrVXa_%21%213903942080.jpg'
 };
 
 export default Basic;

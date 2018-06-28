@@ -1,4 +1,7 @@
 # 历史版本
+### 0.4.32 (2018-06-26)
+
+* 修改`Upload` filename -> name
 
 ### 0.4.3 (2018-05-10)
 * 修改[`Echarts`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/) 按需加载`echart.js`卸载时报错(页面快速切换导致事件未绑定，就卸载了)，添加`try catch`

@@ -8,8 +8,8 @@ import Tips from './Tips';
 class Upload extends Component {
 	constructor(props, context) {
 		super(props, context);
-		this.state = { 
-			uid: getUid() 
+		this.state = {
+			uid: getUid()
 		};
 
 		this.reqs = {};
@@ -79,7 +79,7 @@ class Upload extends Component {
 		this.setDefaultCycle();
 		const { onBegin } = this.props;
 		onBegin && onBegin(postFiles);
-	
+
 		postFiles.forEach((file, index) => {
 			file.uid = getUid();
 			file.current =  index + 1;
@@ -131,7 +131,7 @@ class Upload extends Component {
 		if (!this._isMounted) {
 			return;
 		}
-		const { url, type, filename, headers, data, onFileStart, onFileProgress, onFileSuccess, onFileError, onComplete } = this.props;
+		const { url, type, name, headers, data, onFileStart, onFileProgress, onFileSuccess, onFileError, onComplete } = this.props;
 		const { URL_UPLOAD_FILE_POST, URL_UPLOAD_IMG_POST } = RcInstance.config.Upload || {};
 		const _url = type === 'images' ? URL_UPLOAD_IMG_POST : URL_UPLOAD_FILE_POST;
 		const { uid } = file;
@@ -147,15 +147,15 @@ class Upload extends Component {
 			url: url || _url,
 			type: "FORM",
 			param: {
-				filename,
+				name,
 				file
 			},
 			headers,
 			localData,
-			onProgress: onFileProgress 
-				? e => { 
-					onFileProgress(e, file); 
-					this.tips && this.tips.setValue(uid, 'percent', e.percent ); 
+			onProgress: onFileProgress
+				? e => {
+					onFileProgress(e, file);
+					this.tips && this.tips.setValue(uid, 'percent', e.percent );
 				}
 				: e => this.tips && this.tips.setValue(uid, 'percent', e.percent ),
 		}).then((res) => {
@@ -167,7 +167,7 @@ class Upload extends Component {
 			onFileSuccess && onFileSuccess(res, file, { ...this.cycle });
 
 			// tips
-			this.tips && this.tips.setValue(uid, 'success'); 
+			this.tips && this.tips.setValue(uid, 'success');
 
 			// console.log(`success: ${this.cycle.success}, total: ${this.cycle.total}`);
 			if (this.cycle.total === file.total) {
@@ -185,7 +185,7 @@ class Upload extends Component {
 			onFileError && onFileError(res, file, { ...this.cycle });
 
 			// tips
-			this.tips && this.tips.setValue(uid, 'error', res.msg); 
+			this.tips && this.tips.setValue(uid, 'error', res.msg);
 
 			// console.log(`error: ${this.cycle.error}, total: ${this.cycle.total}`);
 			if (this.cycle.total === file.total) {
@@ -248,7 +248,7 @@ class Upload extends Component {
 		});
 		const events = disabled ? {} : {
 			onClick: this.handleClick,
-			onKeyDown: this.handleKeyDown,
+			// onKeyDown: this.handleKeyDown,
 			onDrop: this.handleFileDrop,
 			onDragOver: this.handleFileDrop
 		};
@@ -286,7 +286,7 @@ Upload.propTypes = {
 	accept: PropTypes.string,
 	size: PropTypes.number,
 	// ajax
-	request: PropTypes.func, 
+	request: PropTypes.func,
 	data: PropTypes.object,
 	headers: PropTypes.object,
 	onFileBefore: PropTypes.func,
@@ -309,7 +309,7 @@ Upload.defaultProps = {
 	showTips: false,
 	data: {},
 	headers: {},
-	filename: 'Filedata',
+	name: 'Filedata',
 	size: 0,
 	onFileStart: null,
 	onFileProgress: null,
