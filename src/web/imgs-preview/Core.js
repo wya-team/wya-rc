@@ -184,7 +184,7 @@ class Core extends React.Component {
 							<div className="pswp__counter"/>
 							<button
 								className="pswp__button pswp__button--close"
-								title="Close (Esc)"
+								title="关闭(Esc)"
 							/>
 							{
 								// <button
@@ -194,9 +194,9 @@ class Core extends React.Component {
 							}
 							<button
 								className="pswp__button pswp__button--fs"
-								title="Toggle fullscreen"
+								title="全屏"
 							/>
-							<button className="pswp__button pswp__button--zoom" title="Zoom in/out"/>
+							<button className="pswp__button pswp__button--zoom" title="缩放"/>
 							<div className="pswp__preloader">
 								<div className="pswp__preloader__icn">
 									<div className="pswp__preloader__cut">
@@ -210,11 +210,11 @@ class Core extends React.Component {
 						</div>
 						<button
 							className="pswp__button pswp__button--arrow--left"
-							title="Previous (arrow left)"
+							title="上一张"
 						/>
 						<button
 							className="pswp__button pswp__button--arrow--right"
-							title="Next (arrow right)"
+							title="下一张"
 						/>
 						<div className="pswp__caption">
 							<div className="pswp__caption__center" style={{ textAlign: "center" }}/>
