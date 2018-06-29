@@ -206,7 +206,7 @@ class Item extends Component {
 			<div className="__item">
 				<div 
 					className="__img" 
-					style={{ backgroundImage: `url('${file_url}')` }}
+					style={{ backgroundImage: `url('${file_url}${EXT_PGALLERY_IMG_SRC_SUF || ''}')` }}
 					onClick={e => this.props.onSelect(itemData)}
 				></div>
 				{selectArr.includes(file_id) && <Icon className="__select" type="check-circle" onClick={e => this.props.onSelect(itemData)} />}
