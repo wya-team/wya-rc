@@ -282,16 +282,19 @@ class Paging extends Component {
 			curPage,
 			totalPage,
 			children,
+			dataSource,
 			tHide,
 			renderPagination,
 			...pagination
 		} = this.props;
+		const { itemArr = {}, itemObj = {} } = dataSource;
 		return (
 			<div className={classnames("c-paging", className)} style={{ ...style }}>
 				<div className="__conent">
 					{this.renderTable()}
 				</div>
 				{isEnd === 1 && <Spin />}
+				{itemArr[curPage] && itemArr[curPage].length === 0 && <div className="__error">暂无数据</div>}
 				{isEnd === 3 && <div className="__error">加载失败...</div>}
 				<div className="__footer">
 					<div className="__left">
