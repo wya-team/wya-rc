@@ -131,17 +131,21 @@ class PathsEdit extends Component {
 	}
 	render() {
 		const { pathSelect: { cat_id } } = this.props;
-		return (
-			<Fragment>
-				<Button
-					onClick={this.handleRename} 
-				>重命名</Button>
-				<Button
-					onClick={this.handleDel} 
-					style={{ margin: `0 10px` }}
-				>删除分组</Button>
-			</Fragment>
-		);
+		if ( cat_id == 0 ){
+			return null;
+		} else {
+			return (
+				<Fragment>
+					<Button
+						onClick={this.handleRename}
+					>重命名</Button>
+					<Button
+						onClick={this.handleDel}
+						style={{ margin: `0 10px` }}
+					>删除分组</Button>
+				</Fragment>
+			);
+		}
 	}
 }
 
