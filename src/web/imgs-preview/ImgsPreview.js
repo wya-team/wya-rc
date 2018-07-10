@@ -34,7 +34,7 @@ class ImgsPreview extends React.Component {
 		let pos = {};
 
 		try {
-			const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计划，target已变化
+			const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计算，target已变化
 			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
 			const rect = target.getBoundingClientRect();
 

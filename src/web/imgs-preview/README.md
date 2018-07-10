@@ -90,17 +90,24 @@ export default GalleryPage;
 ## 扩展调用(无法自适应宽高，待处理)
 ```jsx
 e.persist();
+let pos = {};
+
+try {
+	const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计算，target已变化
+	const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+	const rect = target.getBoundingClientRect();
+
+	pos = { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+} catch (e) {
+	console.log(e);
+}
+
 ImgsPreview.Func.popup({
 	show: true,
 	dataSource: this.state.dataSource,
 	opts: {
 		index: 2,
-		getThumbBoundsFn: (index) => {
-			// 动画  // 你点击的那个元素
-			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-			const rect = e.target.getBoundingClientRect();
-			return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
-		}
+		getThumbBoundsFn: (index) => pos
 	}
 }).then(() => {
 

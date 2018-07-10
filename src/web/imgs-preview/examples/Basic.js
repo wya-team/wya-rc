@@ -50,12 +50,25 @@ class GalleryPage extends React.Component {
 		};
 	}
 	handleClick = (e) => {
+		let pos = {};
+
+		try {
+			const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计划，target已变化
+			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+			const rect = target.getBoundingClientRect();
+
+			pos = { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+		} catch (e) {
+			console.log(e);
+		}
+
 		ImgsPreview.Func.popup({
 			show: true,
 			dataSource: this.state.dataSource,
 			opts: {
 				index: 2,
-				history: false
+				history: false,
+				getThumbBoundsFn: (index) => pos
 			}
 		}).then(() => {
 

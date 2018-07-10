@@ -53,7 +53,7 @@ class Basic extends Component {
 								}
 							],
 						})(
-							<ImgsPicker max={0}/>
+							<ImgsPicker max={0} />
 						)
 					}
 				</Form.Item>

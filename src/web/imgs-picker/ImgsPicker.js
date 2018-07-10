@@ -52,8 +52,34 @@ class ImgsPicker extends Component {
 	}
 	handlePreview = (e, i) => {
 		e.persist();
+
+		let pos = {};
+
+		try {
+			const target = e.target; // 先得到pos, 否则getThumbBoundsFn再计算，target已变化
+			const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+			const rect = target.getBoundingClientRect();
+
+			pos = { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+		} catch (e) {
+			console.log(e);
+		}
+
 		let { value, onChange } = this.props;
-		value = onChange ? value : this.state.value;
+		ImgsPreview.Func.popup({
+			show: true,
+			dataSource: onChange ? value : this.state.value,
+			opts: {
+				index: i,
+				history: false,
+				// 动画
+				getThumbBoundsFn: (index) => pos
+			}
+		}).then(() => {
+
+		}).catch((error) => {
+			console.log(error);
+		});
 	}
 	render() {
 		let {
@@ -75,11 +101,14 @@ class ImgsPicker extends Component {
 									className="__img"
 									style={{ backgroundImage: `url("${item}")` }}
 								>
-									<div className="__mask" style={ disabled ? { display: 'none' } : {} }>
-										{
-											// <span onClick={e => this.handlePreview(e, index)}>👓</span>
-										}
-										<span onClick={e => this.handleDel(item)}>&#10006;</span>
+									<div className="__mask">
+										<div>
+											<span onClick={e => this.handlePreview(e, index)}>👓</span>
+											<span
+												style={ disabled ? { display: 'none' } : {} }
+												onClick={e => this.handleDel(item)}
+											>&#10006;</span>
+										</div>
 									</div>
 								</div>
 							</div>
