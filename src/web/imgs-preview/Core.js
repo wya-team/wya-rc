@@ -242,7 +242,7 @@ Core.defaultProps = {
 	className: ''
 };
 
-Core.Component = CreatePortalComponent({})(Core);
+Core.Portal = CreatePortalComponent({})(Core);
 Core.Func = CreatePortalFunc({
 	cName: 'rc-imgs-preview'
 })(Core);

@@ -6,9 +6,10 @@ import Core from './Core.js';
 import events from './events';
 
 class ImgsPreview extends React.Component {
-	static PhotoSwipe = Core;
-	static Component = Core.Component;
-	static Func = Core.Func;
+	static Core = Core;
+	static Portal = Core.Portal;
+	static Func = Core.Func; // 兼容0.4.38前版本
+	static popup = Core.Func.popup;
 	constructor(...params) {
 		super(...params);
 		this.state = {
@@ -65,7 +66,7 @@ class ImgsPreview extends React.Component {
 	render() {
 		const { dataSource, renderRow, style, className, portal, id, ...other } = this.props;
 		const { show, opts } = this.state;
-		const Target = portal ? Core.Component : Core;
+		const Target = portal ? Core.Portal : Core;
 		return (
 			<Fragment>
 				<div

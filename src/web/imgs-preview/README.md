@@ -102,7 +102,7 @@ try {
 	console.log(e);
 }
 
-ImgsPreview.Func.popup({
+ImgsPreview.popup({
 	show: true,
 	dataSource: this.state.dataSource,
 	opts: {

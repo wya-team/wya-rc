@@ -50,6 +50,7 @@ class GalleryPage extends React.Component {
 		};
 	}
 	handleClick = (e) => {
+		e.persist();
 		let pos = {};
 
 		try {
@@ -61,8 +62,7 @@ class GalleryPage extends React.Component {
 		} catch (e) {
 			console.log(e);
 		}
-
-		ImgsPreview.Func.popup({
+		ImgsPreview.popup({
 			show: true,
 			dataSource: this.state.dataSource,
 			opts: {
@@ -92,9 +92,9 @@ class GalleryPage extends React.Component {
 					// show={show}
 					// onClose={this.handleClose}
 				/>
-				<div
+				<span
 					onClick={this.handleClick}
-				>点击我自定义预览</div>
+				>点击我自定义预览</span>
 			</div>
 		);
 	}

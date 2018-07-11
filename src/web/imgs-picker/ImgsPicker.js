@@ -66,7 +66,7 @@ class ImgsPicker extends Component {
 		}
 
 		let { value, onChange } = this.props;
-		ImgsPreview.Func.popup({
+		ImgsPreview.popup({
 			show: true,
 			dataSource: onChange ? value : this.state.value,
 			opts: {
