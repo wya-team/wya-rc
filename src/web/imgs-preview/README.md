@@ -6,7 +6,7 @@
 ## API
 属性 | 说明 | 类型 | 默认值
 ---|---|---|---
-dataSource | 源数据 | `array` | `[{ src, msrc, w, h ....}]`
+dataSource | 源数据 | `array` | `[{ src, msrc, w, h ....}] | ["", ""]`
 renderRow | item展示 | `func` | -
 show | 开关，默认关闭 | `bool` | false
 portal | 启用传送门组件 | `bool` | false
@@ -87,7 +87,7 @@ class GalleryPage extends React.Component {
 export default GalleryPage;
 
 ```
-## 扩展调用(无法自适应宽高，待处理)
+## 扩展调用
 ```jsx
 e.persist();
 let pos = {};
