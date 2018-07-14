@@ -94,6 +94,7 @@ class Imgs extends Component {
 		if (selectArr.includes(file_id)) {
 			_selectArr = selectArr.filter(item => item != file_id);
 			delete selectObj[file_id];
+			_selectObj = { ...selectObj };
 		} else {
 			_selectArr = [...selectArr, file_id];
 			_selectObj = {
