@@ -14,9 +14,8 @@ let getNextWrapperComp = (TargetContext, key, WrapperComponent) => {
 		}
 
 		render() {
-			const props = this.props;
 			// return createElement(TargetContext.Consumer, null, context => {
-			// 	return createElement(WrapperComponent, { [key]: context, ...props });
+			// 	return createElement(WrapperComponent, { [key]: context, ...this.props });
 			// });
 			return (
 				<TargetContext.Consumer>
