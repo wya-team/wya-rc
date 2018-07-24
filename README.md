@@ -48,6 +48,7 @@ import { CreatePrint, Copy } from 'wya-rc';
 - [`CreatePrint: 打印`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-print/)
 - [`CreatePortalComponent: 创建兄弟节点(组件调用) -> Component`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-component/)
 - [`CreatePortalFunc: 创建兄弟节点(方法调用) -> （）=> Promise`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-portal-func/)
+- [`CreateMultiContext: 便捷`createContext`的使用方式`](https://github.com/wya-team/wya-rc/tree/master/src/web/create-multi-context/)
 - [`DebounceClick: click防抖`](https://github.com/wya-team/wya-rc/tree/master/src/web/debounce-click/)
 - [`DownCount: 倒计时`](https://github.com/wya-team/wya-rc/tree/master/src/web/down-count/)
 - [`Echarts: 按需加载echartjs，组件`](https://github.com/wya-team/wya-rc/tree/master/src/web/echarts/)
