@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import createAccordion from '../index';
-const refName = "content";
-@createAccordion({ refName })
+@createAccordion({ })
 class Item extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12,7 +11,7 @@ class Item extends Component {
 		return (
 			<div onClick={accordion.eventHandler}>
 				<i className={`${accordion.icon}`}>{accordion.icon}</i>
-				<div ref={refName} className={accordion.content}>
+				<div ref={accordion.ref} className={accordion.content}>
 					<div>
 						{accordion.icon}-{accordion.content}
 					</div>

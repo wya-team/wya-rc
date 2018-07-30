@@ -1,4 +1,4 @@
-import React, { Component, cloneElement, Children } from 'react';
+import React, { Component, cloneElement, Children, createRef } from 'react';
 import PropTypes from 'prop-types';
 import './CreateAccordion.scss';
 class CreateAccordion extends Component {
@@ -9,16 +9,17 @@ class CreateAccordion extends Component {
 		};
 		this.handleSlide = ::this.handleSlide;
 		this.setDefault = ::this.setDefault;
+
+		this.slideRef = createRef();
 	}
 	handleSlide(event){
 		event.preventDefault();
 		event.stopPropagation();
-		const { refName } = this.props;
 		this.setState({
 			show: !this.state.show
 		}, () => {
 			try {
-				const $this = this.refs.slide.refs[refName];
+				const $this = this.slideRef.current;
 				let height = 0;
 				for (let i = 0; i < $this.childNodes.length; i++) {
 					height += $this.childNodes[i].offsetHeight;
@@ -34,8 +35,7 @@ class CreateAccordion extends Component {
 		this.setState({
 			show: !1
 		}, () => {
-			const { refName } = this.props;
-			const $this = this.refs.slide.refs[refName];
+			const $this = this.slideRef.current;
 			$this.style.height = `0px`;
 		});
 	}
@@ -50,17 +50,17 @@ class CreateAccordion extends Component {
 						eventHandler: this.handleSlide,
 						icon: `iconfont ${show ? "icon-up" : "icon-down"}`,
 						content: `rc-accordion ${show ? "__active" : ""}`,
-						setDefault: this.setDefault
+						setDefault: this.setDefault,
+						ref: this.slideRef
 					},
-					ref: "slide"
 				}
 			)
 		);
 
-		 
+
 	}
 }
 CreateAccordion.propTypes = {
-	refName: PropTypes.string.isRequired
+	// refName: PropTypes.string.isRequired
 };
 export default CreateAccordion;
