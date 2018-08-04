@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { findDOMNode } from 'react-dom';
 import { Pagination } from 'antd';
-import UpLoad from './UpLoad';
+import Upload from './Upload';
 import PathsEdit from './PathsEdit';
 import Item from './Item';
 import ImgsEdit from './ImgsEdit';
@@ -48,8 +48,8 @@ class Imgs extends Component {
 			});
 			return;
 		}
-		this.setState({ 
-			isEnd: 1 
+		this.setState({
+			isEnd: 1
 		}, () => {
 			this.request = request({
 				url: url || _url,
@@ -68,8 +68,8 @@ class Imgs extends Component {
 					curPage: page,
 					totalCount,
 					totalPage,
-					itemArr: { 
-						...this.state.itemArr, 
+					itemArr: {
+						...this.state.itemArr,
 						[page]: items.itemArr
 					},
 					itemObj: { ...this.state.itemObj, ...items.itemObj }
@@ -153,7 +153,7 @@ class Imgs extends Component {
 						request={request}
 						url={url}
 					/>
-					<UpLoad 
+					<Upload
 						onInit={this.handleInit}
 						onSet={onSet}
 						paths={paths}
@@ -163,7 +163,7 @@ class Imgs extends Component {
 					/>
 					<Search onSearch={this.handleInit} ref="search"/>
 				</div>
-				<Paging 
+				<Paging
 					className="__no-pd"
 					listClassName="__list"
 					style={{ height: '100%' }}
