@@ -1,0 +1,77 @@
+.rc-nav-bar-container {
+	position: relative;
+	background: #fff;
+	._scroll-container {
+		overflow: hidden;
+	}
+	._scroll-wrap {
+		white-space: nowrap; 
+		display: inline-block;
+		transition: transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+	._flex-cc {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	._nav-prev {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 32px;
+		height: 100%;
+		transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+	._opacity-hide {
+		opacity: 0;
+	}
+	._opacity-show {
+		opacity: 1;
+	}
+	._nav-prev-show {
+		pointer-events: auto;
+		cursor: pointer;
+		color: #898989;
+	}
+	._nav-prev-hide {
+		color: #d4d4d4;
+	}
+	._nav-next {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 32px;
+		height: 100%;
+		transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+	._nav-next-show {
+		pointer-events: auto;
+		cursor: pointer;
+		color: #898989;
+	}
+	._nav-next-hide {
+		color: #d4d4d4;
+	}
+}
+
+.rc-nav-bar {
+	position: relative;
+	white-space: nowrap;
+	padding: 12px 16px;
+	display: inline-block;
+	cursor: pointer;
+}
+.rc-nav-bar-active {
+	color: rgb(13, 148, 255);
+	._nav-ink {
+		width: 100%;
+		z-index: 1;
+		position: absolute;
+		left: 0;
+		bottom: 1px;
+		box-sizing: border-box;
+		height: 2px;
+		background-color: #1890ff;
+		transform-origin: 0 0;
+	}
+}

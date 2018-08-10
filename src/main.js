@@ -20,6 +20,7 @@ export Paging from './web/paging/index';
 export PGallery from './web/p-gallery/index';
 export PSortList from './web/p-sort-list/index';
 export PullScroll from './web/pull-scroll/index';
+export NavBar from './web/p-navbar/index';
 export RcInstance from './web/rc-instance/index';
 export SetTtile from './web/set-title/index';
 export Upload from './web/upload/index';
