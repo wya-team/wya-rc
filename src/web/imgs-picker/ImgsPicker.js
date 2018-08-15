@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import Icon from '../icon/Icon';
 import './ImgsPicker.scss';
 import Upload from '../upload/index';
 import ImgsPreview from '../imgs-preview/index';
@@ -103,18 +103,16 @@ class ImgsPicker extends Component {
 									style={{ backgroundImage: `url("${item}")` }}
 								>
 									<div className="__mask g-relative">
-										<div>
-											<Icon 
-												type="search" 
-												style={{ fontSize: 20 }}
-												onClick={e => this.handlePreview(e, index)} 
-											/>
-											<Icon
-												type="delete"
-												style={ disabled ? { display: 'none' } : { position: 'absolute', top: 5, right: 5 } }
-												onClick={e => this.handleDel(item)}
-											/>
-										</div>
+										<Icon 
+											type="search" 
+											style={{ fontSize: 20 }}
+											onClick={e => this.handlePreview(e, index)} 
+										/>
+										<Icon
+											type="delete"
+											style={ disabled ? { display: 'none' } : { position: 'absolute', top: 5, right: 5 } }
+											onClick={e => this.handleDel(item)}
+										/>
 									</div>
 								</div>
 							</div>

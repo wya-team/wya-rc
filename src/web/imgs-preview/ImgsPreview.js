@@ -1,9 +1,11 @@
 import React, { Component, Fragment, createElement } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import Icon from '../icon/Icon';
 import { pick } from 'lodash';
 import Core from './Core.js';
 import events from './events';
+import './ImgsPreview.scss';
 
 class ImgsPreview extends React.Component {
 	static Core = Core;
@@ -78,10 +80,17 @@ class ImgsPreview extends React.Component {
 							<div
 								key={index}
 								ref={this.inputRef}
-								onClick={(e) => (this.handleShow(e, index))}
-
+								className="__item"
+								// onClick={(e) => (this.handleShow(e, index))}
 							>
 								{renderRow(item, index)}
+								<div className="__mask g-relative">
+									<Icon 
+										type="search" 
+										style={{ fontSize: 20 }}
+										onClick={e => this.handleShow(e, index)} 
+									/>
+								</div>
 							</div>
 						);
 					})}

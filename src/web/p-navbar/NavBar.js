@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import Icon from '../icon/Icon';
 import Item from './Item';
 import './Styles.scss';
-import '../style/index.scss';
 
 
 class NavBar extends Component {
@@ -164,7 +164,7 @@ class NavBar extends Component {
 					style={{ ...(prev === 'hide' ? disabled : {}), width: showOpt ? 32 : 0 }} 
 					onClick={this.handlePrev}
 				>
-					<i className="wyaicon-left" />
+					<Icon type="left" />
 				</span>
 				<span
 					unselectable="unselectable"
@@ -172,7 +172,7 @@ class NavBar extends Component {
 					style={{ ...(next === 'hide' ? disabled : {}), width: showOpt ? 32 : 0 }}
 					onClick={this.handleNext}
 				>
-					<i className="wyaicon-right" />
+					<Icon type="right" />
 				</span>
 			</div>
 		);
