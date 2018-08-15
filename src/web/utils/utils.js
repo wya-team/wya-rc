@@ -224,48 +224,11 @@ export const isTouchDevice = !!(
 
 export const isFileAPISupported = typeof File !== 'undefined';
 
-
 /**
- * ios 11 fixed input bug
+ * 用于对象
+ * @createMixins({})
+ * class {}
  */
-// const isiOS11 = _global.device.ios && parseInt(_global.device.osVersion) == 11;
-// const iOS11Set = () => {
-// 	if (isiOS11 ) {
-// 		const $ = document.getElementById('pages');
-// 		$.style.overflow = 'hidden';
-// 		$.style.height = window.innerHeight + `px`;
-// 	};
-// };
-// const iOS11Remove = () => {
-// 	if (isiOS11 ) {
-// 		const $ = document.getElementById('pages');
-// 		$.style.removeProperty("overflow");
-// 		$.style.removeProperty("height");
-// 	};
-// };
-// const iOS11Absolute = isiOS11 ? { position: `absolute` } : {};
-// const iOS11Relative = isiOS11 ? { position: `relative` } : {};
-// const iOS11FlexEnd = isiOS11
-// 	? { // 暂时这里不先考虑兼容
-// 		display: `flex`,
-// 		alignItems: `flex-end`,
-// 		height: `100%`
-// 	}
-// 	: {};
-// const iOS11FlexCenter = isiOS11
-// 	? { // 暂时这里不先考虑兼容
-// 		display: `flex`,
-// 		alignItems: `center`,
-// 		justifyContent: `center`,
-// 		height: `100%`
-// 	}
-// 	: {};
-// export const hackForiOS11 = {
-// 	ios11: isiOS11,
-// 	set: iOS11Set,
-// 	remove: iOS11Remove,
-// 	absolute: iOS11Absolute,
-// 	relative: iOS11Relative,
-// 	flexEnd: iOS11FlexEnd,
-// 	flexCenter: iOS11FlexCenter
-// };
+export const createMixins = (...mixins) => target => {
+	Object.assign(target.prototype, ...mixins);
+};

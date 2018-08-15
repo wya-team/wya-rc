@@ -14,7 +14,7 @@ export const addEvent = (el, type, fn, capture) => {
 export const removeEvent = (el, type, fn, capture) => {
 	el.removeEventListener(type, fn, { passive: false, capture: !!capture });
 };
-// - start 处理样式前缀 
+// - start 处理样式前缀
 let elementStyle = document.createElement('div').style;
 let vendor = (() => {
 	let transformNames = {
@@ -49,7 +49,7 @@ export const hasPerspective = prefixStyle('perspective') in elementStyle;
 // 是否使用CSS3的Transform属性
 export const hasTransform = prefixStyle('transform') in elementStyle;
 // 是否使用CSS3的Transition属性，否则使用requestAnimationFram代替
-export const hasTransition = prefixStyle('transition') in elementStyle; 
+export const hasTransition = prefixStyle('transition') in elementStyle;
 
 export const style = {
 	transform: prefixStyle('transform'),
@@ -59,7 +59,7 @@ export const style = {
 	transformOrigin: prefixStyle('transformOrigin'),
 	transitionEnd: prefixStyle('transitionEnd')
 };
-// - end 处理样式前缀 
+// - end 处理样式前缀
 
 /**
  * 获取元素在容器内的位置
@@ -138,7 +138,7 @@ export const ease = {
 };
 
 /**
- * 常量判断事件类型 
+ * 常量判断事件类型
  */
 export const TOUCH_EVENT = 1;
 export const MOUSE_EVENT = 2;
@@ -149,14 +149,15 @@ export const eventType = {
 
 	mousedown: MOUSE_EVENT,
 	mousemove: MOUSE_EVENT,
-	mouseup: MOUSE_EVENT
+	mouseup: MOUSE_EVENT,
+	// mousewheel: MOUSE_EVENT,
 };
 
 export const getNow = () => {
 	// navigationStart 可以理解为第一次打开网址的时间
 	// performance.now()可以理解为打开网页后到现在的时间，以微秒（百万分之一秒）为单位的时间
-	return window.performance && window.performance.now 
-		? (window.performance.now() + window.performance.timing.navigationStart) 
+	return window.performance && window.performance.now
+		? (window.performance.now() + window.performance.timing.navigationStart)
 		: +new Date();
 };
 

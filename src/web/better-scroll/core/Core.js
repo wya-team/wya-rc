@@ -16,142 +16,12 @@ import {
 	tap,
 	click,
 	momentum,
-	requestAnimationFrame, 
+	requestAnimationFrame,
 	cancelAnimationFrame,
 	getNow
 } from './utils.js';
 import Indicator from './Indicator.js';
-const DEFAULT_OPTIONS = {
-	// 默认位置
-	startX: 0,
-	startY: 0,
-	scrollX: false,
-	scrollY: true,
-	/**
-	 * 主要在上下左右滚动都生效时使用，可以向任意方向滚动。
-	 */
-	freeScroll: false,
-	directionLockThreshold: 5,
-	/**
-	 * 如：使用横轴滚动时，如想使用系统立轴滚动并在横轴上生效，请开启
-	 */
-	eventPassthrough: '', // horizontal | vertical | ''
-	/**
-	 * 是否启用click事件。建议关闭此选项并启用自定义的tap事件（options.tap）
-	 */
-	click: false,
-	tap: false,
-	/**
-	 * 是否启用弹力动画效果，关掉可以加速
-	 */
-	bounce: true,
-	/**
-	 * 弹力动画持续的毫秒数	
-	 */
-	bounceTime: 700,
-	/**
-	 * 是否开启动量动画，关闭可以提升效率。
-	 */
-	momentum: true,
-	/**
-	 * 两次差值时间小于该值
-	 */
-	momentumLimitTime: 300,
-	/**
-	 * 移动超过规定像素启用滚动
-	 */
-	momentumLimitDistance: 15,
-	swipeTime: 2500,
-	swipeBounceTime: 500,
-	/**
-	 * 滚动动量减速越大越快，建议不大于0.01
-	 */
-	deceleration: 0.001,
-	flickLimitTime: 200,
-	flickLimitDistance: 100,
-	resizePolling: 60,
-	/**
-	 * probeType：0  ？
-	 * probeType：1  滚动不繁忙的时候触发
-	 * probeType：2  滚动时每隔一定时间触发
-	 * probeType：3  每滚动一像素触发一次
-	 */
-	probeType: 0,
-	/**
-	 * 是否屏蔽默认事件
-	 */
-	preventDefault: true,
-	preventDefaultException: {
-		tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/
-	},
-	/**
-	 * 是否启用硬件加速	
-	 */
-	HWCompositing: true,
-	/**
-	 * 是否使用CSS3的Transition属性，否则使用requestAnimationFram代替
-	 */
-	useTransition: true,
-	/**
-	 * 是否使用CSS3的Transform属性
-	 */
-	useTransform: true,
-	/**
-	 * 光标、触摸超出容器时，是否停止滚动
-	 */
-	bindToWrapper: false,
-	/**
-	 * 是否关闭鼠标事件探测。如知道运行在哪个平台，可以开启它来加速
-	 */
-	disableMouse: hasTouch,
-	/**
-	 * 是否关闭触摸事件探测。如知道运行在哪个平台，可以开启它来加速
-	 */
-	disableTouch: !hasTouch,
-	/**
-	 * for picker
-	 * wheel: {
-	 *   selectedIndex: 0,
-	 *   rotate: 25,
-	 *   adjustTime: 400
-	 * }
-	 */
-	wheel: false,
-	/**
-	 * for slide
-	 * snap: {
-	 *   loop: false,
-	 *   el: domEl,
-	 *   threshold: 0.1,
-	 *   stepX: 100,
-	 *   stepY: 100,
-	 *   listenFlick: true
-	 * }
-	 */
-	snap: false,
-	/**
-	 * for scrollbar
-	 * scrollbar: {
-	 *   fade: true
-	 * }
-	 */
-	scrollbar: false,
-	/**
-	 * for pull down and refresh
-	 * pullDownRefresh: {
-	 *   threshold: 50,
-	 *   stop: 20
-	 * }
-	 */
-	pullDownRefresh: false,
-	/**
-	 * for pull up and load
-	 * pullUpLoad: {
-	 *   threshold: 50
-	 * }
-	 */
-	pullUpLoad: false
-};
+import { DEFAULT_OPTIONS } from './constants';
 class Core {
 	constructor(el, opts = {}) {
 		// 容器
@@ -162,7 +32,7 @@ class Core {
 		this.scrollerStyle = this.scroller.style;
 		// 设置默认属性
 		this.setOptions(opts);
-		
+
 		// 自定义事件
 		this.events = {};
 		// 当前位置
@@ -171,22 +41,24 @@ class Core {
 		// 上一次的滚动方向(-1 下/右, 0 保持原状, 1 上/左)
 		this.directionX = 0;
 		this.directionY = 0;
+		// 定时器
+		this.timer = null;
 		// 添加事件
 		this.addDOMEvents();
 
 		// 扩展
 		this.initExtFeatures();
-		
+
 		// 刷新scroll
 		this.refresh();
-		
+
 		if (!this.options.snap) {
 			this.scrollTo(this.options.startX, this.options.startY);
 		}
 		// 启用
 		this.enable();
 	}
-	// - start init prototype 
+	// - start init prototype
 	enable () {
 		this.enabled = true;
 	}
@@ -252,6 +124,7 @@ class Core {
 			eventOperation(target, 'mousemove', this);
 			eventOperation(target, 'mousecancel', this);
 			eventOperation(target, 'mouseup', this);
+			eventOperation(target, 'mousewheel', this);
 		}
 
 		if (hasTouch && !this.options.disableTouch) {
@@ -271,6 +144,7 @@ class Core {
 				break;
 			case 'touchmove':
 			case 'mousemove':
+			case 'mousewheel':
 				this.move(e);
 				break;
 			case 'touchend':
@@ -314,7 +188,7 @@ class Core {
 		}
 		if (this.options.pullDownRefresh) {
 			this.initPullDown();
-		}  
+		}
 	}
 	/**
 	 * @public
@@ -329,7 +203,7 @@ class Core {
 		let scrollerRect = getRect(this.scroller);
 		this.scrollerWidth = scrollerRect.width;
 		this.scrollerHeight = scrollerRect.height;
-		 
+
 		const wheel = this.options.wheel;
 		if (wheel) {
 			this.items = this.scroller.children;
@@ -370,9 +244,9 @@ class Core {
 
 		this.resetPosition();
 	}
-	// - end init prototype 
+	// - end init prototype
 
-	// - start event prototype 
+	// - start event prototype
 	on(type, fn, context = this) {
 		if (!this.events[type]) {
 			this.events[type] = [];
@@ -426,7 +300,7 @@ class Core {
 			}
 		}
 	}
-	// - end event prototype 
+	// - end event prototype
 	// - start core prototype
 	/**
 	 * @private
@@ -472,7 +346,7 @@ class Core {
 		let point = e.touches ? e.touches[0] : e;
 		// 开始的位置， this.x 当前位置
 		this.startX = this.x;
-		this.startY = this.y; 
+		this.startY = this.y;
 		this.absStartX = this.x;
 		this.absStartY = this.y;
 		this.pointX = point.pageX;
@@ -484,7 +358,7 @@ class Core {
 	 * @private
 	 */
 	move(e) {
-		if (!this.enabled || this.destroyed || eventType[e.type] !== this.initiated) {
+		if (e.type !== 'mousewheel' && (!this.enabled || this.destroyed || eventType[e.type] !== this.initiated)) {
 			// 未启用，已销毁，事件类型改变
 			return;
 		}
@@ -496,8 +370,8 @@ class Core {
 		// 单个手指
 		let point = e.touches ? e.touches[0] : e;
 		// 距离上一次move相对移动位置
-		let deltaX = point.pageX - this.pointX;
-		let deltaY = point.pageY - this.pointY;
+		let deltaX = e.deltaX || point.pageX - this.pointX;
+		let deltaY = e.deltaY || point.pageY - this.pointY;
 		this.pointX = point.pageX;
 		this.pointY = point.pageY;
 		// 从start开始move后的位置
@@ -509,8 +383,8 @@ class Core {
 
 		let timestamp = getNow();
 
-	
-		if (timestamp - this.endTime > this.options.momentumLimitTime && 
+
+		if (timestamp - this.endTime > this.options.momentumLimitTime &&
 			(absDistY < this.options.momentumLimitDistance && absDistX < this.options.momentumLimitDistance)) {
 			// 时间差大于规定值（move过程this.endTime = 0），移动超过规定像素启用滚动
 			return;
@@ -555,22 +429,36 @@ class Core {
 
 		// 超出横轴临界值
 		if (newX > 0 || newX < this.maxScrollX) {
-			if (this.options.bounce) {
-				newX = this.x + deltaX / 3;
-			} else {
+			if (e.type == 'mousewheel') {
 				newX = newX > 0 ? 0 : this.maxScrollX;
+				this.scrollEnd();
+			} else {
+				if (this.options.bounce) {
+					newX = this.x + deltaX / 3;
+				} else {
+					newX = newX > 0 ? 0 : this.maxScrollX;
+				}
 			}
 		}
 		// 超出立轴临界值
 		if (newY > 0 || newY < this.maxScrollY) {
-			if (this.options.bounce) {
-				newY = this.y + deltaY / 3;
-			} else {
+			if (e.type == 'mousewheel') {
 				newY = newY > 0 ? 0 : this.maxScrollY;
+				this.scrollEnd();
+			} else {
+				if (this.options.bounce) {
+					newY = this.y + deltaY / 3;
+				} else {
+					newY = newY > 0 ? 0 : this.maxScrollY;
+				}
 			}
+			
 		}
 
-		if (!this.moved) {
+		if (e.type == 'mousewheel' && newY === 0 && newX === 0) {
+			this.scrollEnd();
+		}
+		if (!this.moved || e.type === 'mousewheel') {
 			this.moved = true;
 			// 开始滚动
 			this.trigger('scrollStart');
@@ -679,9 +567,9 @@ class Core {
 		let absDistY = Math.abs(newY - this.startY);
 
 		// 轻击屏幕
-		if (this.events.flick && 
-			duration < this.options.flickLimitTime && 
-			absDistX < this.options.flickLimitDistance && 
+		if (this.events.flick &&
+			duration < this.options.flickLimitTime &&
+			absDistX < this.options.flickLimitDistance &&
 			absDistY < this.options.flickLimitDistance) {
 			this.trigger('flick');
 			return;
@@ -689,14 +577,14 @@ class Core {
 
 		let time = 0;
 		// 是否开启动量动画，关闭可以提升效率。
-		if (this.options.momentum && 
-			duration < this.options.momentumLimitTime && 
+		if (this.options.momentum &&
+			duration < this.options.momentumLimitTime &&
 			(absDistY > this.options.momentumLimitDistance || absDistX > this.options.momentumLimitDistance)
 		) {
-			let momentumX = this.hasHorizontalScroll 
+			let momentumX = this.hasHorizontalScroll
 				? momentum(this.x, this.startX, duration, this.maxScrollX, this.options.bounce ? this.wrapperWidth : 0, this.options)
 				: { destination: newX, duration: 0 };
-			let momentumY = this.hasVerticalScroll 
+			let momentumY = this.hasVerticalScroll
 				? momentum(this.y, this.startY, duration, this.maxScrollY, this.options.bounce ? this.wrapperHeight : 0, this.options)
 				: { destination: newY, duration: 0 };
 			newX = momentumX.destination;
@@ -903,6 +791,19 @@ class Core {
 		this.isAnimating = true;
 		cancelAnimationFrame(this.animateTimer);
 		step();
+	}
+	/**
+	 * @private
+	 */
+	scrollEnd() {
+		this.timer && clearTimeout(this.timer);
+		this.timer = setTimeout(() => {
+			// 滚动结束
+			this.trigger('scrollEnd', {
+				x: this.x,
+				y: this.y
+			});
+		}, 300);
 	}
 	/**
 	 * @public
@@ -1221,7 +1122,7 @@ class Core {
 		}
 
 		let i = 0;
-		
+
 		if (Math.abs(x - this.absStartX) <= this.snapThresholdX &&
 			Math.abs(y - this.absStartY) <= this.snapThresholdY) {
 			return this.currentPage;
@@ -1443,7 +1344,7 @@ class Core {
 	 */
 	initPullUp(){
 		this.options.probeType = 3;
-		
+
 		this.pullupWatching = false;
 		this.watchPullUp();
 	}

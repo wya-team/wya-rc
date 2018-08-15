@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Core from './Core';
+import Core from './core/Core';
 
 class BetterScroll extends Component {
 	constructor(props, context) {
@@ -18,7 +18,7 @@ class BetterScroll extends Component {
 		// 去除opts的参数，其它绑定到DOM中
 		const { opts, className, style = {}, ...rest } = this.props;
 		return (
-			<div {...rest} style={{ ...style, overflow: 'hidden' }} className={`${className} rc-bs-wrapper`} ref="betterWrapper">
+			<div {...rest} style={{ ...style, overflow: 'hidden', position: 'relative' }} className={`${className} rc-bs-wrapper`} ref="betterWrapper">
 				<div className="__scroller">
 					{this.props.children}
 				</div>

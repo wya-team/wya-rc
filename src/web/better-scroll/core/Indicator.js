@@ -1,4 +1,5 @@
 import { style } from './utils.js';
+const INDICATOR_MIN_LEN = 10; // 滚动条最小的长度
 class Indicator {
 	constructor(scroller, opts = {}) {
 		this.wrapper = opts.el;
