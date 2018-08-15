@@ -8,6 +8,7 @@ export CreateLanguage from './web/create-language/index';
 export CreatePrint from './web/create-print/index';
 export DownCount from './web/down-count/index';
 export Echarts from './web/echarts/index';
+export Icon from './web/icon/index';
 export ImgsCrop from './web/imgs-crop/index';
 export ImgsPicker from './web/imgs-picker/index';
 export ImgsPreview from './web/imgs-preview/index';
