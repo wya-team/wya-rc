@@ -134,7 +134,7 @@
             "git add"
         ],
         "src/**/*.scss": [
-            // "stylelint --fix --syntax scss",
+            "stylelint --fix --syntax scss",
             "git add"
         ]
     },

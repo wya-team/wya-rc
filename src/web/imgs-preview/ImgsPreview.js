@@ -84,7 +84,7 @@ class ImgsPreview extends React.Component {
 								// onClick={(e) => (this.handleShow(e, index))}
 							>
 								{renderRow(item, index)}
-								<div className="__mask g-relative">
+								<div className="__mask">
 									<Icon 
 										type="search" 
 										style={{ fontSize: 20 }}
