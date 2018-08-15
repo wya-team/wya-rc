@@ -143,6 +143,7 @@ class NavBar extends Component {
 					>
 						<div>
 							{React.Children.map(children, (child, index) => {
+								if (!child) return null;
 								if (activeKey == child.key) { this.activeIndex = index; }
 								
 								return React.cloneElement(child, {
