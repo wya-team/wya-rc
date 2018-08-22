@@ -11,6 +11,7 @@ import "photoswipe/dist/default-skin/default-skin.css";
 // import "photoswipe/src/css/default-skin/default-skin.scss";
 import CreatePortalComponent from '../create-portal-component/index';
 import CreatePortalFunc from '../create-portal-func/index';
+import Icon from '../icon/index';
 let realViewportWidth,
 	useLargeImages = false,
 	firstResize = true,
@@ -28,6 +29,7 @@ class Core extends React.Component {
 		this.defaultEvent = {
 			gettingData: this.gettingData
 		};
+		this.angle = 0;
 	}
 
 
@@ -85,6 +87,16 @@ class Core extends React.Component {
 		// 实例
 		this.photoSwipe = new Photoswipe(pswpElement, PhotoswipeUIDefault, dataSource, opts);
 		setInstance && setInstance(this.photoSwipe);
+
+		this.photoSwipe.next = () => {
+			this.handleResetAngle();
+			this.photoSwipe.goTo( this.photoSwipe.getCurrentIndex() + 1);
+		};
+
+		this.photoSwipe.prev = () => {
+			this.handleResetAngle();
+			this.photoSwipe.goTo( this.photoSwipe.getCurrentIndex() - 1);
+		};
 
 		// 绑定事件
 		events.forEach((event) => {
@@ -157,6 +169,21 @@ class Core extends React.Component {
 		}
 
 	}
+
+	handleResetAngle = () => {
+		this.angle = 0;
+		document.querySelectorAll('.pswp__img').forEach(i => {
+			i.style.transform = `rotate(0deg)`;
+		});
+	}
+
+	handleRotate = (newAngle) => {
+		this.angle = this.angle + newAngle;
+		document.querySelectorAll('.pswp__img').forEach(i => {
+			i.style.transform = `rotate(${this.angle}deg)`;
+		});
+	}
+
 	render() {
 		const { id } = this.props;
 		let { className } = this.props;
@@ -197,6 +224,18 @@ class Core extends React.Component {
 								title="全屏"
 							/>
 							<button className="pswp__button pswp__button--zoom" title="缩放"/>
+							<Icon 
+								type="rotate-right" 
+								className="rc-pswp-button" 
+								title="向右旋转90度" 
+								onClick={() => this.handleRotate(90)}
+							/>
+							<Icon 
+								type="rotate-left" 
+								className="rc-pswp-button" 
+								title="向左旋转90度"
+								onClick={() => this.handleRotate(-90)}
+							/>
 							<div className="pswp__preloader">
 								<div className="pswp__preloader__icn">
 									<div className="pswp__preloader__cut">

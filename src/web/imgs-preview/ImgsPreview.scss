@@ -30,3 +30,23 @@
 		}
 	}
 }
+.rc-pswp-button {
+	width: 44px;
+	height: 44px;
+	position: relative;
+	background: none;
+	cursor: pointer;
+	overflow: visible;
+	-webkit-appearance: none;
+	display: block;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	float: right;
+	opacity: 0.75;
+	transition: opacity 0.2s;
+	box-shadow: none;
+	color: white;
+	line-height: 44px;
+	text-align: center;
+}
