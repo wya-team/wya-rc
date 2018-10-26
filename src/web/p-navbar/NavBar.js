@@ -12,7 +12,7 @@ class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			translateX: 0,
+			translateX: 0,                // 水平移动的距离
 			showOpt: false,               // 是否显示左右操作箭头
 		};
 		this.minDis = 0;                  // 最小可移动距离
@@ -74,33 +74,39 @@ class NavBar extends Component {
 	// 显示隐藏 左右箭头
 	handleToggleOPt = () => {
 		this.setState({
-			showOpt: this.moveDis < this.scrollWidth
+			showOpt: this.moveDis < this.scrollWidth // 所有的Item是否都能在容器中显示
 		}, () => {
 			this.moveDis = this.scroll.current.clientWidth;
 		});
 	}
 
 	/**
-	 * 将nav item移动到视图当中，靠右
+	 * 将nav item移动到视图当中
 	 */
 	handleIntoView = () => {
 		const { itemOffset } = this.props;
 		let newArr = [...this.navs ];
 		newArr.length = this.activeIndex + 1;
-		let leftDis = newArr.reduce((prev, cur) => prev + cur);
-		let prevLeft = leftDis - newArr[this.activeIndex];
-		let offset = this.navs.length - 1 == this.activeIndex ? 0 : itemOffset;
+		// 当前选中的item的宽度 与 之前所有Item的宽度总和
+		let leftDis = newArr.reduce((prev, cur) => prev + cur); 
+		// 当前选中的item之前所有Item的宽度总和
+		let prevLeft = leftDis - newArr[this.activeIndex];  
+		// item之间的margin值
+		let offset = this.navs.length - 1 == this.activeIndex ? 0 : itemOffset; 
 		
-		if (leftDis > this.moveDis) {
+		if (leftDis > this.moveDis) { // 判断当前选中的item是不是在容器内（未经过左右箭头移动的）
 			if (leftDis - this.state.translateX > this.moveDis) {
+				// 将选中的Item定位到靠右侧
 				this.setState({
 					translateX: leftDis - this.moveDis - offset
 				});
 			} else if (prevLeft < this.state.translateX) {
+				// 将选中的Item定位到最左侧
 				this.setState({
 					translateX: prevLeft
 				});
 			}
+			// 都不满足的话，说明选中的Item在视图内，这样就不去移动
 		} else {
 			this.setState({
 				translateX: 0
