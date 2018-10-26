@@ -305,16 +305,17 @@ class Paging extends Component {
 							? createElement(renderPagination, {
 								onChange: this.handleChange,
 							})
-							: (
-								<Pagination
-									{...pagination}
-									showQuickJumper
-									defaultPageSize={1}
-									current={curPage}
-									total={totalPage}
-									onChange={(page) => this.handleChange(page, this.props)}
-								/>
-							)
+							: totalPage == 1 && (!itemArr[curPage] || itemArr[curPage].length === 0) ? null :  // 没有数据时，不显示分页
+								(
+									<Pagination
+										{...pagination}
+										showQuickJumper
+										defaultPageSize={1}
+										current={curPage}
+										total={totalPage}
+										onChange={(page) => this.handleChange(page, this.props)}
+									/>
+								)
 					}
 
 				</div>
