@@ -1,5 +1,7 @@
 import React, { Component, cloneElement, Children } from 'react';
 import PropTypes from 'prop-types';
+import { copyToClipboard } from './utils';
+
 class Copy extends Component {
 	constructor(props, context) {
 		super(props, context);
@@ -12,20 +14,9 @@ class Copy extends Component {
 				isReplace && (value = _value);
 			}
 
-			// create
-			let input = document.createElement('input');
-			input.value = value;
-			document.body.appendChild(input);
+			let success = copyToClipboard(value);
 
-			// copy
-			input.select();
-			document.execCommand("Copy");
-
-			// remove
-			document.body.removeChild(input);
-
-			// end
-			onCopyAfter && onCopyAfter(value);
+			success && onCopyAfter && onCopyAfter(value);
 		} catch (error) {
 			console.error(`copy fail: ${error}`);
 		}
